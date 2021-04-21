@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="steam-web-api-1.2">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/dependencies/steam-web-api-1.2.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
