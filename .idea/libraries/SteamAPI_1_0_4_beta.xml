@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SteamAPI-1.0.4-beta">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dependencies/SteamAPI-1.0.4-beta.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

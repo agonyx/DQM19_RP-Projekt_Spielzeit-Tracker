@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="steam-web-api-1.2" level="project" />
+    <orderEntry type="library" name="SteamAPI-1.0.4-beta" level="project" />
   </component>
 </module>
