@@ -139,13 +139,13 @@ public class Registrierung extends JFrame implements ActionListener {
 	protected void do_buttonRegistrierung_actionPerformed(ActionEvent argo) {
 		try {
 			
-			if()
-			{
-				
-			} else 
-				{
-					
-				}
+		//	if()
+		//	{
+		//		
+		//	} else 
+		//		{
+		//			
+		//		}		
 			Anmeldung a = new Anmeldung();
 			dispose();
 		} catch(NumberFormatException e)
