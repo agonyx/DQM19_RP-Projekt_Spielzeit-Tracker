@@ -6,10 +6,22 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Anmeldung extends JFrame {
+public class Anmeldung extends JFrame implements ActionListener {
 
-	private JPanel contentPane;
+	private JPanel mainPane;
+	private JTextField textFieldEmailBenutzername;
+	private JTextField textFieldPasswort;
+	private JButton exitButton;
+	private JButton loginButton;
+	private JCheckBox checkBoxNewCheckBox;
 
 	/**
 	 * Launch the application.
@@ -32,11 +44,50 @@ public class Anmeldung extends JFrame {
 	 */
 	public Anmeldung() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		setBounds(100, 100, 350, 230);
+		mainPane = new JPanel();
+		mainPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(mainPane);
+		mainPane.setLayout(null);
+		
+		textFieldEmailBenutzername = new JTextField();
+		textFieldEmailBenutzername.setHorizontalAlignment(SwingConstants.LEFT);
+		textFieldEmailBenutzername.setText("Email / Benutzername");
+		textFieldEmailBenutzername.setBounds(10, 47, 314, 25);
+		mainPane.add(textFieldEmailBenutzername);
+		textFieldEmailBenutzername.setColumns(10);
+		
+		textFieldPasswort = new JTextField();
+		textFieldPasswort.setText("Passwort");
+		textFieldPasswort.setHorizontalAlignment(SwingConstants.LEFT);
+		textFieldPasswort.setColumns(10);
+		textFieldPasswort.setBounds(10, 83, 314, 25);
+		mainPane.add(textFieldPasswort);
+		
+		JLabel loginLabel = new JLabel("Anmeldung");
+		loginLabel.setBounds(118, 11, 162, 25);
+		mainPane.add(loginLabel);
+		loginLabel.setFont (loginLabel.getFont ().deriveFont (18.0f));
+		
+		exitButton = new JButton("Exit");
+		exitButton.addActionListener(this);
+		exitButton.setBounds(10, 163, 103, 25);
+		mainPane.add(exitButton);
+		
+		loginButton = new JButton("Login");
+		loginButton.setBounds(215, 163, 109, 25);
+		mainPane.add(loginButton);
+		
+		checkBoxNewCheckBox = new JCheckBox("Passwort speichern");
+		checkBoxNewCheckBox.setBounds(37, 115, 145, 41);
+		mainPane.add(checkBoxNewCheckBox);
 	}
-
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == exitButton) {
+			ExitButtonActionPerformed(e);
+		}
+	}
+	protected void ExitButtonActionPerformed(ActionEvent e) {
+		dispose();
+	}
 }
