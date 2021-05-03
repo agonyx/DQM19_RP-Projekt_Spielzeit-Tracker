@@ -90,18 +90,18 @@ public class DAO {
 }
 
 
-	public Statistik selectStatistik(int statistikid) {
+	public Statistik selectStatistik(int statistikid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "select * from Avatar where AvatarID = ?";
+			String sql = "select * from Statistik where StatistikID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, statistikid);
 			rs = statement.executeQuery();
 			if (rs.next()) {
-				avatar = new Avatar(rs.getInt("AccessoiresID"),
-						rs.getInt("KostuemID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"));
-				return avatar;
+				avatar = new Avatar(rs.getInt("Gesamtspielzeit"),
+						rs.getInt("Mitglied_seit"), rs.getInt("Punkte"), rs.getInt("BenutzerID"));
+				return statistik;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
 			}
