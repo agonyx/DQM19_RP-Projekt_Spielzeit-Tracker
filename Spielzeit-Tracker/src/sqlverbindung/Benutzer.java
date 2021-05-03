@@ -25,5 +25,7 @@ public class Benutzer {
 		this.admin = admin;
 	}
 	
-	
+	public void toString(Benutzer ben) {
+		System.out.println(ben.username + ben.passwort + ben.steamid + ben.email + ben.benutzerid + ben.admin);
+	}
 }

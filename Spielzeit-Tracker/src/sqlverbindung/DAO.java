@@ -41,7 +41,7 @@ public class DAO {
 			rs = statement.executeQuery();
 			if (rs.next()) {
 				benutzer = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"),
-						rs.getString("SteamID"), rs.getInt("Admin"));
+						rs.getString("Email"), rs.getInt("Admin"));
 				return benutzer;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -59,12 +59,64 @@ public class DAO {
 
 		}
 	}
-	/*
-	 * public Avatar selectAvatar() { conn = DriverManager.getConnection(url);
-	 * String sql = "select * from Benutzer where benutzer = ?"; PreparedStatement
-	 * statement = conn.prepareStatement(sql); } public Statistik selectStatistik()
-	 * {
-	 * 
-	 * }
-	 */
+
+	public Avatar selectAvatar(int avatarid) throws DB_FehlerException {
+		try {
+		conn = DriverManager.getConnection(url);
+		String sql = "select * from Avatar where AvatarID = ?";
+		PreparedStatement statement = conn.prepareStatement(sql);
+		statement = conn.prepareStatement(sql);
+		statement.setInt(1, avatarid);
+		rs = statement.executeQuery();
+		if (rs.next()) {
+			avatar = new Avatar(rs.getInt("AccessoiresID"),
+					rs.getInt("KostuemID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"));
+			return avatar;
+		} else {
+			throw new DB_FehlerException("Die ID existiert nicht");
+		}
+	} catch (SQLException e) {
+		throw new DB_FehlerException(e.getMessage());
+	} finally {
+		try {
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		}
+
+	}
+}
+
+
+	public Statistik selectStatistik(int statistikid) {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Avatar where AvatarID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, statistikid);
+			rs = statement.executeQuery();
+			if (rs.next()) {
+				avatar = new Avatar(rs.getInt("AccessoiresID"),
+						rs.getInt("KostuemID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"));
+				return avatar;
+			} else {
+				throw new DB_FehlerException("Die ID existiert nicht");
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
+
 }
