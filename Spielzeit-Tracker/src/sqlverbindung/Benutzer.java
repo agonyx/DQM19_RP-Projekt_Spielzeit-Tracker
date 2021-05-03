@@ -17,6 +17,7 @@ public class Benutzer {
 		this.email = email;
 		this.admin = admin;
 	}
+	
 	public Benutzer(String username, String passwort, String steamid, String email, int admin) {
 		this.username = username;
 		this.passwort = passwort;
@@ -24,8 +25,27 @@ public class Benutzer {
 		this.email = email;
 		this.admin = admin;
 	}
+	public Benutzer(String username, String passwort, String steamid, String email) {
+		this.username = username;
+		this.passwort = passwort;
+		this.steamid = steamid;
+		this.email = email;
+	}
 	
-	public void toString(Benutzer ben) {
-		System.out.println(ben.username + ben.passwort + ben.steamid + ben.email + ben.benutzerid + ben.admin);
+	public String getUsername() {
+		return username;
+	}
+	
+	public String getPasswort() {
+		return passwort;
+	}
+	public String getSteamid() {
+		return steamid;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public int getAdmin() {
+		return admin;
 	}
 }
