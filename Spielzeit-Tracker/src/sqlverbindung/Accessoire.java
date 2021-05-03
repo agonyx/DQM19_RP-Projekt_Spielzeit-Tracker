@@ -11,4 +11,6 @@ public class Accessoire {
 		this.bezeichnung  = bezeichnung;
 		this.bild = bild;
 	}
+	
+	
 }
