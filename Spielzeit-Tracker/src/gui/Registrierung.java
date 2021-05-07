@@ -15,6 +15,9 @@ import javax.swing.border.TitledBorder;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import sqlverbindung.DAO;
+import sqlverbindung.DB_FehlerException;
+import sqlverbindung.Benutzer;
 
 public class Registrierung extends JFrame implements ActionListener {
 
@@ -138,7 +141,9 @@ public class Registrierung extends JFrame implements ActionListener {
 	
 	protected void do_buttonRegistrierung_actionPerformed(ActionEvent argo) {
 		try {
-			
+			DAO d = new DAO();
+			Benutzer b = new Benutzer(0, textFieldBenutzername.getText(), textFieldPasswort.getText(), "0", textFieldEmail.getText(), 0);
+			d.insertBenutzer(b);
 		//	if()
 		//	{
 		//		
@@ -149,6 +154,9 @@ public class Registrierung extends JFrame implements ActionListener {
 			Anmeldung a = new Anmeldung();
 			dispose();
 		} catch(NumberFormatException e)
+		{
+			e.getMessage();
+		} catch(DB_FehlerException e)
 		{
 			e.getMessage();
 		}
