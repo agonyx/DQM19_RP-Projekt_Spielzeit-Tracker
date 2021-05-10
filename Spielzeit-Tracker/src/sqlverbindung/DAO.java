@@ -66,6 +66,7 @@ public class DAO {
 		}
 	}
 
+
 	public Avatar selectAvatar(int avatarid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
@@ -214,7 +215,6 @@ public class DAO {
 			conn = DriverManager.getConnection(url);
 			String sql = "select * from Spielzeit where SpielzeitID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement = conn.prepareStatement(sql);
 			statement.setInt(1, spielzeitid);
 			rs = statement.executeQuery();
 			if (rs.next()) {
@@ -235,6 +235,25 @@ public class DAO {
 				throw new DB_FehlerException(e.getMessage());
 			}
 
+		}
+	}
+	public boolean doesBenutzerAttributeExist(String inputTry, String tabellenAttribut) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Benutzer where " + tabellenAttribut + "= " + inputTry;
+			PreparedStatement statement = conn.prepareStatement(sql);
+			rs = statement.executeQuery();
+			return rs.next();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
 		}
 	}
 }

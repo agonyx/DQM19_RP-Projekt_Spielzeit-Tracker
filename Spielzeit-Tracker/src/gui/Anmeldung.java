@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import sqlverbindung.DAO;
+import sqlverbindung.DB_FehlerException;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -22,6 +26,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 	private JButton exitButton;
 	private JButton loginButton;
 	private JCheckBox checkBoxNewCheckBox;
+	private DAO d;
 
 	/**
 	 * Launch the application.
@@ -43,6 +48,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public Anmeldung() {
+		d = new DAO();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 350, 230);
 		mainPane = new JPanel();
@@ -75,6 +81,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 		mainPane.add(exitButton);
 		
 		loginButton = new JButton("Login");
+		loginButton.addActionListener(this);
 		loginButton.setBounds(215, 163, 109, 25);
 		mainPane.add(loginButton);
 		
@@ -91,4 +98,15 @@ public class Anmeldung extends JFrame implements ActionListener {
 		dispose();
 	}
 	
+	protected void loginButton_actionPerformed(ActionEvent e) {
+		try {
+			if (d.doesBenutzerAttributeExist(textFieldEmailBenutzername.getText(), "Username") ||
+					d.doesBenutzerAttributeExist(textFieldEmailBenutzername.getText(), "Email")) {
+				
+			}
+		} catch (DB_FehlerException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 }
