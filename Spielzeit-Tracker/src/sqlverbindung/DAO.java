@@ -65,6 +65,33 @@ public class DAO {
 
 		}
 	}
+	
+	public boolean checkEmail(String email) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+
+			String sql = "select * from Benutzer where Email = ?";
+			statement = conn.prepareStatement(sql);
+			statement.setString(1, email);
+			rs = statement.executeQuery();
+			if (rs.next()) {
+				return false;
+			} else {
+				throw new DB_FehlerException("Die Email existiert nicht");
+			}
+		} catch (SQLException e) {
+			return true;
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
 
 	public Avatar selectAvatar(int avatarid) throws DB_FehlerException {
 		try {

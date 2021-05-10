@@ -142,15 +142,24 @@ public class Registrierung extends JFrame implements ActionListener {
 	protected void do_buttonRegistrierung_actionPerformed(ActionEvent argo) {
 		try {
 			DAO d = new DAO();
-			Benutzer b = new Benutzer(0, textFieldBenutzername.getText(), textFieldPasswort.getText(), "0", textFieldEmail.getText(), 0);
-			d.insertBenutzer(b);
-		//	if()
-		//	{
-		//		
-		//	} else 
-		//		{
-		//			
-		//		}		
+			String falsche = "Flasche eingabe.";
+			if(textFieldPasswort.getText().equals(textFieldPasswortbestaetigen.getText()))
+			{
+				
+					if(d.checkEmail(textFieldEmail.getText()))
+					{
+						Benutzer b = new Benutzer(0, textFieldBenutzername.getText(), textFieldPasswort.getText(), "0", textFieldEmail.getText(), 0);
+						d.insertBenutzer(b);
+					} else 
+						{
+							JOptionPane.showMessageDialog(this, falsche,"Email existiert bereits.", JOptionPane.ERROR_MESSAGE);
+						}
+				
+				
+			} else 
+				{
+					JOptionPane.showMessageDialog(this, falsche,"Passwörter Stimmen nicht über ein.", JOptionPane.ERROR_MESSAGE);
+				}		
 			Anmeldung a = new Anmeldung();
 			dispose();
 		} catch(NumberFormatException e)
