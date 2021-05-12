@@ -30,27 +30,13 @@ public class Registrierung extends JFrame implements ActionListener {
 	private JButton buttonNewButton;
 	private JButton buttonRegistrierung;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Registrierung frame = new Registrierung();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
 	public Registrierung() {
 		initGUI();
+		setVisible(true);
 	}
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,7 +119,8 @@ public class Registrierung extends JFrame implements ActionListener {
 		}
 	}
 	protected void do_buttonNewButton_actionPerformed(ActionEvent e) {
-		System.exit(0);
+		Anmeldung a = new Anmeldung();
+		dispose();
 	}
 	
 	protected void do_buttonRegistrierung_actionPerformed(ActionEvent argo) {

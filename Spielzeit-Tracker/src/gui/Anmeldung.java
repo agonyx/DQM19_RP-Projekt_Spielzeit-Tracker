@@ -34,6 +34,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 	private DAO d;
 	private FileManager fm;
 	private JPasswordField textFieldPasswort;
+	private JButton registrierungButton;
 
 	/**
 	 * Create the frame.
@@ -103,6 +104,16 @@ public class Anmeldung extends JFrame implements ActionListener {
 		textFieldPasswort.setToolTipText("Passwort");
 		textFieldPasswort.setBounds(10, 82, 314, 25);
 		mainPane.add(textFieldPasswort);
+		{
+			registrierungButton = new JButton("Registrierung");
+			registrierungButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					registrierungButton_actionPerformed(e);
+				}
+			});
+			registrierungButton.setBounds(215, 125, 109, 25);
+			mainPane.add(registrierungButton);
+		}
 	
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -142,5 +153,9 @@ public class Anmeldung extends JFrame implements ActionListener {
 	}
 	protected void textFieldEmailBenutzername_focusGained(FocusEvent e) {
 		textFieldEmailBenutzername.setText("");
+	}
+	protected void registrierungButton_actionPerformed(ActionEvent e) {
+		Registrierung rg = new Registrierung();
+		dispose();
 	}
 }
