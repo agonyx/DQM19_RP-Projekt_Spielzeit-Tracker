@@ -66,6 +66,7 @@ public class DAO {
 		}
 	}
 
+
 	public Avatar selectAvatar(int avatarid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
@@ -214,7 +215,6 @@ public class DAO {
 			conn = DriverManager.getConnection(url);
 			String sql = "select * from Spielzeit where SpielzeitID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement = conn.prepareStatement(sql);
 			statement.setInt(1, spielzeitid);
 			rs = statement.executeQuery();
 			if (rs.next()) {
@@ -250,6 +250,18 @@ public class DAO {
 			statement.setString(4, benutzer.getEmail());
 			statement.executeUpdate();
 
+	public Benutzer getIfBenutzerWithAttributeExist(String inputTry, String tabellenAttribut) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Benutzer where " + tabellenAttribut + " = " + inputTry;
+			PreparedStatement statement = conn.prepareStatement(sql);
+			rs = statement.executeQuery();
+			if(rs.next()) {
+				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"));
+				 return b;
+			} else {
+				throw new DB_FehlerException("Benuzter mit Attribut nicht gefunden!");
+			}
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
 		} finally {
