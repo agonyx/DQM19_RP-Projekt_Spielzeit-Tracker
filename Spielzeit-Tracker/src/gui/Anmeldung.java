@@ -97,7 +97,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 		mainPane.add(loginButton);
 		
 		checkBoxNewCheckBox = new JCheckBox("Passwort speichern");
-		checkBoxNewCheckBox.setBounds(37, 115, 145, 41);
+		checkBoxNewCheckBox.setBounds(10, 113, 145, 41);
 		mainPane.add(checkBoxNewCheckBox);
 		
 		textFieldPasswort = new JPasswordField();
