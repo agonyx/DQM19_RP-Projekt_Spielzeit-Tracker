@@ -237,13 +237,18 @@ public class DAO {
 
 		}
 	}
-	public boolean doesBenutzerAttributeExist(String inputTry, String tabellenAttribut) throws DB_FehlerException {
+	public Benutzer getIfBenutzerWithAttributeExist(String inputTry, String tabellenAttribut) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "select * from Benutzer where " + tabellenAttribut + "= " + inputTry;
+			String sql = "select * from Benutzer where " + tabellenAttribut + " = " + inputTry;
 			PreparedStatement statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
-			return rs.next();
+			if(rs.next()) {
+				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"));
+				 return b;
+			} else {
+				throw new DB_FehlerException("Benuzter mit Attribut nicht gefunden!");
+			}
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
 		} finally {
@@ -255,5 +260,6 @@ public class DAO {
 				throw new DB_FehlerException(e.getMessage());
 			}
 		}
+		
 	}
 }
