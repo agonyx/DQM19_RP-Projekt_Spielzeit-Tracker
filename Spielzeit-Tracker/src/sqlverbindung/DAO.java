@@ -237,6 +237,19 @@ public class DAO {
 
 		}
 	}
+	
+	//InsertIntoAnweisungen
+	public void insertBenutzer(Benutzer benutzer) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "Insert Into Benutzer (Username, Passwort, SteamID, Email) Values (?,?,?,?)";
+			statement = conn.prepareStatement(sql);
+			statement.setString(1, benutzer.getUsername());
+			statement.setString(2, benutzer.getPasswort());
+			statement.setString(3, benutzer.getSteamid());
+			statement.setString(4, benutzer.getEmail());
+			statement.executeUpdate();
+
 	public Benutzer getIfBenutzerWithAttributeExist(String inputTry, String tabellenAttribut) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
@@ -260,6 +273,5 @@ public class DAO {
 				throw new DB_FehlerException(e.getMessage());
 			}
 		}
-		
 	}
 }
