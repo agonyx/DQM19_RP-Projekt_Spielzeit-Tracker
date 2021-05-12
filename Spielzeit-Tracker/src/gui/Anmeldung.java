@@ -67,6 +67,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 		mainPane.setLayout(null);
 		
 		textFieldEmailBenutzername = new JTextField();
+		textFieldEmailBenutzername.setToolTipText("Email/Benutzername");
 		textFieldEmailBenutzername.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -99,6 +100,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 		mainPane.add(checkBoxNewCheckBox);
 		
 		textFieldPasswort = new JPasswordField();
+		textFieldPasswort.setToolTipText("Passwort");
 		textFieldPasswort.setBounds(10, 82, 314, 25);
 		mainPane.add(textFieldPasswort);
 	
