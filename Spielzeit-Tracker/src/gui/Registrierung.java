@@ -150,6 +150,8 @@ public class Registrierung extends JFrame implements ActionListener {
 					{
 						Benutzer b = new Benutzer(0, textFieldBenutzername.getText(), textFieldPasswort.getText(), "0", textFieldEmail.getText(), 0);
 						d.insertBenutzer(b);
+						Anmeldung a = new Anmeldung();
+						dispose();
 					} else 
 						{
 							JOptionPane.showMessageDialog(this, falsche,"Email existiert bereits.", JOptionPane.ERROR_MESSAGE);
@@ -160,8 +162,7 @@ public class Registrierung extends JFrame implements ActionListener {
 				{
 					JOptionPane.showMessageDialog(this, falsche,"Passwörter Stimmen nicht über ein.", JOptionPane.ERROR_MESSAGE);
 				}		
-			Anmeldung a = new Anmeldung();
-			dispose();
+			
 		} catch(NumberFormatException e)
 		{
 			e.getMessage();
