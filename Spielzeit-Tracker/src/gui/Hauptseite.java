@@ -23,6 +23,11 @@ public class Hauptseite extends JFrame {
 	private JButton btnShop;
 	private JButton btnStatistiken;
 	private JButton btnAbmelden;
+	private JPanel avatarGesamt;
+	private JLabel lblGesicht;
+	private JLabel lblGesichtsbedeckung;
+	private JLabel lblKopfbedeckung;
+	private JLabel lblOberteil;
 
 	/**
 	 * Launch the application.
@@ -60,11 +65,6 @@ public class Hauptseite extends JFrame {
 		contentPane.add(taskbar);
 		taskbar.setLayout(null);
 		
-		lblAvatar = new JLabel("");
-		lblAvatar.setBounds(10, 27, 256, 256);
-		taskbar.add(lblAvatar);
-		lblAvatar.setIcon(new ImageIcon("T:\\GitHub\\DQM19_RP-Projekt_Gruppe1_2021\\Spielzeit-Tracker\\resources\\images\\avatare\\AVATAR_000.png"));
-		
 		btnProfil = new JButton("Profil");
 		btnProfil.setBounds(0, 465, 270, 66);
 		taskbar.add(btnProfil);
@@ -80,5 +80,35 @@ public class Hauptseite extends JFrame {
 		btnAbmelden = new JButton("Abmelden");
 		btnAbmelden.setBounds(10, 677, 89, 23);
 		taskbar.add(btnAbmelden);
+		
+		avatarGesamt = new JPanel();
+		avatarGesamt.setBounds(10, 11, 270, 291);
+		taskbar.add(avatarGesamt);
+		avatarGesamt.setLayout(null);
+		
+		lblGesichtsbedeckung = new JLabel("");
+		lblGesichtsbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/gesichtsbedeckung/GESICHTSBEDECKUNG_000.png")));
+		lblGesichtsbedeckung.setBounds(0, 0, 256, 256);
+		avatarGesamt.add(lblGesichtsbedeckung);
+		
+		lblKopfbedeckung = new JLabel("");
+		lblKopfbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/kopfbedeckung/KOPFBEDECKUNG_000.png")));
+		lblKopfbedeckung.setBounds(0, 0, 256, 256);
+		avatarGesamt.add(lblKopfbedeckung);
+		
+		lblOberteil = new JLabel("");
+		lblOberteil.setIcon(new ImageIcon(Hauptseite.class.getResource("/oberteil/OBERTEIL_000.png")));
+		lblOberteil.setBounds(0, 0, 256, 256);
+		avatarGesamt.add(lblOberteil);
+		
+		lblGesicht = new JLabel("");
+		lblGesicht.setIcon(new ImageIcon(Hauptseite.class.getResource("/gesichter/GESICHT_001.png")));
+		lblGesicht.setBounds(0, 0, 256, 256);
+		avatarGesamt.add(lblGesicht);
+		
+		lblAvatar = new JLabel("");
+		lblAvatar.setBounds(0, 0, 256, 256);
+		avatarGesamt.add(lblAvatar);
+		lblAvatar.setIcon(new ImageIcon(Hauptseite.class.getResource("/avatare/AVATAR_000.png")));
 	}
 }
