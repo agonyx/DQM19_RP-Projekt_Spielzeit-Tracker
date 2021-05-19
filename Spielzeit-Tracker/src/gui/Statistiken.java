@@ -18,22 +18,18 @@ public class Statistiken extends JPanel {
 	private JLabel labelNewLabel_3;
 	private JLabel labelCSGORang;
 	private JLabel labelNewLabel_2;
-	private JSeparator separator_2;
-	private JSeparator separator_3;
 	private JLabel labelNewLabel_4;
 	private JLabel labelCSGOStunden_1;
 	private JLabel labelNewLabel_5;
 	private JLabel labelNewLabel_6;
 	private JLabel labelCSGORang_1;
 	private JSeparator separator_4;
-	private JSeparator separator_5;
 	private JLabel labelNewLabel_7;
 	private JLabel labelCSGOStunden_2;
 	private JLabel labelNewLabel_8;
 	private JLabel labelNewLabel_9;
 	private JLabel labelCSGORang_2;
 	private JSeparator separator_6;
-	private JSeparator separator_7;
 	private JLabel labelNewLabel_10;
 	private JLabel labelCSGOStunden_3;
 	private JLabel labelNewLabel_11;
@@ -47,30 +43,29 @@ public class Statistiken extends JPanel {
 	private JLabel labelNewLabel_15;
 	private JLabel labelCSGORang_4;
 	private JSeparator separator_10;
-	private JSeparator separator_11;
 	private JLabel labelNewLabel_16;
 	private JLabel labelCSGOStunden_5;
 	private JLabel labelNewLabel_17;
 	private JLabel labelNewLabel_18;
 	private JLabel labelCSGORang_5;
-	private JSeparator separator_13;
 	private JLabel labelNewLabel_19;
 	private JLabel labelCSGOStunden_6;
 	private JLabel labelNewLabel_20;
 	private JLabel labelNewLabel_21;
 	private JLabel labelCSGORang_6;
 	private JSeparator separator_14;
-	private JPanel panel_1;
 	private JPanel panel_2;
 	private JPanel panel_zeile1;
 	private JPanel panel_4;
 	private JLabel labelMostHours_2;
 	private JLabel labelMostHours_3;
-	private JPanel panel_5;
+	private JLabel labelNewLabel;
+	private JPanel panel_3;
+	private JPanel panel_6;
 	private JLabel labelMostHours;
 	private JLabel labelMostHours_1;
-	private JLabel labelNewLabel;
-	private JLabel labelMeistegespieltesSpiel;
+	private JPanel panel_7;
+	private JLabel labelMeisteSpielstunden;
 
 	/**
 	 * Create the panel.
@@ -83,66 +78,11 @@ public class Statistiken extends JPanel {
 		setBackground(Color.DARK_GRAY);
 		setLayout(null);
 		JPanel panel = new JPanel();
-
-		{
-			panel_1 = new JPanel();
-			panel_1.setBorder(null);
-			panel_1.setBackground(Color.DARK_GRAY);
-			panel_1.setBounds(30, 35, 476, 125);
-			add(panel_1);
-			panel_1.setLayout(null);
-			{
-				panel_5 = new JPanel();
-				panel_5.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-				panel_5.setBackground(Color.GRAY);
-				panel_5.setBounds(20, 64, 356, 24);
-				panel_1.add(panel_5);
-				panel_5.setLayout(null);
-				{
-					labelMostHours = new JLabel("nummer");
-					labelMostHours.setBounds(275, 5, 38, 14);
-					panel_5.add(labelMostHours);
-				}
-				{
-					labelMostHours_1 = new JLabel("h");
-					labelMostHours_1.setBounds(323, 5, 16, 14);
-					panel_5.add(labelMostHours_1);
-				}
-				{
-					labelMeistegespieltesSpiel = new JLabel("Meiste Spielstunden");
-					labelMeistegespieltesSpiel.setBounds(10, 5, 266, 14);
-					panel_5.add(labelMeistegespieltesSpiel);
-				}
-			}
-			{
-				panel_4 = new JPanel();
-				panel_4.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-				panel_4.setBounds(20, 23, 356, 24);
-				panel_1.add(panel_4);
-				panel_4.setBackground(Color.GRAY);
-				panel_4.setLayout(null);
-				{
-					labelMostHours_2 = new JLabel("nummer");
-					labelMostHours_2.setBounds(276, 4, 38, 14);
-					panel_4.add(labelMostHours_2);
-				}
-				{
-					labelMostHours_3 = new JLabel("h");
-					labelMostHours_3.setBounds(324, 4, 6, 14);
-					panel_4.add(labelMostHours_3);
-				}
-				{
-					labelNewLabel = new JLabel("Gesamtspielzeit");
-					labelNewLabel.setBounds(10, 4, 266, 14);
-					panel_4.add(labelNewLabel);
-				}
-			}
-		}
 		{
 			panel_2 = new JPanel();
 			panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			panel_2.setBackground(Color.LIGHT_GRAY);
-			panel_2.setBounds(30, 213, 476, 497);
+			panel_2.setBounds(30, 213, 800, 486);
 			add(panel_2);
 			panel_2.setLayout(null);
 			{
@@ -171,16 +111,6 @@ public class Statistiken extends JPanel {
 				panel_2.add(labelNewLabel_2);
 			}
 			{
-				separator_2 = new JSeparator();
-				separator_2.setBounds(10, 111, 458, 2);
-				panel_2.add(separator_2);
-			}
-			{
-				separator_3 = new JSeparator();
-				separator_3.setBounds(10, 174, 456, 2);
-				panel_2.add(separator_3);
-			}
-			{
 				labelNewLabel_4 = new JLabel("CS:GO");
 				labelNewLabel_4.setBounds(43, 141, 46, 14);
 				panel_2.add(labelNewLabel_4);
@@ -207,13 +137,8 @@ public class Statistiken extends JPanel {
 			}
 			{
 				separator_4 = new JSeparator();
-				separator_4.setBounds(10, 111, 456, 2);
+				separator_4.setBounds(10, 111, 780, 2);
 				panel_2.add(separator_4);
-			}
-			{
-				separator_5 = new JSeparator();
-				separator_5.setBounds(10, 237, 456, 2);
-				panel_2.add(separator_5);
 			}
 			{
 				labelNewLabel_7 = new JLabel("CS:GO");
@@ -242,13 +167,8 @@ public class Statistiken extends JPanel {
 			}
 			{
 				separator_6 = new JSeparator();
-				separator_6.setBounds(10, 174, 458, 2);
+				separator_6.setBounds(10, 174, 780, 2);
 				panel_2.add(separator_6);
-			}
-			{
-				separator_7 = new JSeparator();
-				separator_7.setBounds(10, 300, 458, 2);
-				panel_2.add(separator_7);
 			}
 			{
 				labelNewLabel_10 = new JLabel("CS:GO");
@@ -277,12 +197,12 @@ public class Statistiken extends JPanel {
 			}
 			{
 				separator_8 = new JSeparator();
-				separator_8.setBounds(10, 237, 456, 2);
+				separator_8.setBounds(10, 237, 780, 2);
 				panel_2.add(separator_8);
 			}
 			{
 				separator_9 = new JSeparator();
-				separator_9.setBounds(10, 363, 456, 2);
+				separator_9.setBounds(10, 363, 780, 2);
 				panel_2.add(separator_9);
 			}
 			{
@@ -312,13 +232,8 @@ public class Statistiken extends JPanel {
 			}
 			{
 				separator_10 = new JSeparator();
-				separator_10.setBounds(10, 300, 456, 2);
+				separator_10.setBounds(10, 300, 780, 2);
 				panel_2.add(separator_10);
-			}
-			{
-				separator_11 = new JSeparator();
-				separator_11.setBounds(10, 425, 458, 2);
-				panel_2.add(separator_11);
 			}
 			{
 				labelNewLabel_16 = new JLabel("CS:GO");
@@ -344,11 +259,6 @@ public class Statistiken extends JPanel {
 				labelCSGORang_5 = new JLabel("New label");
 				labelCSGORang_5.setBounds(347, 392, 46, 14);
 				panel_2.add(labelCSGORang_5);
-			}
-			{
-				separator_13 = new JSeparator();
-				separator_13.setBounds(10, 488, 458, 2);
-				panel_2.add(separator_13);
 			}
 			{
 				labelNewLabel_19 = new JLabel("CS:GO");
@@ -377,14 +287,14 @@ public class Statistiken extends JPanel {
 			}
 			{
 				separator_14 = new JSeparator();
-				separator_14.setBounds(10, 425, 458, 2);
+				separator_14.setBounds(10, 425, 780, 2);
 				panel_2.add(separator_14);
 			}
 			{
 				panel_zeile1 = new JPanel();
 				panel_zeile1.setBackground(Color.GRAY);
 				panel_zeile1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-				panel_zeile1.setBounds(0, 0, 476, 50);
+				panel_zeile1.setBounds(0, 0, 800, 50);
 				panel_2.add(panel_zeile1);
 				panel_zeile1.setLayout(null);
 				{
@@ -401,6 +311,68 @@ public class Statistiken extends JPanel {
 					labelSpielzeittrackerRang = new JLabel("Spielzeit-Tracker Rang");
 					labelSpielzeittrackerRang.setBounds(331, 25, 135, 14);
 					panel_zeile1.add(labelSpielzeittrackerRang);
+				}
+			}
+		}
+		{
+			panel_6 = new JPanel();
+			panel_6.setLayout(null);
+			panel_6.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+			panel_6.setBackground(Color.LIGHT_GRAY);
+			panel_6.setBounds(448, 35, 382, 123);
+			add(panel_6);
+			{
+				labelMostHours = new JLabel("nummer");
+				labelMostHours.setBounds(30, 58, 38, 14);
+				panel_6.add(labelMostHours);
+			}
+			{
+				labelMostHours_1 = new JLabel("h");
+				labelMostHours_1.setBounds(78, 58, 6, 14);
+				panel_6.add(labelMostHours_1);
+			}
+			{
+				panel_7 = new JPanel();
+				panel_7.setLayout(null);
+				panel_7.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+				panel_7.setBackground(Color.GRAY);
+				panel_7.setBounds(20, 23, 114, 24);
+				panel_6.add(panel_7);
+				{
+					labelMeisteSpielstunden = new JLabel("Meiste Spielstunden");
+					labelMeisteSpielstunden.setBounds(10, 4, 266, 14);
+					panel_7.add(labelMeisteSpielstunden);
+				}
+			}
+		}
+		{
+			panel_3 = new JPanel();
+			panel_3.setBounds(30, 35, 382, 123);
+			add(panel_3);
+			panel_3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+			panel_3.setBackground(Color.LIGHT_GRAY);
+			panel_3.setLayout(null);
+			{
+				labelMostHours_2 = new JLabel("nummer");
+				labelMostHours_2.setBounds(30, 58, 38, 14);
+				panel_3.add(labelMostHours_2);
+			}
+			{
+				labelMostHours_3 = new JLabel("h");
+				labelMostHours_3.setBounds(78, 58, 6, 14);
+				panel_3.add(labelMostHours_3);
+			}
+			{
+				panel_4 = new JPanel();
+				panel_4.setBounds(20, 23, 101, 24);
+				panel_3.add(panel_4);
+				panel_4.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+				panel_4.setBackground(Color.GRAY);
+				panel_4.setLayout(null);
+				{
+					labelNewLabel = new JLabel("Gesamtspielzeit");
+					labelNewLabel.setBounds(10, 4, 266, 14);
+					panel_4.add(labelNewLabel);
 				}
 			}
 		}
