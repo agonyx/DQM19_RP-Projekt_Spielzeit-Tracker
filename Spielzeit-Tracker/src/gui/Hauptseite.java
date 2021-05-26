@@ -35,6 +35,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private JButton btnAbmelden;
 	private JPanel panel;
 	private HashMap<Views,JPanel> panels;
+	private JButton buttonAdmin;
 
 	/**
 	 * Create the frame.
@@ -69,7 +70,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 
 		taskbar = new JPanel();
-		taskbar.setBackground(Color.DARK_GRAY);
+		taskbar.setBackground(Color.WHITE);
 		taskbar.setLayout(null);
 		taskbar.setBounds(0, 0, 292, 725);
 		contentPane.add(taskbar);
@@ -116,6 +117,12 @@ public class Hauptseite extends JFrame implements ActionListener {
 		btnAbmelden = new JButton("Abmelden");
 		btnAbmelden.setBounds(10, 677, 137, 23);
 		taskbar.add(btnAbmelden);
+		{
+			buttonAdmin = new JButton("Admin");
+			buttonAdmin.addActionListener(this);
+			buttonAdmin.setBounds(157, 677, 123, 23);
+			taskbar.add(buttonAdmin);
+		}
 
 		panel = new JPanel();
 		panel.setBounds(302, 0, 865, 725);
@@ -124,6 +131,9 @@ public class Hauptseite extends JFrame implements ActionListener {
 
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == buttonAdmin) {
+			ButtonAdminActionPerformed(e);
+		}
 		if (e.getSource() == btnShop) {
 			BtnShopActionPerformed(e);
 		}
@@ -136,6 +146,9 @@ public class Hauptseite extends JFrame implements ActionListener {
 	}
 	protected void BtnShopActionPerformed(ActionEvent e) {
 		switchTo(Views.SHOP);
+	}
+	protected void ButtonAdminActionPerformed(ActionEvent e) {
+		switchTo(Views.ADMIN);
 	}
 }
 
