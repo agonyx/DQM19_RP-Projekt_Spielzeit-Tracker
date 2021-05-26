@@ -9,8 +9,11 @@ public class Benutzer {
 	private int benutzerid;
 	private int punkte;
 	private int admin;
+
 	
+
 	public Benutzer(int benutzerid, String username, String passwort, String steamid, String email, int punkte, int admin) {
+
 		this.benutzerid = benutzerid;
 		this.username = username;
 		this.passwort = passwort;
@@ -20,6 +23,7 @@ public class Benutzer {
 		this.punkte = punkte;
 	}
 	
+
 	public Benutzer(String username, String passwort, String steamid, String email, int punkte, int admin) {
 		this.username = username;
 		this.passwort = passwort;
