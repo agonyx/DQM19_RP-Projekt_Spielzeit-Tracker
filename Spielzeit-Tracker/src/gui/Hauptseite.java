@@ -55,7 +55,7 @@ public class Hauptseite extends JFrame implements ActionListener {
         this.repaint();
 	}
 	private void replacePanel(JPanel p1, Views v) {
-		p1.
+		
 	}
 	private void initGUI() {
 		setTitle("Spielzeitracker");
