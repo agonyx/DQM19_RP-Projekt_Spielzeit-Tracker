@@ -64,7 +64,6 @@ public class Hauptseite extends JFrame {
 		contentPane.setLayout(null);
 		
 		taskbar = new JPanel();
-		taskbar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.BLACK, Color.DARK_GRAY));
 		taskbar.setBounds(0, 0, 270, 711);
 		contentPane.add(taskbar);
 		taskbar.setLayout(null);
@@ -97,7 +96,7 @@ public class Hauptseite extends JFrame {
 		taskbar.add(btnStatistiken);
 		
 		btnAbmelden = new JButton("Abmelden");
-		btnAbmelden.setBounds(10, 677, 89, 23);
+		btnAbmelden.setBounds(10, 677, 137, 23);
 		taskbar.add(btnAbmelden);
 	}
 	
@@ -105,7 +104,7 @@ public class Hauptseite extends JFrame {
 		lblGesichtsbedeckung = new JLabel("");
 		lblGesichtsbedeckung.setBounds(0, 0, 256, 256);
 		avatarGesamt.add(lblGesichtsbedeckung);
-		lblGesichtsbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/gesichtsbedeckung/GESICHTSBEDECKUNG_001.png")));
+		lblGesichtsbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/gesichtsbedeckung/GESICHTSBEDECKUNG_000.png")));
 
 		lblKopfbedeckung = new JLabel("");
 		lblKopfbedeckung.setBounds(0, 0, 256, 256);
@@ -115,12 +114,12 @@ public class Hauptseite extends JFrame {
 		lblOberteil = new JLabel("");
 		lblOberteil.setBounds(0, 0, 256, 256);
 		avatarGesamt.add(lblOberteil);
-		lblOberteil.setIcon(new ImageIcon(Hauptseite.class.getResource("/oberteil/OBERTEIL_002.png")));
+		lblOberteil.setIcon(new ImageIcon(Hauptseite.class.getResource("/oberteil/OBERTEIL_001.png")));
 		
 		lblGesicht = new JLabel("");
 		lblGesicht.setBounds(0, 0, 256, 256);
 		avatarGesamt.add(lblGesicht);
-		lblGesicht.setIcon(new ImageIcon(Hauptseite.class.getResource("/gesichter/GESICHT_000.png")));
+		lblGesicht.setIcon(new ImageIcon(Hauptseite.class.getResource("/gesichter/GESICHT_001.png")));
 		
 		lblAvatar = new JLabel("");
 		lblAvatar.setBounds(0, 0, 256, 256);
