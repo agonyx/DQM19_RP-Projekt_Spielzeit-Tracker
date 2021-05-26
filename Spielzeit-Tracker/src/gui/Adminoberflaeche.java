@@ -17,7 +17,7 @@ import java.awt.Button;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Adminoberfläche extends JPanel implements ActionListener {
+public class Adminoberflaeche extends JPanel implements ActionListener {
 	private JLabel labelGegenstandHinzufügen;
 	private JLabel labelAdminHinzufügen;
 	private JLabel labelBenutzerID;
@@ -31,7 +31,7 @@ public class Adminoberfläche extends JPanel implements ActionListener {
 	/**
 	 * Create the panel.
 	 */
-	public Adminoberfläche() {
+	public Adminoberflaeche() {
 
 		initGUI();
 	}

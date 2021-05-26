@@ -44,9 +44,11 @@ public class Hauptseite extends JFrame implements ActionListener {
 		setResizable(false);
 		Statistiken statistiken = new Statistiken();
 		Shop shop = new Shop();
+		Adminoberflaeche ao = new Adminoberflaeche();
 		panels = new HashMap();
 		panels.put(Views.STATISTIKEN, statistiken);
 		panels.put(Views.SHOP, shop);
+		panels.put(Views.ADMIN, ao);
 		initGUI();
 
 	}
@@ -115,6 +117,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		taskbar.add(btnStatistiken);
 
 		btnAbmelden = new JButton("Abmelden");
+		btnAbmelden.addActionListener(this);
 		btnAbmelden.setBounds(10, 677, 137, 23);
 		taskbar.add(btnAbmelden);
 		{
@@ -131,6 +134,9 @@ public class Hauptseite extends JFrame implements ActionListener {
 
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAbmelden) {
+			BtnAbmeldenActionPerformed(e);
+		}
 		if (e.getSource() == buttonAdmin) {
 			ButtonAdminActionPerformed(e);
 		}
@@ -149,6 +155,11 @@ public class Hauptseite extends JFrame implements ActionListener {
 	}
 	protected void ButtonAdminActionPerformed(ActionEvent e) {
 		switchTo(Views.ADMIN);
+	}
+	protected void BtnAbmeldenActionPerformed(ActionEvent e) {
+		Anmeldung a = new Anmeldung();
+		a.setVisible(true);
+		dispose();
 	}
 }
 
