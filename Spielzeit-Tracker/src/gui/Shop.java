@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 
 
 public class Shop extends JPanel {
+	private JPanel contentPane;
 	private JPanel panel;
 	private JScrollPane scrollPane;
 	private JPanel panelViewport;
@@ -173,5 +174,5 @@ public class Shop extends JPanel {
 			}
 		}
 	
- }
+ 
 }
