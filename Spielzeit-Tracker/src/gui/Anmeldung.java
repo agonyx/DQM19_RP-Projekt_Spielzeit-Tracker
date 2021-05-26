@@ -140,7 +140,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 					fm.write("daohifguaio.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
 				}
 				//Hauptseite öffnen
-				dispose();
+				this.dispose();
 			} else {
 				JOptionPane.showMessageDialog(this, "Falsches Passwort","Fehler",JOptionPane.ERROR_MESSAGE);
 			}	
