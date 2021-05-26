@@ -287,4 +287,29 @@ public class DAO {
 			}
 		}
 	}
+	
+	public boolean getIfBenutzerWithAttributeExistWahr(String inputTry, String tabellenAttribut) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Benutzer where " + tabellenAttribut + " = " + inputTry;
+			PreparedStatement statement = conn.prepareStatement(sql);
+			rs = statement.executeQuery();
+			if(rs.next()) {
+				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"));
+				 return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
 }
