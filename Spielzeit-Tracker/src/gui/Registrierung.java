@@ -18,6 +18,8 @@ import sqlverbindung.DAO;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 
 public class Registrierung extends JFrame implements ActionListener {
@@ -34,7 +36,23 @@ public class Registrierung extends JFrame implements ActionListener {
 	private JButton buttonNewButton;
 	private JButton buttonRegistrierung;
 
-
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Registrierung frame = new Registrierung();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	/**
 	 * Create the frame.
 	 */
@@ -131,10 +149,11 @@ public class Registrierung extends JFrame implements ActionListener {
 		try {
 			DAO d = new DAO();
 			String falsche = "Flasche eingabe.";
-			String emailbasic = "@";
+			Pattern p = Pattern.compile("@");
+			Matcher m = p.matcher(textFieldEmail.getText());
 			if(textFieldPasswort.getText().equals(textFieldPasswortbestaetigen.getText()))
 			{
-				if(textFieldEmail.getText().matches(emailbasic)) {
+				if(m.find()) {
 					if(d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email"))
 					{
 						Benutzer b = new Benutzer(0, textFieldBenutzername.getText(), textFieldPasswort.getText(), "0", textFieldEmail.getText(), 0);
