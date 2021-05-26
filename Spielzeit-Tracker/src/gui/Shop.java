@@ -9,6 +9,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
 
 public class Shop extends JPanel {
@@ -46,7 +47,7 @@ public class Shop extends JPanel {
 				panel_1.setLayout(null);
 				{
 					labelNewLabel = new JLabel("New label");
-					labelNewLabel.setBounds(10, 11, 46, 14);
+					labelNewLabel.setBounds(10, 11, 80, 14);
 					panel_1.add(labelNewLabel);
 				}
 			}
@@ -69,12 +70,12 @@ public class Shop extends JPanel {
 			}
 		}
 		{
-			scrollPane = new JScrollPane();
+			scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			scrollPane.setBounds(228, 11, 621, 701);
 			add(scrollPane);
 			{
 				panelViewport = new JPanel();
-				panelViewport.setPreferredSize(new Dimension(621, itemcount * 60));
+				panelViewport.setPreferredSize(new Dimension(621, itemcount * 100));
 				panelViewport.setBorder(new LineBorder(new Color(0, 0, 0)));
 				scrollPane.setViewportView(panelViewport);
 				panelViewport.setLayout(null);
@@ -83,14 +84,21 @@ public class Shop extends JPanel {
 	}
 	private void createItemSections() {
 		JPanel[] j = new JPanel[itemcount];
+		JLabel[] l = new JLabel[itemcount];
 		int tabx = 0;
 		int taby = 11;
 		int count = 0;
-			for(int i = 1; i == j.length; i++) {
+			for(int i = 0; i < j.length; i++) {
 				if(count<2) {
+				j[i] = new JPanel();
 				j[i].setBounds(10 + tabx, taby, 256, 256);
+				l[i] = new JLabel();
+				l[i].setText("test" + i);
+				j[i].add(l[i]);
+				j[i].setVisible(true);
 				tabx = tabx +332;
 				count++;
+				panelViewport.add(j[i]);
 				} else {
 				taby = taby + 285;
 				tabx = 0;
