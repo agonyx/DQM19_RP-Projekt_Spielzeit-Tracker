@@ -47,7 +47,7 @@ public class DAO {
 			rs = statement.executeQuery();
 			if (rs.next()) {
 				benutzer = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"),
-						rs.getString("Email"), rs.getInt("Admin"));
+						rs.getString("Email"), rs.getInt("Punkte"), rs.getInt("Admin"));
 				return benutzer;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -270,7 +270,7 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			if(rs.next()) {
-				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"));
+				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getInt("Punkte"));
 				 return b;
 			} else {
 				throw new DB_FehlerException("Benuzter mit Attribut nicht gefunden!");
@@ -295,7 +295,7 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			if(rs.next()) {
-				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"));
+				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getInt("Punkte"));
 				 return true;
 			} else {
 				return false;

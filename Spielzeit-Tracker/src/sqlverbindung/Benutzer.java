@@ -7,29 +7,33 @@ public class Benutzer {
 	private String steamid;
 	private String email;
 	private int benutzerid;
+	private int punkte;
 	private int admin;
 	
-	public Benutzer(int benutzerid, String username, String passwort, String steamid, String email, int admin) {
+	public Benutzer(int benutzerid, String username, String passwort, String steamid, String email, int punkte, int admin) {
 		this.benutzerid = benutzerid;
 		this.username = username;
 		this.passwort = passwort;
 		this.steamid = steamid;
 		this.email = email;
 		this.admin = admin;
+		this.punkte = punkte;
 	}
 	
-	public Benutzer(String username, String passwort, String steamid, String email, int admin) {
+	public Benutzer(String username, String passwort, String steamid, String email, int punkte, int admin) {
 		this.username = username;
 		this.passwort = passwort;
 		this.steamid = steamid;
 		this.email = email;
 		this.admin = admin;
+		this.punkte = punkte;
 	}
-	public Benutzer(String username, String passwort, String steamid, String email) {
+	public Benutzer(String username, String passwort, String steamid, String email, int punkte) {
 		this.username = username;
 		this.passwort = passwort;
 		this.steamid = steamid;
 		this.email = email;
+		this.punkte = punkte;
 	}
 	
 	public String getUsername() {
@@ -47,5 +51,8 @@ public class Benutzer {
 	}
 	public int getAdmin() {
 		return admin;
+	}
+	public int getPunkte() {
+		return punkte;
 	}
 }
