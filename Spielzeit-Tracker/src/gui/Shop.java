@@ -1,45 +1,57 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.LineBorder;
-import javax.swing.JButton;
+import javax.swing.border.EmptyBorder;
+import java.awt.Panel;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
-public class Shop extends JPanel {
+public class Shop extends JFrame {
+
+	private JPanel contentPane;
 	private JPanel panel;
-	private JScrollPane scrollPane;
-	private JPanel panelViewport;
-	private int itemcount = 10;
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JButton buttonNewButton;
 	private JLabel labelNewLabel;
 	private JTextArea textArea;
-
+	private JLabel lblNewLabel;
 	/**
-	 * Create the panel.
+	 * Create the frame.
 	 */
 	public Shop() {
-		setBackground(Color.DARK_GRAY);
 		initComponents();
-		createItemSections();
 	}
 	private void initComponents() {
+
 		setLayout(null);
 		setBounds(30, 213, 865, 725);
+		setTitle("Shop");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.DARK_GRAY);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
 		{
 			panel = new JPanel();
-			panel.setBackground(Color.DARK_GRAY);
-			panel.setBounds(10, 11, 215, 701);
-			add(panel);
+			panel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+			panel.setBounds(10, 11, 91, 144);
+			contentPane.add(panel);
 			panel.setLayout(null);
+
 			{
 				panel_1 = new JPanel();
 				panel_1.setBounds(21, 11, 170, 270);
@@ -103,4 +115,20 @@ public class Shop extends JPanel {
 		}
 		panelViewport.repaint();
 	}
+		}
+		{
+			panel_1 = new JPanel();
+			panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+			panel_1.setBounds(10, 166, 92, 84);
+			contentPane.add(panel_1);
+			panel_1.setLayout(null);
+			{
+				lblNewLabel = new JLabel("New label");
+				lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+				lblNewLabel.setBounds(0, 0, 92, 84);
+				panel_1.add(lblNewLabel);
+			}
+		}
+	}
+
 }
