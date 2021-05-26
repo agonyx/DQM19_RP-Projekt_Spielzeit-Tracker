@@ -35,32 +35,34 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private JButton btnAbmelden;
 	private JPanel panel;
 	private HashMap<Views,JPanel> panels;
+	private JButton buttonAdmin;
 
 	/**
 	 * Create the frame.
 	 */
 	public Hauptseite() {
+		setResizable(false);
 		Statistiken statistiken = new Statistiken();
 		Shop shop = new Shop();
 		panels = new HashMap();
 		panels.put(Views.STATISTIKEN, statistiken);
 		panels.put(Views.SHOP, shop);
 		initGUI();
-		
+
 	}
 	public void switchTo(Views v) {
-		panel.getBounds();
-		
+		contentPane.remove(panel);
+		panel = panels.get(v);
+		panel.setBounds(302, 0, 865, 725);
+		contentPane.add(panel);
         this.validate();
         this.repaint();
 	}
-	private void replacePanel(JPanel p1, Views v) {
-		p1.
-	}
+	
 	private void initGUI() {
 		setTitle("Spielzeitracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1180, 765);
+		setBounds(100, 100, 1180, 753);
 		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -115,14 +117,23 @@ public class Hauptseite extends JFrame implements ActionListener {
 		btnAbmelden = new JButton("Abmelden");
 		btnAbmelden.setBounds(10, 677, 137, 23);
 		taskbar.add(btnAbmelden);
+		{
+			buttonAdmin = new JButton("Admin");
+			buttonAdmin.addActionListener(this);
+			buttonAdmin.setBounds(157, 677, 123, 23);
+			taskbar.add(buttonAdmin);
+		}
 
 		panel = new JPanel();
-		panel.setBounds(302, 0, 859, 725);
+		panel.setBounds(302, 0, 865, 725);
 		contentPane.add(panel);
 	}
 
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == buttonAdmin) {
+			ButtonAdminActionPerformed(e);
+		}
 		if (e.getSource() == btnShop) {
 			BtnShopActionPerformed(e);
 		}
@@ -135,6 +146,9 @@ public class Hauptseite extends JFrame implements ActionListener {
 	}
 	protected void BtnShopActionPerformed(ActionEvent e) {
 		switchTo(Views.SHOP);
+	}
+	protected void ButtonAdminActionPerformed(ActionEvent e) {
+		switchTo(Views.ADMIN);
 	}
 }
 

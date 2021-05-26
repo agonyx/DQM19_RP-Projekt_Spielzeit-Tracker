@@ -1,3 +1,5 @@
+package gui;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -95,6 +97,8 @@ public class Shop extends JPanel {
 				count = 0;
 				}
 		}
+	
+		panelViewport.revalidate();
 		panelViewport.repaint();
 	}
 }
