@@ -40,27 +40,28 @@ public class Hauptseite extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public Hauptseite() {
+		setResizable(false);
 		Statistiken statistiken = new Statistiken();
 		Shop shop = new Shop();
 		panels = new HashMap();
 		panels.put(Views.STATISTIKEN, statistiken);
 		panels.put(Views.SHOP, shop);
 		initGUI();
-		
+
 	}
 	public void switchTo(Views v) {
-		panel.getBounds();
-		
+		contentPane.remove(panel);
+		panel = panels.get(v);
+		panel.setBounds(302, 0, 865, 725);
+		contentPane.add(panel);
         this.validate();
         this.repaint();
 	}
-	private void replacePanel(JPanel p1, Views v) {
-		p1.
-	}
+	
 	private void initGUI() {
 		setTitle("Spielzeitracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1180, 765);
+		setBounds(100, 100, 1180, 753);
 		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -68,7 +69,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 
 		taskbar = new JPanel();
-		taskbar.setBackground(Color.WHITE);
+		taskbar.setBackground(Color.DARK_GRAY);
 		taskbar.setLayout(null);
 		taskbar.setBounds(0, 0, 292, 725);
 		contentPane.add(taskbar);
@@ -117,7 +118,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		taskbar.add(btnAbmelden);
 
 		panel = new JPanel();
-		panel.setBounds(302, 0, 859, 725);
+		panel.setBounds(302, 0, 865, 725);
 		contentPane.add(panel);
 	}
 
