@@ -1,9 +1,11 @@
+
 package gui;
 
 
 import java.awt.Color;
 import java.awt.Dimension;
-
+import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
@@ -11,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTable;
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.border.EmptyBorder;
@@ -19,17 +20,19 @@ import java.awt.Panel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
+
+
+
 public class Shop extends JPanel {
-
-	private JPanel contentPane;
 	private JPanel panel;
-
+	private JScrollPane scrollPane;
+	private JPanel panelViewport;
+	private int itemcount = 10;
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JButton buttonNewButton;
 	private JLabel labelNewLabel;
 	private JTextArea textArea;
-
 	private JPanel panel_3;
 	private JPanel panel_4;
 	private JPanel panel_5;
@@ -46,25 +49,14 @@ public class Shop extends JPanel {
 	private JLabel lblNewLabel;
 	
 	private void initComponents() {
-
 		setLayout(null);
 		setBounds(30, 213, 865, 725);
-		setTitle("Shop");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBackground(Color.DARK_GRAY);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-
 		{
 			panel = new JPanel();
-			panel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-			panel.setBounds(10, 11, 91, 144);
-			contentPane.add(panel);
+			panel.setBackground(Color.DARK_GRAY);
+			panel.setBounds(10, 11, 215, 701);
+			add(panel);
 			panel.setLayout(null);
-
 
 			{
 				panel_1 = new JPanel();
@@ -89,6 +81,7 @@ public class Shop extends JPanel {
 					textArea.setEditable(false);
 					textArea.setBounds(0, 0, 195, 270);
 					textArea.setBounds(0, 0, 174, 270);
+					textArea.setBounds(0, 0, 170, 270);
 					panel_2.add(textArea);
 				}
 			}
@@ -102,6 +95,7 @@ public class Shop extends JPanel {
 		{
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPane = new JScrollPane();
 			scrollPane.setBounds(228, 11, 621, 701);
 			add(scrollPane);
 			{
@@ -151,18 +145,16 @@ public class Shop extends JPanel {
 		int tabx = 0;
 		int taby = 11;
 		int count = 0;
-		for(int i = 1; i == j.length; i++) {
-			if(count<2) {
+			for(int i = 1; i == j.length; i++) {
+				if(count<2) {
 				j[i].setBounds(10 + tabx, taby, 256, 256);
-				// = Bilder einfügen lassen
-				j[i].add(l[i]);
 				tabx = tabx +332;
 				count++;
-			} else {
-				taby = taby +285;
+				} else {
+				taby = taby + 285;
 				tabx = 0;
-				count = 0;				
-			}
+				count = 0;
+				}
 		}
 		panelViewport.repaint();
 	}
@@ -181,5 +173,5 @@ public class Shop extends JPanel {
 			}
 		}
 	
-	
+ }
 }
