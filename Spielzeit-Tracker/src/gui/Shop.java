@@ -5,6 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,10 +17,10 @@ public class Shop extends JPanel {
 	private JPanel panel;
 	private JScrollPane scrollPane;
 	private JPanel panelViewport;
-	private int itemcount = 10;
+	private int itemcount = 6;
 	private JPanel panel_1;
 	private JPanel panel_2;
-	private JButton buttonNewButton;
+	private JButton buyButton;
 	private JLabel labelNewLabel;
 	private JTextArea textArea;
 
@@ -46,7 +47,7 @@ public class Shop extends JPanel {
 				panel.add(panel_1);
 				panel_1.setLayout(null);
 				{
-					labelNewLabel = new JLabel("New label");
+					labelNewLabel = new JLabel("AVATAR");
 					labelNewLabel.setBounds(10, 11, 80, 14);
 					panel_1.add(labelNewLabel);
 				}
@@ -64,9 +65,9 @@ public class Shop extends JPanel {
 				}
 			}
 			{
-				buttonNewButton = new JButton("New button");
-				buttonNewButton.setBounds(10, 667, 89, 23);
-				panel.add(buttonNewButton);
+				buyButton = new JButton("Buy");
+				buyButton.setBounds(10, 667, 89, 23);
+				panel.add(buyButton);
 			}
 		}
 		{
@@ -75,7 +76,7 @@ public class Shop extends JPanel {
 			add(scrollPane);
 			{
 				panelViewport = new JPanel();
-				panelViewport.setPreferredSize(new Dimension(621, itemcount * 100));
+				panelViewport.setPreferredSize(new Dimension(621, 701));
 				panelViewport.setBorder(new LineBorder(new Color(0, 0, 0)));
 				scrollPane.setViewportView(panelViewport);
 				panelViewport.setLayout(null);
@@ -90,22 +91,33 @@ public class Shop extends JPanel {
 		int count = 0;
 			for(int i = 0; i < j.length; i++) {
 				if(count<2) {
+				count++;
 				j[i] = new JPanel();
 				j[i].setBounds(10 + tabx, taby, 256, 256);
+				j[i].setBorder(new EtchedBorder());
 				l[i] = new JLabel();
-				l[i].setText("test" + i);
+				l[i].setText("test" + (i+1));
 				j[i].add(l[i]);
 				j[i].setVisible(true);
 				tabx = tabx +332;
-				count++;
 				panelViewport.add(j[i]);
 				} else {
 				taby = taby + 285;
 				tabx = 0;
 				count = 0;
+				count++;
+				j[i] = new JPanel();
+				j[i].setBounds(10 + tabx, taby, 256, 256);
+				j[i].setBorder(new EtchedBorder());;
+				l[i] = new JLabel();
+				l[i].setText("test" + i);
+				j[i].add(l[i]);
+				j[i].setVisible(true);
+				tabx = tabx +332;
+				panelViewport.add(j[i]);
 				}
 		}
-	
+		panelViewport.setPreferredSize(new Dimension(621, taby+285));
 		panelViewport.revalidate();
 		panelViewport.repaint();
 	}
