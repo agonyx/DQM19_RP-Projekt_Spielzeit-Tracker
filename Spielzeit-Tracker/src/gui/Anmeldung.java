@@ -136,7 +136,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 					fm.create("daohifguaio.txt");
 					fm.write("daohifguaio.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
 				}
-				Hauptseite hs = new Hauptseite();
+				Hauptseite hs = new Hauptseite(b);
 				hs.setBenutzer(b);
 				dispose();
 			} else {
