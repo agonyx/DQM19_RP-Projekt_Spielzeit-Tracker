@@ -7,6 +7,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
+
+import sqlverbindung.Accessoire;
+import sqlverbindung.DAOItems;
+import sqlverbindung.DB_FehlerException;
+import sqlverbindung.Kostuem;
+import sqlverbindung.Rahmen;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -23,6 +30,10 @@ public class Shop extends JPanel {
 	private JButton buyButton;
 	private JLabel labelNewLabel;
 	private JTextArea textArea;
+	private Accessoire[] accessoire;
+	private Kostuem[] kostuem;
+	private Rahmen[] rahmen;
+	private DAOItems ditems;
 
 	/**
 	 * Create the panel.
@@ -30,6 +41,7 @@ public class Shop extends JPanel {
 	public Shop() {
 		setBackground(Color.DARK_GRAY);
 		initComponents();
+		initItems();
 		createItemSections();
 	}
 	private void initComponents() {
@@ -81,6 +93,18 @@ public class Shop extends JPanel {
 				scrollPane.setViewportView(panelViewport);
 				panelViewport.setLayout(null);
 			}
+		}
+		
+	}
+	private void initItems() {
+		try {
+			accessoire = ditems.getAllAccessoire();
+			kostuem = ditems.getAllKostuem();
+			rahmen = ditems.getAllRahmen();
+			itemcount = accessoire.length + kostuem.length + rahmen.length;
+		} catch (DB_FehlerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	private void createItemSections() {

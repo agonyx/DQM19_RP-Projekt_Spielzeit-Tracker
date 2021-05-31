@@ -15,6 +15,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
+
+import sqlverbindung.Benutzer;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -36,12 +39,14 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private JPanel panel;
 	private HashMap<Views,JPanel> panels;
 	private JButton buttonAdmin;
+	private Benutzer benutzer;
 
 	/**
 	 * Create the frame.
 	 */
-	public Hauptseite() {
+	public Hauptseite(Benutzer b) {
 		setResizable(false);
+		benutzer = b;
 		Statistiken statistiken = new Statistiken();
 		Shop shop = new Shop();
 		Adminoberflaeche ao = new Adminoberflaeche();
@@ -59,6 +64,12 @@ public class Hauptseite extends JFrame implements ActionListener {
 		contentPane.add(panel);
 		this.validate();
 		this.repaint();
+	}
+	public void setBenutzer(Benutzer b) {
+		this.benutzer = b;
+	}
+	public Benutzer getBenutzer() {
+		return this.benutzer;
 	}
 
 	private void initGUI() {

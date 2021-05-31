@@ -36,9 +36,6 @@ public class Anmeldung extends JFrame implements ActionListener {
 	private JPasswordField textFieldPasswort;
 	private JButton registrierungButton;
 
-	/**
-	 * Create the frame.
-	 */
 	public Anmeldung() {
 		initComponents();
 		if(fm.doesExist("daohifguaio.txt")) {
@@ -140,6 +137,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 					fm.write("daohifguaio.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
 				}
 				Hauptseite hs = new Hauptseite();
+				hs.setBenutzer(b);
 				dispose();
 			} else {
 				JOptionPane.showMessageDialog(this, "Falsches Passwort","Fehler",JOptionPane.ERROR_MESSAGE);

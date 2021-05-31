@@ -12,9 +12,6 @@ public class DAOItems {
 	private Connection conn = null;
 	private PreparedStatement statement = null;
 	ResultSet rs = null;
-	private Accessoire accessoire;
-	private Kostuem kostuem;
-	private Rahmen rahmen;
 
 	public DAOItems() {
 		try {
@@ -61,21 +58,54 @@ public class DAOItems {
 		try {
 			conn = DriverManager.getConnection(url);
 
-			String sql = "select * from Accessoires";
+			String sql = "select * from Kostuem";
 			statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			int size = 0;
 			if(rs!=null) {
 				rs.last();
 				size = rs.getRow();
+				rs.first();
 			}
 			Kostuem[] kostuem = new Kostuem[size];
 			int count = 0;
 			while(rs.next()) {
-				accessoiree[count] = new Accessoire(rs.getInt("AccessoiresID"),rs.getString("Bezeichnung"), rs.getString("Bilder"));
+				kostuem[count] = new Kostuem(rs.getInt("KostuemID"),rs.getString("Bezeichnung"), rs.getString("Bilder"));
 				count++;
 			} 
-			return accessoiree;
+			return kostuem;
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
+	public Rahmen[] getAllRahmen() throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+
+			String sql = "select * from Rahmen";
+			statement = conn.prepareStatement(sql);
+			rs = statement.executeQuery();
+			int size = 0;
+			if(rs!=null) {
+				rs.last();
+				size = rs.getRow();
+				rs.first();
+			}
+			Rahmen[] rahmen = new Rahmen[size];
+			int count = 0;
+			while(rs.next()) {
+				rahmen[count] = new Rahmen(rs.getInt("RahmenID"),rs.getString("Bezeichnung"), rs.getString("Bilder"));
+				count++;
+			} 
+			return rahmen;
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
 		} finally {
