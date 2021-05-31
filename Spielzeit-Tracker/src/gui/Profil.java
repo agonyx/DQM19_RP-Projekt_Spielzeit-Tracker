@@ -11,6 +11,8 @@ import javax.swing.border.LineBorder;
 
 import sqlverbindung.Benutzer;
 import sqlverbindung.DAO;
+import sqlverbindung.DB_FehlerException;
+import sqlverbindung.Spiele;
 
 public class Profil extends JPanel {
 	private JScrollPane scrollPane;
@@ -28,15 +30,17 @@ public class Profil extends JPanel {
 	private JTextField textFieldName;
 	private JPanel panelViewport;
 	private Benutzer benutzer;
-	private String[] games = {"Rainbow Six Siege", "", "", "", "", ""};
+	private String[] games = new String[7];
 
 	/**
 	 * Create the panel.
 	 */
 	public Profil(Benutzer benutzer) {
 		this.benutzer = benutzer;
+		addGames();
 		initGUI();
 		addNameUndEmail();
+		addPunkte();
 	}
 	private void initGUI() {
 		setLayout(null);
@@ -181,5 +185,24 @@ public class Profil extends JPanel {
 	//Fügt Punkte in das Text Feld ein.
 	public void addPunkte() {
 		textFieldPunkte.setText(Integer.toString(benutzer.getPunkte()));
+	}
+	
+	//Fügt Spiele zum games Array hinzu.
+	public void addGames() {
+		DAO d = new DAO();
+		Spiele s;
+		for(int i = 2; i <= 8; i++)
+		{
+			
+			try {
+				s = d.selectSpiele(i);
+				games[i] = s.getName();
+			} catch (DB_FehlerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
 	}
 }

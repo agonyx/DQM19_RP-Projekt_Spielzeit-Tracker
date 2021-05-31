@@ -11,5 +11,9 @@ public class Spiele {
 		this.appid = appid;
 		this.name = name;
 	}
+	
+	public String getName() {
+		return name;
+	}
 
 }
