@@ -19,12 +19,10 @@ public class DAO {
 	private Benutzer benutzer;
 	private Avatar avatar;
 	private Statistik statistik;
-	private Accessoire accessoire;
 	private Gesichter gesichter;
 	private Gesichtsbedeckung gesichtsbedeckung;
 	private Kopfbedeckung kopfbedeckung;
 	private Oberteil oberteil;
-	private Kostuem kostuem;
 	private Rahmen rahmen;
 	private Spiele spiele;
 	private Spielzeit spielzeit;
