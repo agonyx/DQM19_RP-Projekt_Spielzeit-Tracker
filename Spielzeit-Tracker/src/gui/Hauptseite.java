@@ -1,23 +1,14 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JToolBar;
-import javax.swing.JTabbedPane;
-import javax.swing.JMenuBar;
 import javax.swing.JButton;
-import javax.swing.border.EtchedBorder;
-
 import sqlverbindung.Benutzer;
-
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -41,12 +32,11 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private JButton buttonAdmin;
 	private Benutzer benutzer;
 
-	/**
-	 * Create the frame.
-	 */
-	public Hauptseite(Benutzer b) {
+
+	
+	public Hauptseite(Benutzer bb) {
 		setResizable(false);
-		benutzer = b;
+		benutzer = bb;
 		Statistiken statistiken = new Statistiken();
 		Shop shop = new Shop();
 		Adminoberflaeche ao = new Adminoberflaeche();
@@ -57,6 +47,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		initGUI();
 
 	}
+	//Panel wechseln
 	public void switchTo(Views v) {
 		contentPane.remove(panel);
 		panel = panels.get(v);

@@ -144,7 +144,7 @@ public class Shop extends JPanel {
 		}
 			
 			for(int i = 0; i < accessoire.length; i++) {
-				//ImageIcon icon = new ImageIcon(accessoire[i].); 
+				//ImageIcon icon = new ImageIcon(
 				//l[i]
 			}
 			delay = accessoire.length;
