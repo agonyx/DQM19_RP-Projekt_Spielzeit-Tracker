@@ -19,12 +19,14 @@ public class DAO {
 	private Benutzer benutzer;
 	private Avatar avatar;
 	private Statistik statistik;
-	private Accessoire accessoire;
-	private Kostuem kostuem;
+	private Gesichter gesichter;
+	private Gesichtsbedeckung gesichtsbedeckung;
+	private Kopfbedeckung kopfbedeckung;
+	private Oberteil oberteil;
 	private Rahmen rahmen;
 	private Spiele spiele;
 	private Spielzeit spielzeit;
-	
+		
 
 	public DAO() {
 		try {
@@ -125,18 +127,18 @@ public class DAO {
 		}
 	}
 
-	public Accessoire selectAccessoire(int accessoiresid) throws DB_FehlerException {
+	public Gesichter selectGesicht(int gesichterid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "select * from Accesoires where AccessoireID = ?";
+			String sql = "select * from Gesicht where GesichterID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
-			statement.setInt(1, accessoiresid);
+			statement.setInt(1, gesichterid);
 			rs = statement.executeQuery();
 			if (rs.next()) {
-				accessoire = new Accessoire(rs.getInt("AccessoireID"),
+				gesichter = new Gesichter(rs.getInt("GesichterID"),
 						rs.getString("Bezeichnung"), rs.getString("Bild"));
-				return accessoire;
+				return gesichter;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
 			}
@@ -153,19 +155,19 @@ public class DAO {
 
 		}
 	}
-
-	public Kostuem selectKostuem(int kostuemid) throws DB_FehlerException {
+	
+	public Gesichtsbedeckung selectGesichtsbedeckung(int gbid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "select * from Kostuem where KostuemID = ?";
+			String sql = "select * from Gesichtsbedeckungen where GBID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
-			statement.setInt(1, kostuemid);
+			statement.setInt(1, gbid);
 			rs = statement.executeQuery();
 			if (rs.next()) {
-				kostuem = new Kostuem(rs.getInt("KostuemID"),
+				gesichtsbedeckung = new Gesichtsbedeckung(rs.getInt("GBID"),
 						rs.getString("Bezeichnung"), rs.getString("Bild"));
-				return kostuem;
+				return gesichtsbedeckung;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
 			}
@@ -182,6 +184,65 @@ public class DAO {
 
 		}
 	}
+	
+	public Kopfbedeckung selectKopfbedeckung(int kopfbedeckungenid) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Kopfbedeckungen where KopfbedeckungenID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, kopfbedeckungenid);
+			rs = statement.executeQuery();
+			if (rs.next()) {
+				kopfbedeckung = new Kopfbedeckung(rs.getInt("KopfbedeckungenID"),
+						rs.getString("Bezeichnung"), rs.getString("Bild"));
+				return kopfbedeckung;
+			} else {
+				throw new DB_FehlerException("Die ID existiert nicht");
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
+	
+	public Oberteil selectOberteil(int oberteilid) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Oberteil where OberteilID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, oberteilid);
+			rs = statement.executeQuery();
+			if (rs.next()) {
+				oberteil = new Oberteil(rs.getInt("OberteilID"),
+						rs.getString("Bezeichnung"), rs.getString("Bild"));
+				return oberteil;
+			} else {
+				throw new DB_FehlerException("Die ID existiert nicht");
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
+	
 	public Rahmen selectRahmen(int rahmenid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
