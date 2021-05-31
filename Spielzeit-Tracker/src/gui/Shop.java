@@ -4,14 +4,14 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -24,19 +24,19 @@ import javax.swing.SwingConstants;
 
 
 public class Shop extends JPanel {
-	private JPanel contentPane;
 	private JPanel panel;
 	private JScrollPane scrollPane;
 	private JPanel panelViewport;
-	private int itemcount = 10;
+	private int itemcount = 6;
 	private JPanel panel_1;
 	private JPanel panel_2;
-	private JButton buttonNewButton;
+	private JButton buyButton;
 	private JLabel labelNewLabel;
 	private JTextArea textArea;
 	private JPanel panel_3;
 	private JPanel panel_4;
 	private JPanel panel_5;
+	private JButton buttonNewButton;
 
 	/**
 	 * Create the panel.
@@ -68,6 +68,8 @@ public class Shop extends JPanel {
 					labelNewLabel = new JLabel("New label");
 					labelNewLabel.setBounds(10, 11, 46, 14);
 					labelNewLabel.setBounds(10, 245, 46, 14);
+					labelNewLabel = new JLabel("AVATAR");
+					labelNewLabel.setBounds(10, 11, 80, 14);
 					panel_1.add(labelNewLabel);
 				}
 			}
@@ -102,6 +104,18 @@ public class Shop extends JPanel {
 			{
 				JPanel panelViewport = new JPanel();
 				panelViewport.setPreferredSize(new Dimension(621, itemcount * 60));
+				buyButton = new JButton("Buy");
+				buyButton.setBounds(10, 667, 89, 23);
+				panel.add(buyButton);
+			}
+		}
+		{
+			scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPane.setBounds(228, 11, 621, 701);
+			add(scrollPane);
+			{
+				panelViewport = new JPanel();
+				panelViewport.setPreferredSize(new Dimension(621, 701));
 				panelViewport.setBorder(new LineBorder(new Color(0, 0, 0)));
 				scrollPane.setViewportView(panelViewport);
 				panelViewport.setLayout(null);
@@ -125,10 +139,11 @@ public class Shop extends JPanel {
 	}
 	private void createItemSections() {
 		JPanel[] j = new JPanel[itemcount];
+		JLabel[] l = new JLabel[itemcount];
 		int tabx = 0;
 		int taby = 11;
 		int count = 0;
-			for(int i = 1; i == j.length; i++) {
+			for(int i = 0; i < j.length; i++) {
 				if(count<2) {
 				j[i].setBounds(10 + tabx, 11, 256, 256);
 				tabx = tabx +332;
@@ -142,21 +157,41 @@ public class Shop extends JPanel {
 		panelViewport.repaint();
 	}
 	{
+		JPanel[] j = new JPanel[itemcount];
 		JLabel[] l = new JLabel[itemcount];
 		int tabx = 0;
 		int taby = 11;
 		int count = 0;
 			for(int i = 1; i == j.length; i++) {
 				if(count<2) {
-				j[i].setBounds(10 + tabx, taby, 256, 256);
-				tabx = tabx +332;
 				count++;
+				j[i] = new JPanel();
+				j[i].setBounds(10 + tabx, taby, 256, 256);
+				j[i].setBorder(new EtchedBorder());
+				l[i] = new JLabel();
+				l[i].setText("test" + (i+1));
+				j[i].add(l[i]);
+				j[i].setVisible(true);
+				tabx = tabx +332;
+				panelViewport.add(j[i]);
 				} else {
 				taby = taby + 285;
 				tabx = 0;
 				count = 0;
+				count++;
+				j[i] = new JPanel();
+				j[i].setBounds(10 + tabx, taby, 256, 256);
+				j[i].setBorder(new EtchedBorder());;
+				l[i] = new JLabel();
+				l[i].setText("test" + i);
+				j[i].add(l[i]);
+				j[i].setVisible(true);
+				tabx = tabx +332;
+				panelViewport.add(j[i]);
 				}
 		}
+		panelViewport.setPreferredSize(new Dimension(621, taby+285));
+		panelViewport.revalidate();
 		panelViewport.repaint();
 	}
 		
@@ -164,7 +199,7 @@ public class Shop extends JPanel {
 			panel_1 = new JPanel();
 			panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 			panel_1.setBounds(10, 166, 92, 84);
-			contentPane.add(panel_1);
+			panelViewport.add(panel_1);
 			panel_1.setLayout(null);
 			{
 				lblNewLabel = new JLabel("New label");
@@ -174,5 +209,4 @@ public class Shop extends JPanel {
 			}
 		}
 	
- 
-}
+ }
