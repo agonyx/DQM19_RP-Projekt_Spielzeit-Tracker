@@ -8,51 +8,52 @@ import javax.swing.JSeparator;
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import java.awt.FlowLayout;
+import javax.swing.SwingConstants;
 
 public class Statistiken extends JPanel {
 	private JLabel labelSpiel;
 	private JLabel labelSpielstunden;
 	private JLabel labelSpielzeittrackerRang;
-	private JLabel labelNewLabel_1;
-	private JLabel labelCSGOStunden;
-	private JLabel labelNewLabel_3;
-	private JLabel labelCSGORang;
-	private JLabel labelNewLabel_2;
-	private JLabel labelNewLabel_4;
-	private JLabel labelCSGOStunden_1;
-	private JLabel labelNewLabel_5;
-	private JLabel labelNewLabel_6;
-	private JLabel labelCSGORang_1;
+	private JLabel labelGame1;
+	private JLabel labelGame1Stunden;
+	private JLabel labelGame1h;
+	private JLabel labelGame1Rang;
+	private JLabel labelGame1Hashtag;
+	private JLabel labelGame2;
+	private JLabel labelGame2Stunden;
+	private JLabel labelGame2h;
+	private JLabel labelGame2Hashtag;
+	private JLabel labelGame2Rang;
 	private JSeparator separator_4;
-	private JLabel labelNewLabel_7;
-	private JLabel labelCSGOStunden_2;
-	private JLabel labelNewLabel_8;
-	private JLabel labelNewLabel_9;
-	private JLabel labelCSGORang_2;
+	private JLabel labelGame3;
+	private JLabel labelGame3Stunden;
+	private JLabel labelGame3h;
+	private JLabel labelGame3Hashtag;
+	private JLabel labelGame3Rang;
 	private JSeparator separator_6;
-	private JLabel labelNewLabel_10;
-	private JLabel labelCSGOStunden_3;
-	private JLabel labelNewLabel_11;
-	private JLabel labelNewLabel_12;
-	private JLabel labelCSGORang_3;
+	private JLabel labelGame4;
+	private JLabel labelGame4Stunden;
+	private JLabel labelGame4h;
+	private JLabel labelGame4Hashtag;
+	private JLabel labelGame4Rang;
 	private JSeparator separator_8;
 	private JSeparator separator_9;
-	private JLabel labelNewLabel_13;
-	private JLabel labelCSGOStunden_4;
-	private JLabel labelNewLabel_14;
-	private JLabel labelNewLabel_15;
-	private JLabel labelCSGORang_4;
+	private JLabel labelGame5;
+	private JLabel labelGame5Stunden;
+	private JLabel labelGame5h;
+	private JLabel labelGame5Hashtag;
+	private JLabel labelGame5Rang;
 	private JSeparator separator_10;
-	private JLabel labelNewLabel_16;
-	private JLabel labelCSGOStunden_5;
-	private JLabel labelNewLabel_17;
-	private JLabel labelNewLabel_18;
-	private JLabel labelCSGORang_5;
-	private JLabel labelNewLabel_19;
-	private JLabel labelCSGOStunden_6;
-	private JLabel labelNewLabel_20;
-	private JLabel labelNewLabel_21;
-	private JLabel labelCSGORang_6;
+	private JLabel labelGame6;
+	private JLabel labelGame6Stunden;
+	private JLabel labelGame6h;
+	private JLabel labelGame6Hashtag;
+	private JLabel labelGame6Rang;
+	private JLabel labelGame7;
+	private JLabel labelGame7Stunden;
+	private JLabel labelGame7h;
+	private JLabel labelGame7Hashtag;
+	private JLabel labelGame7Rang;
 	private JSeparator separator_14;
 	private JPanel panel_2;
 	private JPanel panel_zeile1;
@@ -86,54 +87,58 @@ public class Statistiken extends JPanel {
 			add(panel_2);
 			panel_2.setLayout(null);
 			{
-				labelNewLabel_1 = new JLabel("CS:GO");
-				labelNewLabel_1.setBounds(43, 78, 46, 14);
-				panel_2.add(labelNewLabel_1);
+				labelGame1 = new JLabel("Apex Legends");
+				labelGame1.setBounds(43, 78, 93, 14);
+				panel_2.add(labelGame1);
 			}
 			{
-				labelCSGOStunden = new JLabel("New label");
-				labelCSGOStunden.setBounds(188, 78, 46, 14);
-				panel_2.add(labelCSGOStunden);
+				labelGame1Stunden = new JLabel("New label");
+				labelGame1Stunden.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame1Stunden.setBounds(230, 78, 93, 14);
+				panel_2.add(labelGame1Stunden);
 			}
 			{
-				labelNewLabel_3 = new JLabel("h");
-				labelNewLabel_3.setBounds(244, 78, 25, 14);
-				panel_2.add(labelNewLabel_3);
+				labelGame1h = new JLabel("h");
+				labelGame1h.setBounds(333, 78, 25, 14);
+				panel_2.add(labelGame1h);
 			}
 			{
-				labelCSGORang = new JLabel("New label");
-				labelCSGORang.setBounds(347, 78, 46, 14);
-				panel_2.add(labelCSGORang);
+				labelGame1Rang = new JLabel("New label");
+				labelGame1Rang.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame1Rang.setBounds(471, 78, 71, 14);
+				panel_2.add(labelGame1Rang);
 			}
 			{
-				labelNewLabel_2 = new JLabel("#");
-				labelNewLabel_2.setBounds(333, 78, 25, 14);
-				panel_2.add(labelNewLabel_2);
+				labelGame1Hashtag = new JLabel("#");
+				labelGame1Hashtag.setBounds(461, 78, 25, 14);
+				panel_2.add(labelGame1Hashtag);
 			}
 			{
-				labelNewLabel_4 = new JLabel("CS:GO");
-				labelNewLabel_4.setBounds(43, 141, 46, 14);
-				panel_2.add(labelNewLabel_4);
+				labelGame2 = new JLabel("VALORANT");
+				labelGame2.setBounds(43, 141, 93, 14);
+				panel_2.add(labelGame2);
 			}
 			{
-				labelCSGOStunden_1 = new JLabel("New label");
-				labelCSGOStunden_1.setBounds(188, 141, 46, 14);
-				panel_2.add(labelCSGOStunden_1);
+				labelGame2Stunden = new JLabel("New label");
+				labelGame2Stunden.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame2Stunden.setBounds(230, 141, 93, 14);
+				panel_2.add(labelGame2Stunden);
 			}
 			{
-				labelNewLabel_5 = new JLabel("h");
-				labelNewLabel_5.setBounds(244, 141, 25, 14);
-				panel_2.add(labelNewLabel_5);
+				labelGame2h = new JLabel("h");
+				labelGame2h.setBounds(333, 141, 25, 14);
+				panel_2.add(labelGame2h);
 			}
 			{
-				labelNewLabel_6 = new JLabel("#");
-				labelNewLabel_6.setBounds(333, 141, 25, 14);
-				panel_2.add(labelNewLabel_6);
+				labelGame2Hashtag = new JLabel("#");
+				labelGame2Hashtag.setBounds(461, 141, 25, 14);
+				panel_2.add(labelGame2Hashtag);
 			}
 			{
-				labelCSGORang_1 = new JLabel("New label");
-				labelCSGORang_1.setBounds(347, 141, 46, 14);
-				panel_2.add(labelCSGORang_1);
+				labelGame2Rang = new JLabel("New label");
+				labelGame2Rang.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame2Rang.setBounds(471, 141, 71, 14);
+				panel_2.add(labelGame2Rang);
 			}
 			{
 				separator_4 = new JSeparator();
@@ -141,29 +146,31 @@ public class Statistiken extends JPanel {
 				panel_2.add(separator_4);
 			}
 			{
-				labelNewLabel_7 = new JLabel("CS:GO");
-				labelNewLabel_7.setBounds(43, 204, 46, 14);
-				panel_2.add(labelNewLabel_7);
+				labelGame3 = new JLabel("Rainbow Six Siege");
+				labelGame3.setBounds(43, 204, 93, 14);
+				panel_2.add(labelGame3);
 			}
 			{
-				labelCSGOStunden_2 = new JLabel("New label");
-				labelCSGOStunden_2.setBounds(188, 204, 46, 14);
-				panel_2.add(labelCSGOStunden_2);
+				labelGame3Stunden = new JLabel("New label");
+				labelGame3Stunden.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame3Stunden.setBounds(230, 204, 93, 14);
+				panel_2.add(labelGame3Stunden);
 			}
 			{
-				labelNewLabel_8 = new JLabel("h");
-				labelNewLabel_8.setBounds(244, 204, 25, 14);
-				panel_2.add(labelNewLabel_8);
+				labelGame3h = new JLabel("h");
+				labelGame3h.setBounds(333, 204, 25, 14);
+				panel_2.add(labelGame3h);
 			}
 			{
-				labelNewLabel_9 = new JLabel("#");
-				labelNewLabel_9.setBounds(333, 204, 25, 14);
-				panel_2.add(labelNewLabel_9);
+				labelGame3Hashtag = new JLabel("#");
+				labelGame3Hashtag.setBounds(461, 204, 25, 14);
+				panel_2.add(labelGame3Hashtag);
 			}
 			{
-				labelCSGORang_2 = new JLabel("New label");
-				labelCSGORang_2.setBounds(347, 204, 46, 14);
-				panel_2.add(labelCSGORang_2);
+				labelGame3Rang = new JLabel("New label");
+				labelGame3Rang.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame3Rang.setBounds(471, 204, 71, 14);
+				panel_2.add(labelGame3Rang);
 			}
 			{
 				separator_6 = new JSeparator();
@@ -171,29 +178,31 @@ public class Statistiken extends JPanel {
 				panel_2.add(separator_6);
 			}
 			{
-				labelNewLabel_10 = new JLabel("CS:GO");
-				labelNewLabel_10.setBounds(43, 267, 46, 14);
-				panel_2.add(labelNewLabel_10);
+				labelGame4 = new JLabel("CS:GO");
+				labelGame4.setBounds(43, 267, 93, 14);
+				panel_2.add(labelGame4);
 			}
 			{
-				labelCSGOStunden_3 = new JLabel("New label");
-				labelCSGOStunden_3.setBounds(188, 267, 46, 14);
-				panel_2.add(labelCSGOStunden_3);
+				labelGame4Stunden = new JLabel("New label");
+				labelGame4Stunden.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame4Stunden.setBounds(230, 267, 93, 14);
+				panel_2.add(labelGame4Stunden);
 			}
 			{
-				labelNewLabel_11 = new JLabel("h");
-				labelNewLabel_11.setBounds(244, 267, 25, 14);
-				panel_2.add(labelNewLabel_11);
+				labelGame4h = new JLabel("h");
+				labelGame4h.setBounds(333, 267, 25, 14);
+				panel_2.add(labelGame4h);
 			}
 			{
-				labelNewLabel_12 = new JLabel("#");
-				labelNewLabel_12.setBounds(333, 267, 25, 14);
-				panel_2.add(labelNewLabel_12);
+				labelGame4Hashtag = new JLabel("#");
+				labelGame4Hashtag.setBounds(461, 267, 25, 14);
+				panel_2.add(labelGame4Hashtag);
 			}
 			{
-				labelCSGORang_3 = new JLabel("New label");
-				labelCSGORang_3.setBounds(347, 267, 46, 14);
-				panel_2.add(labelCSGORang_3);
+				labelGame4Rang = new JLabel("New label");
+				labelGame4Rang.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame4Rang.setBounds(471, 267, 71, 14);
+				panel_2.add(labelGame4Rang);
 			}
 			{
 				separator_8 = new JSeparator();
@@ -206,29 +215,31 @@ public class Statistiken extends JPanel {
 				panel_2.add(separator_9);
 			}
 			{
-				labelNewLabel_13 = new JLabel("CS:GO");
-				labelNewLabel_13.setBounds(43, 330, 46, 14);
-				panel_2.add(labelNewLabel_13);
+				labelGame5 = new JLabel("GAME 5");
+				labelGame5.setBounds(43, 330, 93, 14);
+				panel_2.add(labelGame5);
 			}
 			{
-				labelCSGOStunden_4 = new JLabel("New label");
-				labelCSGOStunden_4.setBounds(188, 330, 46, 14);
-				panel_2.add(labelCSGOStunden_4);
+				labelGame5Stunden = new JLabel("New label");
+				labelGame5Stunden.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame5Stunden.setBounds(230, 330, 93, 14);
+				panel_2.add(labelGame5Stunden);
 			}
 			{
-				labelNewLabel_14 = new JLabel("h");
-				labelNewLabel_14.setBounds(244, 330, 25, 14);
-				panel_2.add(labelNewLabel_14);
+				labelGame5h = new JLabel("h");
+				labelGame5h.setBounds(333, 330, 25, 14);
+				panel_2.add(labelGame5h);
 			}
 			{
-				labelNewLabel_15 = new JLabel("#");
-				labelNewLabel_15.setBounds(333, 330, 25, 14);
-				panel_2.add(labelNewLabel_15);
+				labelGame5Hashtag = new JLabel("#");
+				labelGame5Hashtag.setBounds(461, 330, 25, 14);
+				panel_2.add(labelGame5Hashtag);
 			}
 			{
-				labelCSGORang_4 = new JLabel("New label");
-				labelCSGORang_4.setBounds(347, 330, 46, 14);
-				panel_2.add(labelCSGORang_4);
+				labelGame5Rang = new JLabel("New label");
+				labelGame5Rang.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame5Rang.setBounds(471, 330, 71, 14);
+				panel_2.add(labelGame5Rang);
 			}
 			{
 				separator_10 = new JSeparator();
@@ -236,54 +247,58 @@ public class Statistiken extends JPanel {
 				panel_2.add(separator_10);
 			}
 			{
-				labelNewLabel_16 = new JLabel("CS:GO");
-				labelNewLabel_16.setBounds(43, 392, 46, 14);
-				panel_2.add(labelNewLabel_16);
+				labelGame6 = new JLabel("GAME 6");
+				labelGame6.setBounds(43, 392, 93, 14);
+				panel_2.add(labelGame6);
 			}
 			{
-				labelCSGOStunden_5 = new JLabel("New label");
-				labelCSGOStunden_5.setBounds(188, 392, 46, 14);
-				panel_2.add(labelCSGOStunden_5);
+				labelGame6Stunden = new JLabel("New label");
+				labelGame6Stunden.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame6Stunden.setBounds(230, 392, 93, 14);
+				panel_2.add(labelGame6Stunden);
 			}
 			{
-				labelNewLabel_17 = new JLabel("h");
-				labelNewLabel_17.setBounds(244, 392, 25, 14);
-				panel_2.add(labelNewLabel_17);
+				labelGame6h = new JLabel("h");
+				labelGame6h.setBounds(333, 392, 25, 14);
+				panel_2.add(labelGame6h);
 			}
 			{
-				labelNewLabel_18 = new JLabel("#");
-				labelNewLabel_18.setBounds(333, 392, 25, 14);
-				panel_2.add(labelNewLabel_18);
+				labelGame6Hashtag = new JLabel("#");
+				labelGame6Hashtag.setBounds(461, 392, 25, 14);
+				panel_2.add(labelGame6Hashtag);
 			}
 			{
-				labelCSGORang_5 = new JLabel("New label");
-				labelCSGORang_5.setBounds(347, 392, 46, 14);
-				panel_2.add(labelCSGORang_5);
+				labelGame6Rang = new JLabel("New label");
+				labelGame6Rang.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame6Rang.setBounds(471, 392, 71, 14);
+				panel_2.add(labelGame6Rang);
 			}
 			{
-				labelNewLabel_19 = new JLabel("CS:GO");
-				labelNewLabel_19.setBounds(43, 455, 46, 14);
-				panel_2.add(labelNewLabel_19);
+				labelGame7 = new JLabel("GAME 7");
+				labelGame7.setBounds(43, 455, 93, 14);
+				panel_2.add(labelGame7);
 			}
 			{
-				labelCSGOStunden_6 = new JLabel("New label");
-				labelCSGOStunden_6.setBounds(188, 455, 46, 14);
-				panel_2.add(labelCSGOStunden_6);
+				labelGame7Stunden = new JLabel("New label");
+				labelGame7Stunden.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame7Stunden.setBounds(230, 455, 93, 14);
+				panel_2.add(labelGame7Stunden);
 			}
 			{
-				labelNewLabel_20 = new JLabel("h");
-				labelNewLabel_20.setBounds(244, 455, 25, 14);
-				panel_2.add(labelNewLabel_20);
+				labelGame7h = new JLabel("h");
+				labelGame7h.setBounds(333, 455, 25, 14);
+				panel_2.add(labelGame7h);
 			}
 			{
-				labelNewLabel_21 = new JLabel("#");
-				labelNewLabel_21.setBounds(333, 455, 25, 14);
-				panel_2.add(labelNewLabel_21);
+				labelGame7Hashtag = new JLabel("#");
+				labelGame7Hashtag.setBounds(461, 455, 25, 14);
+				panel_2.add(labelGame7Hashtag);
 			}
 			{
-				labelCSGORang_6 = new JLabel("New label");
-				labelCSGORang_6.setBounds(347, 455, 46, 14);
-				panel_2.add(labelCSGORang_6);
+				labelGame7Rang = new JLabel("New label");
+				labelGame7Rang.setHorizontalAlignment(SwingConstants.RIGHT);
+				labelGame7Rang.setBounds(471, 455, 71, 14);
+				panel_2.add(labelGame7Rang);
 			}
 			{
 				separator_14 = new JSeparator();
@@ -304,12 +319,12 @@ public class Statistiken extends JPanel {
 				}
 				{
 					labelSpielstunden = new JLabel("Spielstunden");
-					labelSpielstunden.setBounds(186, 25, 135, 14);
+					labelSpielstunden.setBounds(274, 25, 135, 14);
 					panel_zeile1.add(labelSpielstunden);
 				}
 				{
 					labelSpielzeittrackerRang = new JLabel("Spielzeit-Tracker Rang");
-					labelSpielzeittrackerRang.setBounds(331, 25, 135, 14);
+					labelSpielzeittrackerRang.setBounds(457, 25, 135, 14);
 					panel_zeile1.add(labelSpielzeittrackerRang);
 				}
 			}
