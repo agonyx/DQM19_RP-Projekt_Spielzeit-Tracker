@@ -57,10 +57,10 @@ public class Hauptseite extends JFrame implements ActionListener {
 		panel = panels.get(v);
 		panel.setBounds(302, 0, 865, 725);
 		contentPane.add(panel);
-        this.validate();
-        this.repaint();
+		this.validate();
+		this.repaint();
 	}
-	
+
 	private void initGUI() {
 		setTitle("Spielzeitracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
