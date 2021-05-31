@@ -24,14 +24,14 @@ public class Benutzer {
 	}
 
 
-	public Benutzer(String username, String passwort, String steamid, String email, int admin) {
+	public Benutzer(String username, String passwort, String steamid, String email, int punkte, int admin) {
 		this.username = username;
 		this.passwort = passwort;
 		this.steamid = steamid;
 		this.email = email;
 		this.admin = admin;
 	}
-	public Benutzer(String username, String passwort, String steamid, String email) {
+	public Benutzer(String username, String passwort, String steamid, String email, int punkte) {
 		this.username = username;
 		this.passwort = passwort;
 		this.steamid = steamid;
