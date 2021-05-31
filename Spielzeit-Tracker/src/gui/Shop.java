@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 
 package gui;
 
 
-import java.awt.Color;
-import java.awt.Dimension;
-=======
-package gui;
-
->>>>>>> 679095f2d12b31fe8fb443eba34c9d838909d619
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
@@ -43,6 +36,7 @@ public class Shop extends JPanel {
 	private JPanel panel_3;
 	private JPanel panel_4;
 	private JPanel panel_5;
+	private JButton buttonNewButton;
 
 	/**
 	 * Create the panel.
@@ -71,14 +65,11 @@ public class Shop extends JPanel {
 				panel.add(panel_1);
 				panel_1.setLayout(null);
 				{
-<<<<<<< HEAD
 					labelNewLabel = new JLabel("New label");
 					labelNewLabel.setBounds(10, 11, 46, 14);
 					labelNewLabel.setBounds(10, 245, 46, 14);
-=======
 					labelNewLabel = new JLabel("AVATAR");
 					labelNewLabel.setBounds(10, 11, 80, 14);
->>>>>>> 679095f2d12b31fe8fb443eba34c9d838909d619
 					panel_1.add(labelNewLabel);
 				}
 			}
@@ -98,7 +89,6 @@ public class Shop extends JPanel {
 				}
 			}
 			{
-<<<<<<< HEAD
 				buttonNewButton = new JButton("New button");
 				buttonNewButton.setBounds(10, 667, 89, 23);
 				buttonNewButton.setBounds(21, 667, 89, 23);
@@ -114,7 +104,6 @@ public class Shop extends JPanel {
 			{
 				JPanel panelViewport = new JPanel();
 				panelViewport.setPreferredSize(new Dimension(621, itemcount * 60));
-=======
 				buyButton = new JButton("Buy");
 				buyButton.setBounds(10, 667, 89, 23);
 				panel.add(buyButton);
@@ -127,7 +116,6 @@ public class Shop extends JPanel {
 			{
 				panelViewport = new JPanel();
 				panelViewport.setPreferredSize(new Dimension(621, 701));
->>>>>>> 679095f2d12b31fe8fb443eba34c9d838909d619
 				panelViewport.setBorder(new LineBorder(new Color(0, 0, 0)));
 				scrollPane.setViewportView(panelViewport);
 				panelViewport.setLayout(null);
@@ -157,7 +145,6 @@ public class Shop extends JPanel {
 		int count = 0;
 			for(int i = 0; i < j.length; i++) {
 				if(count<2) {
-<<<<<<< HEAD
 				j[i].setBounds(10 + tabx, 11, 256, 256);
 				tabx = tabx +332;
 				} else {
@@ -170,16 +157,15 @@ public class Shop extends JPanel {
 		panelViewport.repaint();
 	}
 	{
+		JPanel[] j = new JPanel[itemcount];
 		JLabel[] l = new JLabel[itemcount];
 		int tabx = 0;
 		int taby = 11;
 		int count = 0;
 			for(int i = 1; i == j.length; i++) {
 				if(count<2) {
-=======
 				count++;
 				j[i] = new JPanel();
->>>>>>> 679095f2d12b31fe8fb443eba34c9d838909d619
 				j[i].setBounds(10 + tabx, taby, 256, 256);
 				j[i].setBorder(new EtchedBorder());
 				l[i] = new JLabel();
