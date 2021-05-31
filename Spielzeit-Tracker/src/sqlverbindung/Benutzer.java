@@ -54,4 +54,7 @@ public class Benutzer {
 	public int getAdmin() {
 		return admin;
 	}
+	public int getPunkte() {
+		return punkte;
+	}
 }

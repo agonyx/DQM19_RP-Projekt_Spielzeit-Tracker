@@ -95,6 +95,35 @@ public class DAO {
 
 		}
 	}
+	
+	public Avatar selectUserAvatar(int benutzerid) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Avatar where BenutzerID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, benutzerid);
+			rs = statement.executeQuery();
+			if (rs.next()) {
+				avatar = new Avatar(rs.getInt("AccessoiresID"),
+						rs.getInt("KostuemID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"));
+				return avatar;
+			} else {
+				throw new DB_FehlerException("Die ID existiert nicht");
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
 
 	public Accessoire selectAccessoire(int accessoiresid) throws DB_FehlerException {
 		try {
