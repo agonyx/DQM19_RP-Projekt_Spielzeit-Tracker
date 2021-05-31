@@ -14,6 +14,7 @@ import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Kostuem;
 import sqlverbindung.Rahmen;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -113,6 +114,8 @@ public class Shop extends JPanel {
 		int tabx = 0;
 		int taby = 11;
 		int count = 0;
+		int delay;
+		
 			for(int i = 0; i < j.length; i++) {
 				if(count<2) {
 				count++;
@@ -120,7 +123,6 @@ public class Shop extends JPanel {
 				j[i].setBounds(10 + tabx, taby, 256, 256);
 				j[i].setBorder(new EtchedBorder());
 				l[i] = new JLabel();
-				l[i].setText("test" + (i+1));
 				j[i].add(l[i]);
 				j[i].setVisible(true);
 				tabx = tabx +332;
@@ -134,13 +136,26 @@ public class Shop extends JPanel {
 				j[i].setBounds(10 + tabx, taby, 256, 256);
 				j[i].setBorder(new EtchedBorder());;
 				l[i] = new JLabel();
-				l[i].setText("test" + i);
 				j[i].add(l[i]);
 				j[i].setVisible(true);
 				tabx = tabx +332;
 				panelViewport.add(j[i]);
 				}
 		}
+			
+			for(int i = 0; i < accessoire.length; i++) {
+				//ImageIcon icon = new ImageIcon(
+				//l[i]
+			}
+			delay = accessoire.length;
+			for(int i = 0; i < kostuem.length; i++) {
+				//l[i+delay]
+			}
+			delay = delay + kostuem.length;
+			for(int i = 0; i < rahmen.length; i++) {
+				//l[i+delay]
+			}
+			
 		panelViewport.setPreferredSize(new Dimension(621, taby+285));
 		panelViewport.revalidate();
 		panelViewport.repaint();

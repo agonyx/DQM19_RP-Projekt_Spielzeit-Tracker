@@ -127,8 +127,8 @@ public class Anmeldung extends JFrame implements ActionListener {
 	
 	protected void loginButton_actionPerformed(ActionEvent e) {
 		try {
-			Benutzer b = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
-			if(b.getPasswort().equals(textFieldPasswort.getText())) {
+			Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
+			if(ben.getPasswort().equals(textFieldPasswort.getText())) {
 				if(checkBoxNewCheckBox.isSelected()) {
 					if(fm.doesExist("daohifguaio.txt")) {
 						fm.delete("daohifguaio.txt");
@@ -136,8 +136,8 @@ public class Anmeldung extends JFrame implements ActionListener {
 					fm.create("daohifguaio.txt");
 					fm.write("daohifguaio.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
 				}
-				Hauptseite hs = new Hauptseite(b);
-				hs.setBenutzer(b);
+				Hauptseite hs = new Hauptseite(ben);
+				hs.setBenutzer(ben);
 				dispose();
 			} else {
 				JOptionPane.showMessageDialog(this, "Falsches Passwort","Fehler",JOptionPane.ERROR_MESSAGE);
