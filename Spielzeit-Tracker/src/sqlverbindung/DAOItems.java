@@ -10,7 +10,6 @@ public class DAOItems {
 	private String database;
 	private String url;
 	private Connection conn = null;
-	private PreparedStatement statement;
 	ResultSet rs = null;
 
 	public DAOItems() {
@@ -29,7 +28,7 @@ public class DAOItems {
 
 			String sql = "select * from Gesichter";
 			System.out.println(1);
-			statement = conn.prepareStatement(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
 			System.out.println(2);
 			rs = statement.executeQuery();
 			System.out.println(3);
@@ -61,7 +60,7 @@ public class DAOItems {
 			conn = DriverManager.getConnection(url);
 
 			String sql = "select * from Gesichtsbedeckung";
-			statement = conn.prepareStatement(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			int size = getCount("Gesichtsbedeckung");
 			Gesichtsbedeckung[] gb = new Gesichtsbedeckung[size];
@@ -89,7 +88,7 @@ public class DAOItems {
 			conn = DriverManager.getConnection(url);
 
 			String sql = "select * from Kopfbedeckung";
-			statement = conn.prepareStatement(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			int size = getCount("Kopfbedeckung");
 			Kopfbedeckung[] Kopfbedeckung = new Kopfbedeckung[size];
@@ -117,7 +116,7 @@ public class DAOItems {
 			conn = DriverManager.getConnection(url);
 
 			String sql = "select * from Koerper";
-			statement = conn.prepareStatement(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			int size = getCount("Koerper");
 			Koerper[] koerper = new Koerper[size];
@@ -145,7 +144,7 @@ public class DAOItems {
 			conn = DriverManager.getConnection(url);
 
 			String sql = "select * from Oberteil";
-			statement = conn.prepareStatement(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			int size = getCount("Oberteil");
 			Oberteil[] Oberteil = new Oberteil[size];
@@ -172,7 +171,7 @@ public class DAOItems {
 		try {
 			conn = DriverManager.getConnection(url);
 			String sql = "select * from Rahmen";
-			statement = conn.prepareStatement(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			int size = getCount("Rahmen");
 			Rahmen[] rahmen = new Rahmen[size];
@@ -198,7 +197,7 @@ public class DAOItems {
 		try {
 			conn = DriverManager.getConnection(url);
 			String sql = "select count(*) as count from "+type;
-			statement = conn.prepareStatement(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			if(rs.next()) {
 				return rs.getInt("count");
