@@ -149,16 +149,17 @@ public class Shop extends JPanel {
 		}
 			
 			for(int i = 0; i < gesichter.length; i++) {
+				String gesichterPath;
 				if(i<10) {
-					String gesichterPath = "resources/GESICHT_00"+i;
+					gesichterPath = "resources/GESICHT_00"+i;
 				} else if(i<100) {
-					String gesichterPath = "resources/GESICHT_0"+i;
+					gesichterPath = "resources/GESICHT_0"+i;
 				} else if (i>100) {
-					String gesichterPath = "resources/GESICHT"+i;
+					gesichterPath = "resources/GESICHT"+i;
 				}
 				
-				ImageIcon icon = new ImageIcon();
-				[i]
+				ImageIcon icon = new ImageIcon(gesichterPath);
+				l[i].setIcon(icon);
 			}
 			delay = gesichter.length;
 			for(int i = 0; i < gesichtsbedeckung.length; i++) {
