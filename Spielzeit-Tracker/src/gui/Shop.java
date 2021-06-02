@@ -12,6 +12,7 @@ import sqlverbindung.DAOItems;
 import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Gesichter;
 import sqlverbindung.Gesichtsbedeckung;
+import sqlverbindung.Koerper;
 import sqlverbindung.Kopfbedeckung;
 import sqlverbindung.Oberteil;
 import sqlverbindung.Rahmen;
@@ -38,11 +39,13 @@ public class Shop extends JPanel {
 	private Kopfbedeckung[] kopfbedeckung;
 	private Oberteil[] oberteil;
 	private Rahmen[] rahmen;
+	private Koerper[] koerper;
 	private DAOItems ditems;
 
-	
+
 	public Shop() {
 		setBackground(Color.DARK_GRAY);
+		ditems = new DAOItems();
 		initComponents();
 		initItems();
 		createItemSections();
@@ -97,13 +100,14 @@ public class Shop extends JPanel {
 				panelViewport.setLayout(null);
 			}
 		}
-		
+
 	}
 	private void initItems() {
 		try {
 			gesichter = ditems.getAllGesichter();
 			gesichtsbedeckung = ditems.getAllGesichtsbedeckung();
 			kopfbedeckung = ditems.getAllKopfbedeckung();
+			koerper = ditems.getAllKoerper();
 			oberteil = ditems.getAllOberteil();
 			rahmen = ditems.getAllRahmen();
 			itemcount = gesichter.length + gesichtsbedeckung.length + kopfbedeckung.length + oberteil.length + rahmen.length;
@@ -120,7 +124,7 @@ public class Shop extends JPanel {
 		int taby = 11;
 		int count = 0;
 		int delay;
-		
+
 			for(int i = 0; i < j.length; i++) {
 				if(count<2) {
 				count++;
@@ -147,35 +151,90 @@ public class Shop extends JPanel {
 				panelViewport.add(j[i]);
 				}
 		}
-			
+
 			for(int i = 0; i < gesichter.length; i++) {
-				String gesichterPath;
+				String gesichterPath = null;
 				if(i<10) {
-					gesichterPath = "resources/GESICHT_00"+i;
+					gesichterPath = "image/gesichter/GESICHT_00"+i;
 				} else if(i<100) {
-					gesichterPath = "resources/GESICHT_0"+i;
+					gesichterPath = "image/gesichter/GESICHT_0"+i;
 				} else if (i>100) {
-					gesichterPath = "resources/GESICHT"+i;
+					gesichterPath = "image/gesichter/GESICHT_"+i;
 				}
-				
+
 				ImageIcon icon = new ImageIcon(gesichterPath);
 				l[i].setIcon(icon);
 			}
 			delay = gesichter.length;
 			for(int i = 0; i < gesichtsbedeckung.length; i++) {
-				l[i+delay]
+				String gesichtsbedeckungPath = null;
+				if(i<10) {
+					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTBEDECKUNG_00"+i;
+				} else if(i<100) {
+					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTBEDECKUNG_0"+i;
+				} else if (i>100) {
+					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTBEDECKUNG_"+i;
+				}
+
+				ImageIcon icon = new ImageIcon(gesichtsbedeckungPath);
+				l[i+delay].setIcon(icon);
+
 			}
-			delay = delay + gesichtsbedeckung.length;
+			delay = delay + kopfbedeckung.length;
 			for(int i = 0; i < kopfbedeckung.length; i++) {
-				l[i+delay]
+				String kopfbedeckungPath = null;
+				if(i<10) {
+					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_00"+i;
+				} else if(i<100) {
+					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_0"+i;
+				} else if (i>100) {
+					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_"+i;
+				}
+
+				ImageIcon icon = new ImageIcon(kopfbedeckungPath);
+				l[i+delay].setIcon(icon);
 			}
 			delay = delay + kopfbedeckung.length;
 			for(int i = 0; i < oberteil.length; i++) {
-				l[i+delay]
+				String oberteilPath = null;
+				if(i<10) {
+					oberteilPath = "image/oberteil/KOPFBEDECKUNG_00"+i;
+				} else if(i<100) {
+					oberteilPath = "image/oberteil/KOPFBEDECKUNG_0"+i;
+				} else if (i>100) {
+					oberteilPath = "image/oberteil/KOPFBEDECKUNG_"+i;
+				}
+
+				ImageIcon icon = new ImageIcon(oberteilPath);
+				l[i+delay].setIcon(icon);
 			}
 			delay = delay + oberteil.length;
 			for(int i = 0; i < rahmen.length; i++) {
-				l[i+delay]
+				String rahmenPath = null;
+				if(i<10) {
+					rahmenPath = "image/KOPFBEDECKUNG_00"+i;
+				} else if(i<100) {
+					rahmenPath = "image/KOPFBEDECKUNG_0"+i;
+				} else if (i>100) {
+					rahmenPath = "image/KOPFBEDECKUNG_"+i;
+				}
+
+				ImageIcon icon = new ImageIcon(rahmenPath);
+				l[i+delay].setIcon(icon);
+			}
+			delay = delay + rahmen.length;
+			for(int i = 0; i < rahmen.length; i++) {
+				String rahmenPath = null;
+				if(i<10) {
+					rahmenPath = "image/avatare/KOERPER_00"+i;
+				} else if(i<100) {
+					rahmenPath = "image/avatare/KOERPER_0"+i;
+				} else if (i>100) {
+					rahmenPath = "image/avatare/KOERPER_"+i;
+				}
+
+				ImageIcon icon = new ImageIcon(rahmenPath);
+				l[i+delay].setIcon(icon);
 			}
 		panelViewport.setPreferredSize(new Dimension(621, taby+285));
 		panelViewport.revalidate();

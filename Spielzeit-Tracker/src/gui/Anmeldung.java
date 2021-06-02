@@ -127,7 +127,6 @@ public class Anmeldung extends JFrame implements ActionListener {
 	
 	protected void loginButton_actionPerformed(ActionEvent e) {
 		try {
-			System.out.println("test");
 			Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
 			
 			if(ben.getPasswort().equals(textFieldPasswort.getText())) {
