@@ -26,6 +26,7 @@ public class DAO {
 	private Rahmen rahmen;
 	private Spiele spiele;
 	private Spielzeit spielzeit;
+	private Koerper koerper;
 		
 
 	public DAO() {
@@ -68,7 +69,7 @@ public class DAO {
 		}
 	}
 
-
+	//Auswahl der Avatare anhand der ID
 	public Avatar selectAvatar(int avatarid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
@@ -78,8 +79,8 @@ public class DAO {
 			statement.setInt(1, avatarid);
 			rs = statement.executeQuery();
 			if (rs.next()) {
-				avatar = new Avatar(rs.getInt("AccessoiresID"),
-						rs.getInt("KostuemID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"));
+				avatar = new Avatar(avatarid, rs.getInt("GesichterID"),
+						rs.getInt("GBID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"), rs.getInt("KopfbedeckungID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
 				return avatar;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -107,8 +108,8 @@ public class DAO {
 			statement.setInt(1, benutzerid);
 			rs = statement.executeQuery();
 			if (rs.next()) {
-				avatar = new Avatar(rs.getInt("AccessoiresID"),
-						rs.getInt("KostuemID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"));
+				avatar = new Avatar(benutzerid, rs.getInt("GesichterID"),
+						rs.getInt("GBID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"), rs.getInt("KopfbedeckungID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
 				return avatar;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -212,8 +213,7 @@ public class DAO {
 			}
 
 		}
-	}
-	
+	}	
 	public Oberteil selectOberteil(int oberteilid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
@@ -226,6 +226,33 @@ public class DAO {
 				oberteil = new Oberteil(rs.getInt("OberteilID"),
 						rs.getString("Bezeichnung"), rs.getString("Bild"));
 				return oberteil;
+			} else {
+				throw new DB_FehlerException("Die ID existiert nicht");
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}public Koerper selectKoerper(int koerperid) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Koerper where KoerperID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, koerperid);
+			rs = statement.executeQuery();
+			if (rs.next()) {
+				koerper = new Koerper(rs.getInt("KoerperID"),
+						rs.getString("Bezeichnung"), rs.getString("Bild"));
+				return koerper;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
 			}
