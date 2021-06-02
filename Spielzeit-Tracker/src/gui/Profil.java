@@ -33,6 +33,8 @@ public class Profil extends JPanel {
 	private Benutzer benutzer;
 	private String[] games = new String[7];
 	public Statistik statistik;
+	private JLabel labelAppZeit;
+	private JTextField textFieldAppZeit;
 
 	/**
 	 * Create the panel.
@@ -44,13 +46,13 @@ public class Profil extends JPanel {
 		addNameUndEmail();
 		addPunkte();
 		addGesamtSpielzeit();
+		addAppZeit();
 	}
 	private void initGUI() {
 		setLayout(null);
 		{
 			//Erstellt ein scroll Panel.
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(314, 10, 476, 740);
 			add(scrollPane);
 			{
 				//Fügt die oberfläche des Scroll Panels hinzu.
@@ -179,13 +181,28 @@ public class Profil extends JPanel {
 			add(textFieldName);
 			textFieldName.setColumns(10);
 		}
+		// 
+		{
+			labelAppZeit = new JLabel("Zeit in der App:");
+			labelAppZeit.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			labelAppZeit.setBounds(10, 250, 140, 21);
+			add(labelAppZeit);
+		}
+		// 
+		{
+			textFieldAppZeit = new JTextField();
+			textFieldAppZeit.setEditable(false);
+			textFieldAppZeit.setBounds(135, 253, 96, 19);
+			add(textFieldAppZeit);
+			textFieldAppZeit.setColumns(10);
+		}
 	}
-	//Fügt Name und Email in die Text Felder ein.
+	//Fügt Name und Email des Benutzers in die Text Felder ein.
 	public void addNameUndEmail() {
 		textFieldName.setText(benutzer.getUsername());
 		textFieldEMail.setText(benutzer.getEmail());
 	}
-	//Fügt Punkte in das Text Feld ein.
+	//Fügt Punkte des Benutzers in das Text Feld ein.
 	public void addPunkte() {
 		textFieldPunkte.setText(Integer.toString(benutzer.getPunkte()));
 	}
@@ -211,5 +228,9 @@ public class Profil extends JPanel {
 			
 		}
 		
+	}
+	//Fügt die Zeit die der Benutzer bisher in dieser App verbracht hat in das Text Felder ein.
+	public void addAppZeit() {
+		textFieldAppZeit.setText(benutzer.getAppzeit());
 	}
 }
