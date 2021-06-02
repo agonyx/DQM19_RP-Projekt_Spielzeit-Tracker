@@ -37,6 +37,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private JButton buttonAdmin;
 	private Benutzer benutzer;
 	private DAO d = new DAO();
+	private long startTime;
 
 	
 	public Hauptseite(Benutzer bb) {
@@ -49,7 +50,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		panels.put(Views.STATISTIKEN, statistiken);
 		panels.put(Views.SHOP, shop);
 		panels.put(Views.ADMIN, ao);
-		initGUI(bb);
+		initGUI();
 		
 	}
 	//Panel wechseln
@@ -68,7 +69,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		return this.benutzer;
 	}
 
-	private void initGUI(Benutzer bb) {
+	private void initGUI() {
 		long startTime = System.nanoTime();
 		setTitle("Spielzeitracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,13 +79,7 @@ public class Hauptseite extends JFrame implements ActionListener {
             public void windowClosing(WindowEvent e)
             {
                 long endTime = System.nanoTime();
-                long totalTime = endTime - startTime;
-                String AppTime = bb.getAppzeit() + totalTime;
-                try {
-					d.insertNewAppTime(AppTime);
-				} catch (DB_FehlerException e1) {
-					e1.printStackTrace();
-				}
+                TimeTracking(startTime, endTime, benutzer);
                 e.getWindow().dispose();
             }
         });
@@ -181,9 +176,21 @@ public class Hauptseite extends JFrame implements ActionListener {
 		switchTo(Views.ADMIN);
 	}
 	protected void BtnAbmeldenActionPerformed(ActionEvent e) {
+		long endTime = System.nanoTime();
+        TimeTracking(startTime, endTime, benutzer);
 		Anmeldung a = new Anmeldung();
 		a.setVisible(true);
 		dispose();
+	}
+	//Verrechnet End- und Startzeit der App
+	public void TimeTracking(long startTime , long endTime, Benutzer bb) {
+		long totalTime = endTime - startTime;
+        String AppTime = bb.getAppzeit() + totalTime;
+        try {
+			d.insertNewAppTime(AppTime);
+		} catch (DB_FehlerException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 	
