@@ -22,7 +22,7 @@ public class DAOItems {
 		database = "resources/Spielzeittracker.db";
 		url = "jdbc:sqlite:" + database;
 	}
-
+//Abfrage der Items (Gesichter)
 	public Gesichter[] getAllGesichter() throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
@@ -54,7 +54,7 @@ public class DAOItems {
 			}
 		}
 	}
-	
+	//Abfrage der Items (Gesichtsbedeckung)
 	public Gesichtsbedeckung[] getAllGesichtsbedeckung() throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
@@ -87,7 +87,7 @@ public class DAOItems {
 			}
 		}
 	}
-	
+	//Abfrage der Items (Kopfbedeckung)
 	public Kopfbedeckung[] getAllKopfbedeckung() throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
@@ -120,7 +120,7 @@ public class DAOItems {
 			}
 		}
 	}
-	
+	//Abfrage der Items (Oberteile)
 	public Oberteil[] getAllOberteil() throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
@@ -153,7 +153,7 @@ public class DAOItems {
 			}
 		}
 	}
-	
+	//Abfrage der Items (Rahmen)
 	public Rahmen[] getAllRahmen() throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
