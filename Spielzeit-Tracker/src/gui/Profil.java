@@ -50,7 +50,6 @@ public class Profil extends JPanel {
 		{
 			//Erstellt ein scroll Panel.
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(314, 10, 476, 740);
 			add(scrollPane);
 			{
 				//Fügt die oberfläche des Scroll Panels hinzu.
