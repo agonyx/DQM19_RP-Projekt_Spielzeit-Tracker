@@ -244,7 +244,7 @@ public class DAO {
 	}public Koerper selectKoerper(int koerperid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "select * from Oberteil where OberteilID = ?";
+			String sql = "select * from Koerper where KoerperID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, koerperid);
