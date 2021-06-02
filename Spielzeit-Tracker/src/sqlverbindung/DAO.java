@@ -213,8 +213,7 @@ public class DAO {
 			}
 
 		}
-	}
-	
+	}	
 	public Oberteil selectOberteil(int oberteilid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
@@ -242,35 +241,7 @@ public class DAO {
 			}
 
 		}
-	}
-	public Oberteil selectOberteil(int oberteilid) throws DB_FehlerException {
-		try {
-			conn = DriverManager.getConnection(url);
-			String sql = "select * from Oberteil where OberteilID = ?";
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement = conn.prepareStatement(sql);
-			statement.setInt(1, oberteilid);
-			rs = statement.executeQuery();
-			if (rs.next()) {
-				oberteil = new Oberteil(rs.getInt("OberteilID"),
-						rs.getString("Bezeichnung"), rs.getString("Bild"));
-				return oberteil;
-			} else {
-				throw new DB_FehlerException("Die ID existiert nicht");
-			}
-		} catch (SQLException e) {
-			throw new DB_FehlerException(e.getMessage());
-		} finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				throw new DB_FehlerException(e.getMessage());
-			}
-
-		}
-	}public Koerper selectOberteil(int koerperid) throws DB_FehlerException {
+	}public Koerper selectKoerper(int koerperid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
 			String sql = "select * from Oberteil where OberteilID = ?";
