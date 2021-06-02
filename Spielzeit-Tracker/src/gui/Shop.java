@@ -149,24 +149,32 @@ public class Shop extends JPanel {
 		}
 			
 			for(int i = 0; i < gesichter.length; i++) {
-				//ImageIcon icon = new ImageIcon(
-				//l[i]
+				if(i<10) {
+					String gesichterPath = "resources/GESICHT_00"+i;
+				} else if(i<100) {
+					String gesichterPath = "resources/GESICHT_0"+i;
+				} else if (i>100) {
+					String gesichterPath = "resources/GESICHT"+i;
+				}
+				
+				ImageIcon icon = new ImageIcon();
+				[i]
 			}
 			delay = gesichter.length;
 			for(int i = 0; i < gesichtsbedeckung.length; i++) {
-				//l[i+delay]
+				l[i+delay]
 			}
 			delay = delay + gesichtsbedeckung.length;
 			for(int i = 0; i < kopfbedeckung.length; i++) {
-				//l[i+delay]
+				l[i+delay]
 			}
 			delay = delay + kopfbedeckung.length;
 			for(int i = 0; i < oberteil.length; i++) {
-				//l[i+delay]
+				l[i+delay]
 			}
 			delay = delay + oberteil.length;
 			for(int i = 0; i < rahmen.length; i++) {
-				//l[i+delay]
+				l[i+delay]
 			}
 		panelViewport.setPreferredSize(new Dimension(621, taby+285));
 		panelViewport.revalidate();
