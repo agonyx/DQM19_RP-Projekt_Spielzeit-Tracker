@@ -23,11 +23,11 @@ public class DAOItems {
 		url = "jdbc:sqlite:" + database;
 	}
 
-	public Accessoire[] getAllAccessoire() throws DB_FehlerException {
+	public Gesichter[] getAllGesichter() throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
 
-			String sql = "select * from Accessoires";
+			String sql = "select * from Gesichter";
 			statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			int size = 0;
@@ -35,13 +35,13 @@ public class DAOItems {
 				rs.last();
 				size = rs.getRow();
 			}
-			Accessoire[] accessoiree = new Accessoire[size];
+			Gesichter[] gesicht = new Gesichter[size];
 			int count = 0;
 			while(rs.next()) {
-				accessoiree[count] = new Accessoire(rs.getInt("AccessoiresID"),rs.getString("Bezeichnung"), rs.getString("Bilder"));
+				gesicht[count] = new Gesichter(rs.getInt("GesichterID"),rs.getString("Bezeichnung"), rs.getString("Bilder"));
 				count++;
-			} 
-			return accessoiree;
+			}
+			return gesicht;
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
 		} finally {
@@ -54,11 +54,12 @@ public class DAOItems {
 			}
 		}
 	}
-	public Kostuem[] getAllKostuem() throws DB_FehlerException {
+	
+	public Gesichtsbedeckung[] getAllGesichtsbedeckung() throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
 
-			String sql = "select * from Kostuem";
+			String sql = "select * from Gesichtsbedeckung";
 			statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			int size = 0;
@@ -67,13 +68,13 @@ public class DAOItems {
 				size = rs.getRow();
 				rs.first();
 			}
-			Kostuem[] kostuem = new Kostuem[size];
+			Gesichtsbedeckung[] gb = new Gesichtsbedeckung[size];
 			int count = 0;
 			while(rs.next()) {
-				kostuem[count] = new Kostuem(rs.getInt("KostuemID"),rs.getString("Bezeichnung"), rs.getString("Bilder"));
+				gb[count] = new Gesichtsbedeckung(rs.getInt("GesichtsbedeckungID"),rs.getString("Bezeichnung"), rs.getString("Bilder"));
 				count++;
-			} 
-			return kostuem;
+			}
+			return gb;
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
 		} finally {
@@ -86,6 +87,73 @@ public class DAOItems {
 			}
 		}
 	}
+	
+	public Kopfbedeckung[] getAllKopfbedeckung() throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+
+			String sql = "select * from Kopfbedeckung";
+			statement = conn.prepareStatement(sql);
+			rs = statement.executeQuery();
+			int size = 0;
+			if(rs!=null) {
+				rs.last();
+				size = rs.getRow();
+				rs.first();
+			}
+			Kopfbedeckung[] Kopfbedeckung = new Kopfbedeckung[size];
+			int count = 0;
+			while(rs.next()) {
+				Kopfbedeckung[count] = new Kopfbedeckung(rs.getInt("KopfbedeckungID"),rs.getString("Bezeichnung"), rs.getString("Bilder"));
+				count++;
+			}
+			return Kopfbedeckung;
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
+	
+	public Oberteil[] getAllOberteil() throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+
+			String sql = "select * from Oberteil";
+			statement = conn.prepareStatement(sql);
+			rs = statement.executeQuery();
+			int size = 0;
+			if(rs!=null) {
+				rs.last();
+				size = rs.getRow();
+				rs.first();
+			}
+			Oberteil[] Oberteil = new Oberteil[size];
+			int count = 0;
+			while(rs.next()) {
+				Oberteil[count] = new Oberteil(rs.getInt("OberteilID"),rs.getString("Bezeichnung"), rs.getString("Bilder"));
+				count++;
+			}
+			return Oberteil;
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
+	
 	public Rahmen[] getAllRahmen() throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);

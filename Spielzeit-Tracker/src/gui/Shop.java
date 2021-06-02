@@ -11,6 +11,8 @@ import javax.swing.border.LineBorder;
 import sqlverbindung.Accessoire;
 import sqlverbindung.DAOItems;
 import sqlverbindung.DB_FehlerException;
+import sqlverbindung.Gesichter;
+import sqlverbindung.Gesichtsbedeckung;
 import sqlverbindung.Kostuem;
 import sqlverbindung.Rahmen;
 
@@ -31,8 +33,8 @@ public class Shop extends JPanel {
 	private JButton buyButton;
 	private JLabel labelNewLabel;
 	private JTextArea textArea;
-	private Accessoire[] accessoire;
-	private Kostuem[] kostuem;
+	private Gesichter[] gesichter;
+	private Gesichtsbedeckung[] gesichtsbedeckung;
 	private Rahmen[] rahmen;
 	private DAOItems ditems;
 
