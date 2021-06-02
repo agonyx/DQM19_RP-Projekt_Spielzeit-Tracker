@@ -29,6 +29,7 @@ public class Benutzer {
 		this.passwort = passwort;
 		this.steamid = steamid;
 		this.email = email;
+		this.punkte = punkte;
 		this.admin = admin;
 	}
 	public Benutzer(String username, String passwort, String steamid, String email, int punkte) {
@@ -36,6 +37,7 @@ public class Benutzer {
 		this.passwort = passwort;
 		this.steamid = steamid;
 		this.email = email;
+		this.punkte = punkte;
 	}
 	
 	public String getUsername() {

@@ -35,6 +35,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 	private FileManager fm;
 	private JPasswordField textFieldPasswort;
 	private JButton registrierungButton;
+	private Benutzer ben;
 
 	public Anmeldung() {
 		initComponents();
@@ -127,7 +128,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 	
 	protected void loginButton_actionPerformed(ActionEvent e) {
 		try {
-			Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
+			ben = d.getIfBenutzerWithAttributeExist(textFieldEmailBenutzername.getText(),"Username");
 			if(ben.getPasswort().equals(textFieldPasswort.getText())) {
 				if(checkBoxNewCheckBox.isSelected()) {
 					if(fm.doesExist("daohifguaio.txt")) {

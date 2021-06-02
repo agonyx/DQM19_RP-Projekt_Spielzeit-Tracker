@@ -356,14 +356,17 @@ public class DAO {
 	public Benutzer getIfBenutzerWithAttributeExist(String inputTry, String tabellenAttribut) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "select * from Benutzer where " + tabellenAttribut + " = " + inputTry;
+			String sql = "select * from Benutzer where ? = '?'";
 			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, tabellenAttribut);
+			statement.setString(2, inputTry);
 			rs = statement.executeQuery();
+			System.out.println(rs.getString("Username"));
 			if(rs.next()) {
-				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getInt("Punkte"));
+				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), 1 /*rs.getInt("Punkte")*/);
 				 return b;
 			} else {
-				throw new DB_FehlerException("Benuzter mit Attribut nicht gefunden!");
+				throw new DB_FehlerException("Benutzer mit Attribut nicht gefunden!");
 			}
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
@@ -381,8 +384,10 @@ public class DAO {
 	public boolean getIfBenutzerWithAttributeExistWahr(String inputTry, String tabellenAttribut) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "select * from Benutzer where " + tabellenAttribut + " = " + inputTry;
+			String sql = "select * from Benutzer where ? = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, tabellenAttribut);
+			statement.setString(2, inputTry);
 			rs = statement.executeQuery();
 			if(rs.next()) {
 				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getInt("Punkte"));
