@@ -8,12 +8,12 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
-import sqlverbindung.Accessoire;
 import sqlverbindung.DAOItems;
 import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Gesichter;
 import sqlverbindung.Gesichtsbedeckung;
-import sqlverbindung.Kostuem;
+import sqlverbindung.Kopfbedeckung;
+import sqlverbindung.Oberteil;
 import sqlverbindung.Rahmen;
 
 import javax.swing.ImageIcon;
@@ -35,12 +35,12 @@ public class Shop extends JPanel {
 	private JTextArea textArea;
 	private Gesichter[] gesichter;
 	private Gesichtsbedeckung[] gesichtsbedeckung;
+	private Kopfbedeckung[] kopfbedeckung;
+	private Oberteil[] oberteil;
 	private Rahmen[] rahmen;
 	private DAOItems ditems;
 
-	/**
-	 * Create the panel.
-	 */
+	
 	public Shop() {
 		setBackground(Color.DARK_GRAY);
 		initComponents();
@@ -101,15 +101,18 @@ public class Shop extends JPanel {
 	}
 	private void initItems() {
 		try {
-			accessoire = ditems.getAllAccessoire();
-			kostuem = ditems.getAllKostuem();
+			gesichter = ditems.getAllGesichter();
+			gesichtsbedeckung = ditems.getAllGesichtsbedeckung();
+			kopfbedeckung = ditems.getAllKopfbedeckung();
+			oberteil = ditems.getAllOberteil();
 			rahmen = ditems.getAllRahmen();
-			itemcount = accessoire.length + kostuem.length + rahmen.length;
+			itemcount = gesichter.length + gesichtsbedeckung.length + kopfbedeckung.length + oberteil.length + rahmen.length;
 		} catch (DB_FehlerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	//Bereiche für alle Items werden generiert und Bilder werden abgerufen
+
 	private void createItemSections() {
 		JPanel[] j = new JPanel[itemcount];
 		JLabel[] l = new JLabel[itemcount];
@@ -145,19 +148,26 @@ public class Shop extends JPanel {
 				}
 		}
 			
-			for(int i = 0; i < accessoire.length; i++) {
+			for(int i = 0; i < gesichter.length; i++) {
 				//ImageIcon icon = new ImageIcon(
 				//l[i]
 			}
-			delay = accessoire.length;
-			for(int i = 0; i < kostuem.length; i++) {
+			delay = gesichter.length;
+			for(int i = 0; i < gesichtsbedeckung.length; i++) {
 				//l[i+delay]
 			}
-			delay = delay + kostuem.length;
+			delay = delay + gesichtsbedeckung.length;
+			for(int i = 0; i < kopfbedeckung.length; i++) {
+				//l[i+delay]
+			}
+			delay = delay + kopfbedeckung.length;
+			for(int i = 0; i < oberteil.length; i++) {
+				//l[i+delay]
+			}
+			delay = delay + oberteil.length;
 			for(int i = 0; i < rahmen.length; i++) {
 				//l[i+delay]
 			}
-			
 		panelViewport.setPreferredSize(new Dimension(621, taby+285));
 		panelViewport.revalidate();
 		panelViewport.repaint();
