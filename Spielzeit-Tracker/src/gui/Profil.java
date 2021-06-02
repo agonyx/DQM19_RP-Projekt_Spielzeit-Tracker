@@ -13,6 +13,7 @@ import sqlverbindung.Benutzer;
 import sqlverbindung.DAO;
 import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Spiele;
+import sqlverbindung.Statistik;
 
 public class Profil extends JPanel {
 	private JScrollPane scrollPane;
@@ -31,6 +32,7 @@ public class Profil extends JPanel {
 	private JPanel panelViewport;
 	private Benutzer benutzer;
 	private String[] games = new String[7];
+	public Statistik statistik;
 
 	/**
 	 * Create the panel.
@@ -41,6 +43,7 @@ public class Profil extends JPanel {
 		initGUI();
 		addNameUndEmail();
 		addPunkte();
+		addGesamtSpielzeit();
 	}
 	private void initGUI() {
 		setLayout(null);
@@ -185,6 +188,10 @@ public class Profil extends JPanel {
 	//Fügt Punkte in das Text Feld ein.
 	public void addPunkte() {
 		textFieldPunkte.setText(Integer.toString(benutzer.getPunkte()));
+	}
+	
+	public void addGesamtSpielzeit() {
+		textFieldSpielzeitgesamt.setText(Double.toString(statistik.getGesamtzeit()));
 	}
 	
 	//Fügt Spiele zum games Array hinzu.
