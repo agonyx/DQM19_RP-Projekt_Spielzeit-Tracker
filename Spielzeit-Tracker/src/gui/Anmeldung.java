@@ -128,7 +128,13 @@ public class Anmeldung extends JFrame implements ActionListener {
 	
 	protected void loginButton_actionPerformed(ActionEvent e) {
 		try {
+<<<<<<< HEAD
 			ben = d.getIfBenutzerWithAttributeExist(textFieldEmailBenutzername.getText(),"Username");
+=======
+			System.out.println("test");
+			Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
+			
+>>>>>>> main
 			if(ben.getPasswort().equals(textFieldPasswort.getText())) {
 				if(checkBoxNewCheckBox.isSelected()) {
 					if(fm.doesExist("daohifguaio.txt")) {
@@ -145,6 +151,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 			}	
 		} catch (DB_FehlerException e1) {
 			JOptionPane.showMessageDialog(this, "Falsches Passwort oder Nutzer existiert nicht","Fehler",JOptionPane.ERROR_MESSAGE);
+			e1.printStackTrace();
 		} catch (FileCreationError e2) {
 		} catch (IOException e1) {
 			e1.printStackTrace();
