@@ -115,11 +115,11 @@ public class Shop extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	//Bereiche für alle Items werden generiert und Bilder werden abgerufen
+	//Bereiche für alle Items werden generiert.
 
 	private void createItemSections() {
-		JPanel[] j = new JPanel[itemcount];
-		JLabel[] l = new JLabel[itemcount];
+		JPanel[] j = new JPanel[itemcount+1];
+		JLabel[] l = new JLabel[itemcount+1];
 		int tabx = 0;
 		int taby = 11;
 		int count = 0;
@@ -152,89 +152,97 @@ public class Shop extends JPanel {
 				}
 		}
 
+			//Ermittelt anhand der Anzahl der einzelenen Elemente den Pfad der ihnen zugewiesenen Bilder und zeigt sie an.
 			for(int i = 0; i < gesichter.length; i++) {
 				String gesichterPath = null;
 				if(i<10) {
-					gesichterPath = "image/gesichter/GESICHT_00"+i;
+					gesichterPath = "image/gesichter/GESICHT_00"+i+".png";
 				} else if(i<100) {
-					gesichterPath = "image/gesichter/GESICHT_0"+i;
+					gesichterPath = "image/gesichter/GESICHT_0"+i+".png";
 				} else if (i>100) {
-					gesichterPath = "image/gesichter/GESICHT_"+i;
+					gesichterPath = "image/gesichter/GESICHT_"+i+".png";
 				}
-				System.out.println(gesichterPath);
+				//System.out.println(gesichterPath);
 				ImageIcon icon = new ImageIcon(gesichterPath);
 				l[i].setIcon(icon);
+				l[i].setToolTipText("Gesicht "+(i+1));
 			}
 			delay = gesichter.length;
 			for(int i = 0; i < gesichtsbedeckung.length; i++) {
 				String gesichtsbedeckungPath = null;
 				if(i<10) {
-					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTBEDECKUNG_00"+i;
+					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_00"+i+".png";
 				} else if(i<100) {
-					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTBEDECKUNG_0"+i;
+					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_0"+i+".png";
 				} else if (i>100) {
-					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTBEDECKUNG_"+i;
+					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_"+i+".png";
 				}
-
+				//System.out.println(gesichtsbedeckungPath);
 				ImageIcon icon = new ImageIcon(gesichtsbedeckungPath);
 				l[i+delay].setIcon(icon);
+				l[i+delay].setToolTipText("Gesichtsbedeckung "+(i+1));
 
 			}
-			delay = delay + kopfbedeckung.length;
+			delay = delay + gesichtsbedeckung.length;
 			for(int i = 0; i < kopfbedeckung.length; i++) {
 				String kopfbedeckungPath = null;
 				if(i<10) {
-					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_00"+i;
+					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_00"+i+".png";
 				} else if(i<100) {
-					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_0"+i;
+					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_0"+i+".png";
 				} else if (i>100) {
-					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_"+i;
+					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_"+i+".png";
 				}
-
+				//System.out.println(kopfbedeckungPath);
 				ImageIcon icon = new ImageIcon(kopfbedeckungPath);
 				l[i+delay].setIcon(icon);
+				l[i+delay].setToolTipText("Kopfbedeckung "+(i+1));
 			}
 			delay = delay + kopfbedeckung.length;
 			for(int i = 0; i < oberteil.length; i++) {
 				String oberteilPath = null;
 				if(i<10) {
-					oberteilPath = "image/oberteil/KOPFBEDECKUNG_00"+i;
+					oberteilPath = "image/oberteil/OBERTEIL_00"+i+".png";
 				} else if(i<100) {
-					oberteilPath = "image/oberteil/KOPFBEDECKUNG_0"+i;
+					oberteilPath = "image/oberteil/OBERTEIL_0"+i+".png";
 				} else if (i>100) {
-					oberteilPath = "image/oberteil/KOPFBEDECKUNG_"+i;
+					oberteilPath = "image/oberteil/OBERTEIL_"+i+".png";
 				}
-
+				//System.out.println(oberteilPath);
 				ImageIcon icon = new ImageIcon(oberteilPath);
 				l[i+delay].setIcon(icon);
+				l[i+delay].setToolTipText("Oberteil "+(i+1));
 			}
 			delay = delay + oberteil.length;
 			for(int i = 0; i < rahmen.length; i++) {
 				String rahmenPath = null;
 				if(i<10) {
-					rahmenPath = "image/kopfbedeckung/KOPFBEDECKUNG_00"+i;
+					rahmenPath = "image/rahmen/RAHMEN_00"+i+".png";
 				} else if(i<100) {
-					rahmenPath = "image/kopfbedeckung/KOPFBEDECKUNG_0"+i;
+					rahmenPath = "image/rahmen/RAHMEN_0"+i+".png";
 				} else if (i>100) {
-					rahmenPath = "image/kopfbedeckung/KOPFBEDECKUNG_"+i;
+					rahmenPath = "image/rahmen/RAHMEN_"+i+".png";
 				}
-
+				//System.out.println(rahmenPath);
 				ImageIcon icon = new ImageIcon(rahmenPath);
 				l[i+delay].setIcon(icon);
+				l[i+delay].setToolTipText("Rahmen "+(i+1));
 			}
 			delay = delay + rahmen.length;
-			for(int i = 0; i < rahmen.length; i++) {
-				String rahmenPath = null;
+			for(int i = 0; i < koerper.length; i++) {
+				String koerperPath = null;
 				if(i<10) {
-					rahmenPath = "image/avatare/KOERPER_00"+i;
+					koerperPath = "image/avatare/AVATAR_00"+i+".png";
 				} else if(i<100) {
-					rahmenPath = "image/avatare/KOERPER_0"+i;
+					koerperPath = "image/avatare/AVATAR_0"+i+".png";
 				} else if (i>100) {
-					rahmenPath = "image/avatare/KOERPER_"+i;
+					koerperPath = "image/avatare/AVATAR_"+i+".png";
 				}
-
-				ImageIcon icon = new ImageIcon(rahmenPath);
+				//System.out.println(koerperPath);
+				ImageIcon icon = new ImageIcon(koerperPath);
 				l[i+delay].setIcon(icon);
+				l[i+delay].setToolTipText("Körper "+(i+1));
+				
 			}
 		panelViewport.setPreferredSize(new Dimension(621, taby+285));
 		panelViewport.revalidate();

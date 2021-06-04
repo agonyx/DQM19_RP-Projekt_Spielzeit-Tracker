@@ -15,8 +15,6 @@ public class DAO {
 	private String database;
 	private String url;
 	private Connection conn = null;
-	private PreparedStatement statement = null;
-	ResultSet rs = null;
 	private Avatar avatar;
 	private Statistik statistik;
 	private Gesichter gesichter;
@@ -45,9 +43,9 @@ public class DAO {
 			conn = DriverManager.getConnection(url);
 
 			String sql = "select * from Benutzer where BenutzerID = ?";
-			statement = conn.prepareStatement(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, benutzerid);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				Benutzer benutzer = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"),
 						rs.getString("Email"), rs.getString("ZeitApp"), rs.getInt("Punkte"), rs.getInt("Admin"));
@@ -77,7 +75,7 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, avatarid);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				avatar = new Avatar(avatarid, rs.getInt("GesichterID"),
 						rs.getInt("GBID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"), rs.getInt("KopfbedeckungID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
@@ -106,7 +104,7 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, benutzerid);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				avatar = new Avatar(benutzerid, rs.getInt("GesichterID"),
 						rs.getInt("GBID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"), rs.getInt("KopfbedeckungID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
@@ -135,7 +133,7 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, gesichterid);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				gesichter = new Gesichter(rs.getInt("GesichterID"),
 						rs.getString("Bezeichnung"), rs.getString("Bild"));
@@ -164,7 +162,7 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, gbid);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				gesichtsbedeckung = new Gesichtsbedeckung(rs.getInt("GBID"),
 						rs.getString("Bezeichnung"), rs.getString("Bild"));
@@ -193,7 +191,7 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, kopfbedeckungenid);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				kopfbedeckung = new Kopfbedeckung(rs.getInt("KopfbedeckungenID"),
 						rs.getString("Bezeichnung"), rs.getString("Bild"));
@@ -221,7 +219,7 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, oberteilid);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				oberteil = new Oberteil(rs.getInt("OberteilID"),
 						rs.getString("Bezeichnung"), rs.getString("Bild"));
@@ -248,7 +246,7 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, koerperid);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				koerper = new Koerper(rs.getInt("KoerperID"),
 						rs.getString("Bezeichnung"), rs.getString("Bild"));
@@ -277,7 +275,7 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, rahmenid);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				rahmen = new Rahmen(rs.getInt("RahmenID"),
 						rs.getString("Bezeichnung"), rs.getString("Bild"));
@@ -306,7 +304,7 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, spieleid);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				spiele = new Spiele(rs.getInt("SpielID"),
 						rs.getInt("AppID"), rs.getString("Name"));
@@ -333,7 +331,7 @@ public class DAO {
 			String sql = "select * from Spielzeit where SpielzeitID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, spielzeitid);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				spielzeit = new Spielzeit(rs.getInt("SpielzeitID"),
 						rs.getInt("BenutzerID"), rs.getInt("SpielID"), rs.getDouble("Spielzeit"));
@@ -360,7 +358,7 @@ public class DAO {
 		try {
 			conn = DriverManager.getConnection(url);
 			String sql = "Insert Into Benutzer (Username, Passwort, SteamID, Email) Values (?,?,?,?)";
-			statement = conn.prepareStatement(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, benutzer.getUsername());
 			statement.setString(2, benutzer.getPasswort());
 			statement.setString(3, benutzer.getSteamid());
@@ -385,7 +383,7 @@ public class DAO {
 			conn = DriverManager.getConnection(url);
 			String sql = "select * from Benutzer where " + tabellenAttribut + " = " + inputTry;
 			PreparedStatement statement = conn.prepareStatement(sql);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if(rs.next()) {
 				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getString("ZeitApp"), rs.getInt("Punkte"));
 				 return b;
@@ -410,7 +408,7 @@ public class DAO {
 			conn = DriverManager.getConnection(url);
 			String sql = "select * from Benutzer where " + tabellenAttribut + " = " + inputTry;
 			PreparedStatement statement = conn.prepareStatement(sql);
-			rs = statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
 			if(rs.next()) {
 				 return true;
 			} else {
@@ -434,7 +432,7 @@ public class DAO {
 		try {
 			conn = DriverManager.getConnection(url);
 			String sql = "UPDATE Benutzer SET ZeitApp = "+ totalTime + " WHERE Username = '" + Hauptseite.getBenutzer().getUsername()+"';";
-			statement = conn.prepareStatement(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
