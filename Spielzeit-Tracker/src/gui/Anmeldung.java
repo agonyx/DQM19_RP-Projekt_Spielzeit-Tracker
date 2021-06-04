@@ -65,7 +65,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 		mainPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(mainPane);
 		mainPane.setLayout(null);
-		
+
 		textFieldEmailBenutzername = new JTextField();
 		textFieldEmailBenutzername.setToolTipText("Email/Benutzername");
 		textFieldEmailBenutzername.addFocusListener(new FocusAdapter() {
@@ -79,26 +79,26 @@ public class Anmeldung extends JFrame implements ActionListener {
 		textFieldEmailBenutzername.setBounds(10, 47, 314, 25);
 		mainPane.add(textFieldEmailBenutzername);
 		textFieldEmailBenutzername.setColumns(10);
-		
+
 		JLabel loginLabel = new JLabel("Anmeldung");
 		loginLabel.setBounds(118, 11, 162, 25);
 		mainPane.add(loginLabel);
 		loginLabel.setFont (loginLabel.getFont ().deriveFont (18.0f));
-		
+
 		exitButton = new JButton("Exit");
 		exitButton.addActionListener(this);
 		exitButton.setBounds(10, 163, 103, 25);
 		mainPane.add(exitButton);
-		
+
 		loginButton = new JButton("Login");
 		loginButton.addActionListener(this);
 		loginButton.setBounds(215, 163, 109, 25);
 		mainPane.add(loginButton);
-		
+
 		checkBoxNewCheckBox = new JCheckBox("Passwort speichern");
 		checkBoxNewCheckBox.setBounds(10, 113, 145, 41);
 		mainPane.add(checkBoxNewCheckBox);
-		
+
 		textFieldPasswort = new JPasswordField();
 		textFieldPasswort.setToolTipText("Passwort");
 		textFieldPasswort.setBounds(10, 82, 314, 25);
@@ -113,7 +113,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 			registrierungButton.setBounds(215, 125, 109, 25);
 			mainPane.add(registrierungButton);
 		}
-	
+
 	}
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == exitButton) {
@@ -126,11 +126,11 @@ public class Anmeldung extends JFrame implements ActionListener {
 	protected void ExitButtonActionPerformed(ActionEvent e) {
 		dispose();
 	}
-	
+
 	protected void loginButton_actionPerformed(ActionEvent e) {
 		try {
 			Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
-			
+
 			if(ben.getPasswort().equals(textFieldPasswort.getText())) {
 				if(checkBoxNewCheckBox.isSelected()) {
 					if(fm.doesExist("daohifguaio.txt")) {
@@ -158,7 +158,9 @@ public class Anmeldung extends JFrame implements ActionListener {
 		}
 	}
 	protected void textFieldEmailBenutzername_focusGained(FocusEvent e) {
-		textFieldEmailBenutzername.setText("");
+		if(textFieldEmailBenutzername.getText().equals("Email / Benutzername")) {
+			textFieldEmailBenutzername.setText("");
+		}
 	}
 	protected void registrierungButton_actionPerformed(ActionEvent e) {
 		Registrierung rg = new Registrierung();
