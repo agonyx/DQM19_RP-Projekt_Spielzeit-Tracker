@@ -433,7 +433,7 @@ public class DAO {
 	public void insertNewAppTime(String totalTime) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "Insert Into Benutzer (ZeitApp) Values (?)";
+			String sql = "Insert Into Benutzer (ZeitApp) Values (?) where Username = "+benutzer.getUsername();
 			statement = conn.prepareStatement(sql);
 			statement.setString(1, totalTime);
 			statement.executeUpdate();
