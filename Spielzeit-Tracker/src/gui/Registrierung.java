@@ -12,8 +12,14 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
+
+import sqlverbindung.Benutzer;
+import sqlverbindung.DAO;
+
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 
 public class Registrierung extends JFrame implements ActionListener {
@@ -30,6 +36,7 @@ public class Registrierung extends JFrame implements ActionListener {
 	private JButton buttonNewButton;
 	private JButton buttonRegistrierung;
 
+	
 	/**
 	 * Launch the application.
 	 */
@@ -45,12 +52,13 @@ public class Registrierung extends JFrame implements ActionListener {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
 	public Registrierung() {
 		initGUI();
+		setVisible(true);
 	}
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,24 +141,47 @@ public class Registrierung extends JFrame implements ActionListener {
 		}
 	}
 	protected void do_buttonNewButton_actionPerformed(ActionEvent e) {
-		System.exit(0);
+		Anmeldung a = new Anmeldung();
+		dispose();
 	}
 	
 	protected void do_buttonRegistrierung_actionPerformed(ActionEvent argo) {
 		try {
+			DAO d = new DAO();
+			String falsche = "Flasche eingabe.";
+			Pattern p = Pattern.compile("@");
+			Matcher m = p.matcher(textFieldEmail.getText());
+			if(textFieldPasswort.getText().equals(textFieldPasswortbestaetigen.getText()))
+			{
+				if(m.find()) {
+					if(d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email"))
+					{
+						Benutzer b = new Benutzer(0, textFieldBenutzername.getText(), textFieldPasswort.getText(), "0", textFieldEmail.getText(), 0, 0);
+						d.insertBenutzer(b);
+						Anmeldung a = new Anmeldung();
+						dispose();
+					} else 
+						{
+							JOptionPane.showMessageDialog(this, falsche,"Email existiert bereits.", JOptionPane.ERROR_MESSAGE);
+						}
+				} else
+					{
+						JOptionPane.showMessageDialog(this, falsche,"Keine gültige Email.", JOptionPane.ERROR_MESSAGE);
+					}
+					
+				
+				
+			} else 
+				{
+					JOptionPane.showMessageDialog(this, falsche,"Passwörter Stimmen nicht über ein.", JOptionPane.ERROR_MESSAGE);
+				}		
 			
-		//	if()
-		//	{
-		//		
-		//	} else 
-		//		{
-		//			
-		//		}		
-			Anmeldung a = new Anmeldung();
-			dispose();
 		} catch(NumberFormatException e)
 		{
 			e.getMessage();
+		} catch (sqlverbindung.DB_FehlerException e) 
+		{
+			e.printStackTrace();
 		}
 	}
 }

@@ -34,10 +34,9 @@ public class Anmeldung extends JFrame implements ActionListener {
 	private DAO d;
 	private FileManager fm;
 	private JPasswordField textFieldPasswort;
+	private JButton registrierungButton;
+	private Benutzer ben;
 
-	/**
-	 * Create the frame.
-	 */
 	public Anmeldung() {
 		initComponents();
 		if(fm.doesExist("daohifguaio.txt")) {
@@ -67,6 +66,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 		mainPane.setLayout(null);
 		
 		textFieldEmailBenutzername = new JTextField();
+		textFieldEmailBenutzername.setToolTipText("Email/Benutzername");
 		textFieldEmailBenutzername.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -95,12 +95,23 @@ public class Anmeldung extends JFrame implements ActionListener {
 		mainPane.add(loginButton);
 		
 		checkBoxNewCheckBox = new JCheckBox("Passwort speichern");
-		checkBoxNewCheckBox.setBounds(37, 115, 145, 41);
+		checkBoxNewCheckBox.setBounds(10, 113, 145, 41);
 		mainPane.add(checkBoxNewCheckBox);
 		
 		textFieldPasswort = new JPasswordField();
+		textFieldPasswort.setToolTipText("Passwort");
 		textFieldPasswort.setBounds(10, 82, 314, 25);
 		mainPane.add(textFieldPasswort);
+		{
+			registrierungButton = new JButton("Registrierung");
+			registrierungButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					registrierungButton_actionPerformed(e);
+				}
+			});
+			registrierungButton.setBounds(215, 125, 109, 25);
+			mainPane.add(registrierungButton);
+		}
 	
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -117,8 +128,14 @@ public class Anmeldung extends JFrame implements ActionListener {
 	
 	protected void loginButton_actionPerformed(ActionEvent e) {
 		try {
-			Benutzer b = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
-			if(b.getPasswort().equals(textFieldPasswort.getText())) {
+<<<<<<< HEAD
+			ben = d.getIfBenutzerWithAttributeExist(textFieldEmailBenutzername.getText(),"Username");
+=======
+			System.out.println("test");
+			Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
+			
+>>>>>>> main
+			if(ben.getPasswort().equals(textFieldPasswort.getText())) {
 				if(checkBoxNewCheckBox.isSelected()) {
 					if(fm.doesExist("daohifguaio.txt")) {
 						fm.delete("daohifguaio.txt");
@@ -126,13 +143,15 @@ public class Anmeldung extends JFrame implements ActionListener {
 					fm.create("daohifguaio.txt");
 					fm.write("daohifguaio.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
 				}
-				//Hauptseite öffnen
+				Hauptseite hs = new Hauptseite(ben);
+				hs.setBenutzer(ben);
 				dispose();
 			} else {
 				JOptionPane.showMessageDialog(this, "Falsches Passwort","Fehler",JOptionPane.ERROR_MESSAGE);
 			}	
 		} catch (DB_FehlerException e1) {
 			JOptionPane.showMessageDialog(this, "Falsches Passwort oder Nutzer existiert nicht","Fehler",JOptionPane.ERROR_MESSAGE);
+			e1.printStackTrace();
 		} catch (FileCreationError e2) {
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -140,5 +159,9 @@ public class Anmeldung extends JFrame implements ActionListener {
 	}
 	protected void textFieldEmailBenutzername_focusGained(FocusEvent e) {
 		textFieldEmailBenutzername.setText("");
+	}
+	protected void registrierungButton_actionPerformed(ActionEvent e) {
+		Registrierung rg = new Registrierung();
+		dispose();
 	}
 }

@@ -19,5 +19,8 @@ public class Statistik {
 		this.date = date;
 		this.punkte = punkte;
 	}
-
+	
+	public double getGesamtzeit() {
+		return gesamtzeit;
+	}
 }
