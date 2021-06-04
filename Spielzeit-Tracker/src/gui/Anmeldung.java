@@ -40,9 +40,9 @@ public class Anmeldung extends JFrame implements ActionListener {
 
 	public Anmeldung() {
 		initComponents();
-		if(fm.doesExist("daohifguaio.txt")) {
+		if(fm.doesExist("Userdata.txt")) {
 			try {
-				String data = fm.read("daohifguaio.txt");
+				String data = fm.read("Userdata.txt");
 				String datastring [] = data.split(" ");
 				String username = datastring[1];
 				String passwort = datastring[3];
@@ -133,11 +133,11 @@ public class Anmeldung extends JFrame implements ActionListener {
 
 			if(ben.getPasswort().equals(textFieldPasswort.getText())) {
 				if(checkBoxNewCheckBox.isSelected()) {
-					if(fm.doesExist("daohifguaio.txt")) {
-						fm.delete("daohifguaio.txt");
+					if(fm.doesExist("Userdata.txt")) {
+						fm.delete("Userdata.txt");
 					}
-					fm.create("daohifguaio.txt");
-					fm.write("daohifguaio.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
+					fm.create("Userdata.txt");
+					fm.write("Userdata.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
 				}
 				if(!ds.doesStatistikForUserExist(ben)) {
 					ds.createStatistikForUser(ben);
