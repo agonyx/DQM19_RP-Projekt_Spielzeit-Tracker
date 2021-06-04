@@ -16,7 +16,6 @@ public class DAO {
 	private String url;
 	private Connection conn = null;
 	private Avatar avatar;
-	private Statistik statistik;
 	private Gesichter gesichter;
 	private Gesichtsbedeckung gesichtsbedeckung;
 	private Kopfbedeckung kopfbedeckung;
@@ -239,7 +238,8 @@ public class DAO {
 			}
 
 		}
-	}public Koerper selectKoerper(int koerperid) throws DB_FehlerException {
+	}
+	public Koerper selectKoerper(int koerperid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
 			String sql = "select * from Koerper where KoerperID = ?";
@@ -385,7 +385,7 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet rs = statement.executeQuery();
 			if(rs.next()) {
-				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getString("ZeitApp"), rs.getInt("Punkte"));
+				 Benutzer b = new Benutzer(rs.getInt("BenutzerID"),rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getString("ZeitApp"), rs.getInt("Punkte"), 0);
 				 return b;
 			} else {
 				throw new DB_FehlerException("Benuzter mit Attribut nicht gefunden!");

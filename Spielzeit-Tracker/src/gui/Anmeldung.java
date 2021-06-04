@@ -8,6 +8,7 @@ import io.FileCreationError;
 import io.FileManager;
 import sqlverbindung.Benutzer;
 import sqlverbindung.DAO;
+import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
 
 import javax.swing.JTextField;
@@ -32,6 +33,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 	private JButton loginButton;
 	private JCheckBox checkBoxNewCheckBox;
 	private DAO d;
+	private DAOStatistik ds;
 	private FileManager fm;
 	private JPasswordField textFieldPasswort;
 	private JButton registrierungButton;
@@ -54,6 +56,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 	}
 	private void initComponents() {
 		d = new DAO();
+		ds = new DAOStatistik();
 		fm = new FileManager();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -135,6 +138,9 @@ public class Anmeldung extends JFrame implements ActionListener {
 					}
 					fm.create("daohifguaio.txt");
 					fm.write("daohifguaio.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
+				}
+				if(!ds.doesStatistikForUserExist(ben)) {
+					ds.createStatistikForUser(ben);
 				}
 				System.out.println("[System] Login successfull");
 				Hauptseite hs = new Hauptseite(ben);

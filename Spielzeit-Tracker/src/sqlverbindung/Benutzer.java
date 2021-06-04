@@ -66,4 +66,7 @@ public class Benutzer {
 	public String getAppzeit() {
 		return zeitApp;
 	}
+	public int getID() {
+		return benutzerid;
+	}
 }

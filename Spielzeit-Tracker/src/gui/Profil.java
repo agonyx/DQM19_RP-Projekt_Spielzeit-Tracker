@@ -11,6 +11,7 @@ import javax.swing.border.LineBorder;
 
 import sqlverbindung.Benutzer;
 import sqlverbindung.DAO;
+import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Spiele;
 import sqlverbindung.Statistik;
@@ -35,12 +36,15 @@ public class Profil extends JPanel {
 	public Statistik statistik;
 	private JLabel labelAppZeit;
 	private JTextField textFieldAppZeit;
+	private DAO d = new DAO();;
+	private DAOStatistik ds = new DAOStatistik();
 
 	/**
 	 * Create the panel.
 	 */
 	public Profil(Benutzer benutzer) {
 		this.benutzer = benutzer;
+		getStatistik(benutzer);
 		addGames();
 		initGUI();
 		addNameUndEmail();
@@ -213,7 +217,7 @@ public class Profil extends JPanel {
 	
 	//Fügt Spiele zum games Array hinzu.
 	public void addGames() {
-		DAO d = new DAO();
+		
 		Spiele s;
 		for(int i = 2; i <=8; i++)
 		{
@@ -232,5 +236,13 @@ public class Profil extends JPanel {
 	//Fügt die Zeit die der Benutzer bisher in dieser App verbracht hat in das Text Felder ein.
 	public void addAppZeit() {
 		textFieldAppZeit.setText(benutzer.getAppzeit());
+	}
+	private void getStatistik(Benutzer b) {
+		try {
+			this.statistik = ds.selectStatistikforUser(b);
+		} catch (DB_FehlerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
