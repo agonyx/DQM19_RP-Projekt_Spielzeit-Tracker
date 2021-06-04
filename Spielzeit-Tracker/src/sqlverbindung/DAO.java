@@ -412,13 +412,13 @@ public class DAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			if(rs.next()) {
-				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getString("ZeitApp"),rs.getInt("Punkte"));
 				 return true;
 			} else {
 				return false;
 			}
 		} catch (SQLException e) {
-			throw new DB_FehlerException(e.getMessage());
+			return false;
+			
 		} finally {
 			try {
 				if (conn != null) {
