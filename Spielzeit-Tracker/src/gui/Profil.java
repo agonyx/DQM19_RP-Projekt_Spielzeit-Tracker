@@ -215,12 +215,12 @@ public class Profil extends JPanel {
 	public void addGames() {
 		DAO d = new DAO();
 		Spiele s;
-		for(int i = 2; i <= 8; i++)
+		for(int i = 2; i <=8; i++)
 		{
 			
 			try {
 				s = d.selectSpiele(i);
-				games[i] = s.getName();
+				games[i-2] = s.getName();
 			} catch (DB_FehlerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

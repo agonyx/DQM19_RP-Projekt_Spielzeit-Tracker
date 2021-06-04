@@ -307,7 +307,7 @@ public class DAO {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				spiele = new Spiele(rs.getInt("SpielID"),
-						rs.getInt("AppID"), rs.getString("Name"));
+						rs.getInt("AppID"), rs.getString("Bezeichnung"));
 				return spiele;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");

@@ -44,7 +44,6 @@ public class Anmeldung extends JFrame implements ActionListener {
 				String datastring [] = data.split(" ");
 				String username = datastring[1];
 				String passwort = datastring[3];
-				System.out.println(passwort);
 				textFieldEmailBenutzername.setText(username);
 				textFieldPasswort.setText(passwort);
 			} catch (FileNotFoundException e) {
@@ -137,6 +136,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 					fm.create("daohifguaio.txt");
 					fm.write("daohifguaio.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
 				}
+				System.out.println("[System] Login successfull");
 				Hauptseite hs = new Hauptseite(ben);
 				hs.setBenutzer(ben);
 				dispose();
