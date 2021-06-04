@@ -6,14 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.sun.tools.javac.launcher.Main;
 
 import gui.Hauptseite;
 
 public class DAO {
 
-	// Deklarierung und teilweisige
-	// Intialisierung von Databankverbindungsvariablen
 
 	private String database;
 	private String url;
@@ -433,7 +430,7 @@ public class DAO {
 		}
 	}
 	
-	public void insertNewAppTime(String totalTime) throws DB_FehlerException {
+	public void UpdateAppTime(String totalTime) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
 			String sql = "UPDATE Benutzer SET ZeitApp = "+ totalTime + " WHERE Username = '" + Hauptseite.getBenutzer().getUsername()+"';";

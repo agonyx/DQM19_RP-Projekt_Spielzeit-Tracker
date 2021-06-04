@@ -161,7 +161,7 @@ public class Shop extends JPanel {
 				} else if (i>100) {
 					gesichterPath = "image/gesichter/GESICHT_"+i;
 				}
-
+				System.out.println(gesichterPath);
 				ImageIcon icon = new ImageIcon(gesichterPath);
 				l[i].setIcon(icon);
 			}

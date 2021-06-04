@@ -62,15 +62,16 @@ public class Hauptseite extends JFrame implements ActionListener {
 		this.validate();
 		this.repaint();
 	}
-	public static void setBenutzer(Benutzer b) {
-		benutzer = b;
+	public void setBenutzer(Benutzer ben) {
+		benutzer = ben;
+		
 	}
 	public static Benutzer getBenutzer() {
 		return benutzer;
 	}
 
 	private void initGUI() {
-		long startTime = System.nanoTime();
+		long startTime = System.currentTimeMillis();
 		setTitle("Spielzeitracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    addWindowListener(new WindowAdapter()
@@ -78,7 +79,7 @@ public class Hauptseite extends JFrame implements ActionListener {
             @Override
             public void windowClosing(WindowEvent e)
             {
-                long endTime = System.nanoTime();
+                long endTime = System.currentTimeMillis();
                 TimeTracking(startTime, endTime, benutzer);
                 e.getWindow().dispose();
             }
@@ -185,13 +186,14 @@ public class Hauptseite extends JFrame implements ActionListener {
 	//Verrechnet End- und Startzeit der App
 	public void TimeTracking(long startTime , long endTime, Benutzer bb) {
 		long totalTime = endTime - startTime;
-        String AppTime = bb.getAppzeit() + totalTime;
+        String AppTime = bb.getAppzeit() + (totalTime/1000);
         try {
-			d.insertNewAppTime(AppTime);
+			d.UpdateAppTime(AppTime);
 		} catch (DB_FehlerException e1) {
 			e1.printStackTrace();
 		}
 	}
+	
 	
 	
 }
