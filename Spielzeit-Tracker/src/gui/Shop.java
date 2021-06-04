@@ -212,11 +212,11 @@ public class Shop extends JPanel {
 			for(int i = 0; i < rahmen.length; i++) {
 				String rahmenPath = null;
 				if(i<10) {
-					rahmenPath = "image/KOPFBEDECKUNG_00"+i;
+					rahmenPath = "image/kopfbedeckung/KOPFBEDECKUNG_00"+i;
 				} else if(i<100) {
-					rahmenPath = "image/KOPFBEDECKUNG_0"+i;
+					rahmenPath = "image/kopfbedeckung/KOPFBEDECKUNG_0"+i;
 				} else if (i>100) {
-					rahmenPath = "image/KOPFBEDECKUNG_"+i;
+					rahmenPath = "image/kopfbedeckung/KOPFBEDECKUNG_"+i;
 				}
 
 				ImageIcon icon = new ImageIcon(rahmenPath);

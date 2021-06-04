@@ -6,6 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.sun.tools.javac.launcher.Main;
+
+import gui.Hauptseite;
+
 public class DAO {
 
 	// Deklarierung und teilweisige
@@ -16,7 +20,6 @@ public class DAO {
 	private Connection conn = null;
 	private PreparedStatement statement = null;
 	ResultSet rs = null;
-	private Benutzer benutzer;
 	private Avatar avatar;
 	private Statistik statistik;
 	private Gesichter gesichter;
@@ -49,7 +52,7 @@ public class DAO {
 			statement.setInt(1, benutzerid);
 			rs = statement.executeQuery();
 			if (rs.next()) {
-				benutzer = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"),
+				Benutzer benutzer = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"),
 						rs.getString("Email"), rs.getString("ZeitApp"), rs.getInt("Punkte"), rs.getInt("Admin"));
 				return benutzer;
 			} else {
@@ -433,9 +436,8 @@ public class DAO {
 	public void insertNewAppTime(String totalTime) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "Insert Into Benutzer (ZeitApp) Values (?) where Username = "+benutzer.getUsername();
+			String sql = "UPDATE Benutzer SET ZeitApp = "+ totalTime + " WHERE Username = '" + Hauptseite.getBenutzer().getUsername()+"';";
 			statement = conn.prepareStatement(sql);
-			statement.setString(1, totalTime);
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());

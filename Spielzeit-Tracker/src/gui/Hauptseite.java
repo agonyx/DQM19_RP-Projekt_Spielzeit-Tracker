@@ -35,7 +35,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private JPanel panel;
 	private HashMap<Views,JPanel> panels;
 	private JButton buttonAdmin;
-	private Benutzer benutzer;
+	private static Benutzer benutzer;
 	private DAO d = new DAO();
 	private long startTime;
 
@@ -62,11 +62,11 @@ public class Hauptseite extends JFrame implements ActionListener {
 		this.validate();
 		this.repaint();
 	}
-	public void setBenutzer(Benutzer b) {
-		this.benutzer = b;
+	public static void setBenutzer(Benutzer b) {
+		benutzer = b;
 	}
-	public Benutzer getBenutzer() {
-		return this.benutzer;
+	public static Benutzer getBenutzer() {
+		return benutzer;
 	}
 
 	private void initGUI() {
