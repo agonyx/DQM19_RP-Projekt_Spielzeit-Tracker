@@ -172,10 +172,15 @@ public class Registrierung extends JFrame implements ActionListener {
 					if(d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email") == false)
 					{
 						if(d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID") == false) {
-							Benutzer b = new Benutzer(textFieldBenutzername.getText(), textFieldPasswort.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), null, 0, 0);
-							d.insertBenutzer(b);
-							Anmeldung a = new Anmeldung();
-							dispose();
+							if(d.getIfBenutzerWithAttributeExistWahr(textFieldBenutzername.getText(), "Username")) {
+								Benutzer b = new Benutzer(textFieldBenutzername.getText(), textFieldPasswort.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), null, 0, 0);
+								d.insertBenutzer(b);
+								Anmeldung a = new Anmeldung();
+								dispose();
+							} else {
+								JOptionPane.showMessageDialog(this, falsche,"Benutzername wird bereits genutz.", JOptionPane.ERROR_MESSAGE);
+							}
+							
 						} else {
 							JOptionPane.showMessageDialog(this, falsche,"Steam API wird bereits genutz.", JOptionPane.ERROR_MESSAGE);
 						}
