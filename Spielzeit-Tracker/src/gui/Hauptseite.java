@@ -194,7 +194,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	//Verrechnet End- und Startzeit der App
 	public void TimeTracking(long startTime , long endTime, Benutzer bb) {
 		long totalTime = endTime - startTime;
-        String AppTime = bb.getAppzeit() + (totalTime/1000);
+        String AppTime = bb.getAppzeit() + (totalTime/60000);
         try {
 			d.UpdateAppTime(AppTime);
 		} catch (DB_FehlerException e1) {

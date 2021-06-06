@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 
 public class Shop extends JPanel {
 	private JPanel panel;
@@ -44,7 +45,7 @@ public class Shop extends JPanel {
 
 
 	public Shop() {
-		setBackground(Color.DARK_GRAY);
+		setBackground(UIManager.getColor("Button.disabledShadow"));
 		ditems = new DAOItems();
 		initComponents();
 		initItems();
@@ -55,12 +56,13 @@ public class Shop extends JPanel {
 		setBounds(30, 213, 865, 725);
 		{
 			panel = new JPanel();
-			panel.setBackground(Color.DARK_GRAY);
+			panel.setBackground(UIManager.getColor("Button.background"));
 			panel.setBounds(10, 11, 215, 701);
 			add(panel);
 			panel.setLayout(null);
 			{
 				panel_1 = new JPanel();
+				panel_1.setBackground(Color.WHITE);
 				panel_1.setBounds(21, 11, 170, 270);
 				panel.add(panel_1);
 				panel_1.setLayout(null);
