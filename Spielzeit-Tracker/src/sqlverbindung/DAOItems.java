@@ -203,7 +203,30 @@ public class DAOItems {
 			}
 		}
 	}
-
+	//Einfügen von Items
+	public void insertAvatarItems(Benutzer benutzer, Rahmen rahmen, Gesichter gesichter, Gesichtsbedeckung gesichtsbedeckung, Kopfbedeckung kopfbedeckung, Oberteil oberteil, Koerper koerper) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "Insert Into Avatar (BenutzerID, RahmenID, GesichterID, GesichterID, GBID, KopfbedeckungenID, OberteilID, AvatarbildID) Values (?,?,?,?)";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, benutzer.getUsername());
+			statement.setString(2, benutzer.getPasswort());
+			statement.setString(3, benutzer.getSteamid());
+			statement.setString(4, benutzer.getEmail());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
+	
 	public int getCount(String type) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);

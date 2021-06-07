@@ -22,6 +22,25 @@ public class Avatar {
 		this.koerperid = koerperid;
 	}
 	
+	public void setgesichterID(int gesichterid) {
+		this.gesichterid = gesichterid;
+	}
+	
+	public void setGesichtsbedeckungsID(int gbid) {
+		this.gbid = gbid;
+	}
+	
+	public void setKopfbedeckungenID(int kopfbedeckungsid) {
+		this.kopfbedeckungid = kopfbedeckungsid;
+	}
+	
+	public void setOberteilID(int oberteilid) {
+		this.oberteilid = oberteilid;
+	}
+	
+	public void setKoerperID(int koerperid) {
+		this.koerperid = koerperid;
+	}
 	/*public Avatar(int accessoireid, int kostuemid, int rahmenid, int benutzerid) {
 		this.accessoireid = accessoireid;
 		this.kostuemid = kostuemid;

@@ -15,6 +15,8 @@ public class DAO {
 	private String database;
 	private String url;
 	private Connection conn = null;
+	private ResultSet rs;
+	private Benutzer b;
 	private Avatar avatar;
 	private Gesichter gesichter;
 	private Gesichtsbedeckung gesichtsbedeckung;
@@ -377,24 +379,20 @@ public class DAO {
 		}
 	}
 
-
+	
+	
+	//SelectAnweisungen zur Überprüfung
 	public Benutzer getIfBenutzerWithAttributeExist(String inputTry, String tabellenAttribut) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "select * from Benutzer where ? = '?'";
+			String sql = "select * from Benutzer where ? = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-<<<<<<< HEAD
 			statement.setString(1, tabellenAttribut);
 			statement.setString(2, inputTry);
 			rs = statement.executeQuery();
 			System.out.println(rs.getString("Username"));
 			if(rs.next()) {
-				 Benutzer b = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), 1 /*rs.getInt("Punkte")*/);
-=======
-			ResultSet rs = statement.executeQuery();
-			if(rs.next()) {
-				 Benutzer b = new Benutzer(rs.getInt("BenutzerID"),rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getString("ZeitApp"), rs.getInt("Punkte"), 0);
->>>>>>> main
+				 b = new Benutzer(rs.getInt("BenutzerID"),rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getString("ZeitApp"), rs.getInt("Punkte"), 0);
 				 return b;
 			} else {
 				throw new DB_FehlerException("Benutzer mit Attribut nicht gefunden!");
@@ -417,13 +415,10 @@ public class DAO {
 			conn = DriverManager.getConnection(url);
 			String sql = "select * from Benutzer where ? = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-<<<<<<< HEAD
 			statement.setString(1, tabellenAttribut);
 			statement.setString(2, inputTry);
 			rs = statement.executeQuery();
-=======
 			ResultSet rs = statement.executeQuery();
->>>>>>> main
 			if(rs.next()) {
 				 return true;
 			} else {

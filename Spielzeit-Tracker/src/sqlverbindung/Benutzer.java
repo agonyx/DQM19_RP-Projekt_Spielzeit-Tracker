@@ -31,10 +31,7 @@ public class Benutzer {
 		this.passwort = passwort;
 		this.steamid = steamid;
 		this.email = email;
-<<<<<<< HEAD
-=======
 		this.zeitApp = zeitApp;
->>>>>>> main
 		this.punkte = punkte;
 		this.admin = admin;
 	}

@@ -130,18 +130,9 @@ public class Anmeldung extends JFrame implements ActionListener {
 
 	protected void loginButton_actionPerformed(ActionEvent e) {
 		try {
-<<<<<<< HEAD
-<<<<<<< HEAD
 			ben = d.getIfBenutzerWithAttributeExist(textFieldEmailBenutzername.getText(),"Username");
-=======
 			System.out.println("test");
 			Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
-			
->>>>>>> main
-=======
-			Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
-
->>>>>>> main
 			if(ben.getPasswort().equals(textFieldPasswort.getText())) {
 				if(checkBoxNewCheckBox.isSelected()) {
 					if(fm.doesExist("Userdata.txt")) {
