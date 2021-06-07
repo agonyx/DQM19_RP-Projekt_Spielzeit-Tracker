@@ -35,6 +35,8 @@ public class Registrierung extends JFrame implements ActionListener {
 	private JTextField textFieldPasswortbestaetigen;
 	private JButton buttonNewButton;
 	private JButton buttonRegistrierung;
+	private JTextField textFieldSteamID;
+	private JLabel labelSteamID;
 
 	
 	/**
@@ -62,7 +64,7 @@ public class Registrierung extends JFrame implements ActionListener {
 	}
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 402, 260);
+		setBounds(100, 100, 402, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new TitledBorder(null, "Registrierung", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPane);
@@ -122,14 +124,27 @@ public class Registrierung extends JFrame implements ActionListener {
 		{
 			buttonNewButton = new JButton("Abbruch");
 			buttonNewButton.addActionListener(this);
-			buttonNewButton.setBounds(25, 184, 148, 29);
+			buttonNewButton.setBounds(25, 220, 148, 29);
 			contentPane.add(buttonNewButton);
 		}
 		{
 			buttonRegistrierung = new JButton("Registrierung");
 			buttonRegistrierung.addActionListener(this);
-			buttonRegistrierung.setBounds(238, 184, 140, 29);
+			buttonRegistrierung.setBounds(238, 220, 140, 29);
 			contentPane.add(buttonRegistrierung);
+		}
+		{
+			textFieldSteamID = new JTextField();
+			textFieldSteamID.setText("SteamID");
+			textFieldSteamID.setBounds(166, 174, 212, 19);
+			contentPane.add(textFieldSteamID);
+			textFieldSteamID.setColumns(10);
+		}
+		{
+			labelSteamID = new JLabel("SteamID:");
+			labelSteamID.setHorizontalAlignment(SwingConstants.RIGHT);
+			labelSteamID.setBounds(10, 177, 120, 13);
+			contentPane.add(labelSteamID);
 		}
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -154,14 +169,18 @@ public class Registrierung extends JFrame implements ActionListener {
 			if(textFieldPasswort.getText().equals(textFieldPasswortbestaetigen.getText()))
 			{
 				if(m.find()) {
-					if(d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email"))
+					if(d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email") == false)
 					{
-						Benutzer b = new Benutzer(0, textFieldBenutzername.getText(), textFieldPasswort.getText(), "0", textFieldEmail.getText(), 0, 0);
-						d.insertBenutzer(b);
-						Anmeldung a = new Anmeldung();
-						dispose();
-					} else 
-						{
+						if(d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID") == false) {
+							Benutzer b = new Benutzer(textFieldBenutzername.getText(), textFieldPasswort.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), null, 0, 0);
+							d.insertBenutzer(b);
+							Anmeldung a = new Anmeldung();
+							dispose();
+						} else {
+							JOptionPane.showMessageDialog(this, falsche,"Steam API wird bereits genutz.", JOptionPane.ERROR_MESSAGE);
+						}
+						
+					} else {
 							JOptionPane.showMessageDialog(this, falsche,"Email existiert bereits.", JOptionPane.ERROR_MESSAGE);
 						}
 				} else
@@ -169,8 +188,6 @@ public class Registrierung extends JFrame implements ActionListener {
 						JOptionPane.showMessageDialog(this, falsche,"Keine gültige Email.", JOptionPane.ERROR_MESSAGE);
 					}
 					
-				
-				
 			} else 
 				{
 					JOptionPane.showMessageDialog(this, falsche,"Passwörter Stimmen nicht über ein.", JOptionPane.ERROR_MESSAGE);

@@ -12,6 +12,7 @@ import sqlverbindung.DAOItems;
 import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Gesichter;
 import sqlverbindung.Gesichtsbedeckung;
+import sqlverbindung.Koerper;
 import sqlverbindung.Kopfbedeckung;
 import sqlverbindung.Oberteil;
 import sqlverbindung.Rahmen;
@@ -22,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 
 public class Shop extends JPanel {
 	private JPanel panel;
@@ -38,11 +40,13 @@ public class Shop extends JPanel {
 	private Kopfbedeckung[] kopfbedeckung;
 	private Oberteil[] oberteil;
 	private Rahmen[] rahmen;
+	private Koerper[] koerper;
 	private DAOItems ditems;
 
-	
+
 	public Shop() {
-		setBackground(Color.DARK_GRAY);
+		setBackground(UIManager.getColor("Button.disabledShadow"));
+		ditems = new DAOItems();
 		initComponents();
 		initItems();
 		createItemSections();
@@ -52,12 +56,13 @@ public class Shop extends JPanel {
 		setBounds(30, 213, 865, 725);
 		{
 			panel = new JPanel();
-			panel.setBackground(Color.DARK_GRAY);
+			panel.setBackground(UIManager.getColor("Button.background"));
 			panel.setBounds(10, 11, 215, 701);
 			add(panel);
 			panel.setLayout(null);
 			{
 				panel_1 = new JPanel();
+				panel_1.setBackground(Color.WHITE);
 				panel_1.setBounds(21, 11, 170, 270);
 				panel.add(panel_1);
 				panel_1.setLayout(null);
@@ -97,13 +102,14 @@ public class Shop extends JPanel {
 				panelViewport.setLayout(null);
 			}
 		}
-		
+
 	}
 	private void initItems() {
 		try {
 			gesichter = ditems.getAllGesichter();
 			gesichtsbedeckung = ditems.getAllGesichtsbedeckung();
 			kopfbedeckung = ditems.getAllKopfbedeckung();
+			koerper = ditems.getAllKoerper();
 			oberteil = ditems.getAllOberteil();
 			rahmen = ditems.getAllRahmen();
 			itemcount = gesichter.length + gesichtsbedeckung.length + kopfbedeckung.length + oberteil.length + rahmen.length;
@@ -111,16 +117,16 @@ public class Shop extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	//Bereiche für alle Items werden generiert und Bilder werden abgerufen
+	//Bereiche für alle Items werden generiert.
 
 	private void createItemSections() {
-		JPanel[] j = new JPanel[itemcount];
-		JLabel[] l = new JLabel[itemcount];
+		JPanel[] j = new JPanel[itemcount+1];
+		JLabel[] l = new JLabel[itemcount+1];
 		int tabx = 0;
 		int taby = 11;
 		int count = 0;
 		int delay;
-		
+
 			for(int i = 0; i < j.length; i++) {
 				if(count<2) {
 				count++;
@@ -147,35 +153,98 @@ public class Shop extends JPanel {
 				panelViewport.add(j[i]);
 				}
 		}
-			
+
+			//Ermittelt anhand der Anzahl der einzelenen Elemente den Pfad der ihnen zugewiesenen Bilder und zeigt sie an.
 			for(int i = 0; i < gesichter.length; i++) {
-				String gesichterPath;
+				String gesichterPath = null;
 				if(i<10) {
-					gesichterPath = "resources/GESICHT_00"+i;
+					gesichterPath = "image/gesichter/GESICHT_00"+i+".png";
 				} else if(i<100) {
-					gesichterPath = "resources/GESICHT_0"+i;
+					gesichterPath = "image/gesichter/GESICHT_0"+i+".png";
 				} else if (i>100) {
-					gesichterPath = "resources/GESICHT"+i;
+					gesichterPath = "image/gesichter/GESICHT_"+i+".png";
 				}
-				
+				//System.out.println(gesichterPath);
 				ImageIcon icon = new ImageIcon(gesichterPath);
 				l[i].setIcon(icon);
+				l[i].setToolTipText("Gesicht "+(i+1));
 			}
 			delay = gesichter.length;
 			for(int i = 0; i < gesichtsbedeckung.length; i++) {
-				l[i+delay]
+				String gesichtsbedeckungPath = null;
+				if(i<10) {
+					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_00"+i+".png";
+				} else if(i<100) {
+					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_0"+i+".png";
+				} else if (i>100) {
+					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_"+i+".png";
+				}
+				//System.out.println(gesichtsbedeckungPath);
+				ImageIcon icon = new ImageIcon(gesichtsbedeckungPath);
+				l[i+delay].setIcon(icon);
+				l[i+delay].setToolTipText("Gesichtsbedeckung "+(i+1));
+
 			}
 			delay = delay + gesichtsbedeckung.length;
 			for(int i = 0; i < kopfbedeckung.length; i++) {
-				l[i+delay]
+				String kopfbedeckungPath = null;
+				if(i<10) {
+					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_00"+i+".png";
+				} else if(i<100) {
+					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_0"+i+".png";
+				} else if (i>100) {
+					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_"+i+".png";
+				}
+				//System.out.println(kopfbedeckungPath);
+				ImageIcon icon = new ImageIcon(kopfbedeckungPath);
+				l[i+delay].setIcon(icon);
+				l[i+delay].setToolTipText("Kopfbedeckung "+(i+1));
 			}
 			delay = delay + kopfbedeckung.length;
 			for(int i = 0; i < oberteil.length; i++) {
-				l[i+delay]
+				String oberteilPath = null;
+				if(i<10) {
+					oberteilPath = "image/oberteil/OBERTEIL_00"+i+".png";
+				} else if(i<100) {
+					oberteilPath = "image/oberteil/OBERTEIL_0"+i+".png";
+				} else if (i>100) {
+					oberteilPath = "image/oberteil/OBERTEIL_"+i+".png";
+				}
+				//System.out.println(oberteilPath);
+				ImageIcon icon = new ImageIcon(oberteilPath);
+				l[i+delay].setIcon(icon);
+				l[i+delay].setToolTipText("Oberteil "+(i+1));
 			}
 			delay = delay + oberteil.length;
 			for(int i = 0; i < rahmen.length; i++) {
-				l[i+delay]
+				String rahmenPath = null;
+				if(i<10) {
+					rahmenPath = "image/rahmen/RAHMEN_00"+i+".png";
+				} else if(i<100) {
+					rahmenPath = "image/rahmen/RAHMEN_0"+i+".png";
+				} else if (i>100) {
+					rahmenPath = "image/rahmen/RAHMEN_"+i+".png";
+				}
+				//System.out.println(rahmenPath);
+				ImageIcon icon = new ImageIcon(rahmenPath);
+				l[i+delay].setIcon(icon);
+				l[i+delay].setToolTipText("Rahmen "+(i+1));
+			}
+			delay = delay + rahmen.length;
+			for(int i = 0; i < koerper.length; i++) {
+				String koerperPath = null;
+				if(i<10) {
+					koerperPath = "image/avatare/AVATAR_00"+i+".png";
+				} else if(i<100) {
+					koerperPath = "image/avatare/AVATAR_0"+i+".png";
+				} else if (i>100) {
+					koerperPath = "image/avatare/AVATAR_"+i+".png";
+				}
+				//System.out.println(koerperPath);
+				ImageIcon icon = new ImageIcon(koerperPath);
+				l[i+delay].setIcon(icon);
+				l[i+delay].setToolTipText("Körper "+(i+1));
+				
 			}
 		panelViewport.setPreferredSize(new Dimension(621, taby+285));
 		panelViewport.revalidate();

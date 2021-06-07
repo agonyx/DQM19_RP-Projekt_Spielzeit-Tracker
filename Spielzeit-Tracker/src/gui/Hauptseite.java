@@ -9,8 +9,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import sqlverbindung.Benutzer;
+import sqlverbindung.DAO;
+import sqlverbindung.DB_FehlerException;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class Hauptseite extends JFrame implements ActionListener {
@@ -30,22 +35,21 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private JPanel panel;
 	private HashMap<Views,JPanel> panels;
 	private JButton buttonAdmin;
-	private Benutzer benutzer;
-
+	private static Benutzer benutzer;
+	private DAO d = new DAO();
+	private Statistiken statistiken;
+	private Shop shop;
+	private Adminoberflaeche ao;
+	private Profil p;
+	private long startTime;
 
 	
 	public Hauptseite(Benutzer bb) {
 		setResizable(false);
 		benutzer = bb;
-		Statistiken statistiken = new Statistiken();
-		Shop shop = new Shop();
-		Adminoberflaeche ao = new Adminoberflaeche();
 		panels = new HashMap();
-		panels.put(Views.STATISTIKEN, statistiken);
-		panels.put(Views.SHOP, shop);
-		panels.put(Views.ADMIN, ao);
 		initGUI();
-
+		
 	}
 	//Panel wechseln
 	public void switchTo(Views v) {
@@ -56,16 +60,28 @@ public class Hauptseite extends JFrame implements ActionListener {
 		this.validate();
 		this.repaint();
 	}
-	public void setBenutzer(Benutzer b) {
-		this.benutzer = b;
+	public void setBenutzer(Benutzer ben) {
+		benutzer = ben;
+		
 	}
-	public Benutzer getBenutzer() {
-		return this.benutzer;
+	public static Benutzer getBenutzer() {
+		return benutzer;
 	}
 
 	private void initGUI() {
+		long startTime = System.currentTimeMillis();
 		setTitle("Spielzeitracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                long endTime = System.currentTimeMillis();
+                TimeTracking(startTime, endTime, benutzer);
+                e.getWindow().dispose();
+            }
+        });
 		setBounds(100, 100, 1180, 753);
 		setVisible(true);
 		contentPane = new JPanel();
@@ -105,6 +121,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		avatarGesamt.add(lblAvatar);
 
 		btnProfil = new JButton("Profil");
+		btnProfil.addActionListener(this);
 		btnProfil.setBounds(10, 600, 270, 66);
 		taskbar.add(btnProfil);
 
@@ -136,6 +153,9 @@ public class Hauptseite extends JFrame implements ActionListener {
 
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnProfil) {
+			BtnProfilActionPerformed(e);
+		}
 		if (e.getSource() == btnAbmelden) {
 			BtnAbmeldenActionPerformed(e);
 		}
@@ -150,18 +170,44 @@ public class Hauptseite extends JFrame implements ActionListener {
 		}
 	}
 	protected void BtnStatistikenActionPerformed(ActionEvent e) {
+		statistiken = new Statistiken();
+		panels.put(Views.STATISTIKEN, statistiken);
 		switchTo(Views.STATISTIKEN);
 	}
 	protected void BtnShopActionPerformed(ActionEvent e) {
+		shop = new Shop();
+		panels.put(Views.SHOP, shop);
 		switchTo(Views.SHOP);
 	}
 	protected void ButtonAdminActionPerformed(ActionEvent e) {
+		ao = new Adminoberflaeche();
+		panels.put(Views.ADMIN, ao);
 		switchTo(Views.ADMIN);
 	}
 	protected void BtnAbmeldenActionPerformed(ActionEvent e) {
+		long endTime = System.nanoTime();
+        TimeTracking(startTime, endTime, benutzer);
 		Anmeldung a = new Anmeldung();
 		a.setVisible(true);
 		dispose();
+	}
+	//Verrechnet End- und Startzeit der App
+	public void TimeTracking(long startTime , long endTime, Benutzer bb) {
+		long totalTime = endTime - startTime;
+        String AppTime = bb.getAppzeit() + (totalTime/60000);
+        try {
+			d.UpdateAppTime(AppTime);
+		} catch (DB_FehlerException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	
+	
+	protected void BtnProfilActionPerformed(ActionEvent e) {
+		p = new Profil(benutzer);
+		panels.put(Views.PROFIl, p);
+		switchTo(Views.PROFIl);
 	}
 }
 

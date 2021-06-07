@@ -7,35 +7,43 @@ public class Benutzer {
 	private String steamid;
 	private String email;
 	private int benutzerid;
+	private String zeitApp;
 	private int punkte;
 	private int admin;
 
 	
 
 
-	public Benutzer(int benutzerid, String username, String passwort, String steamid, String email, int punkte, int admin) {
+	public Benutzer(int benutzerid, String username, String passwort, String steamid, String email, String zeitApp, int punkte, int admin) {
 		this.benutzerid = benutzerid;
 		this.username = username;
 		this.passwort = passwort;
 		this.steamid = steamid;
 		this.email = email;
+		this.zeitApp = zeitApp;
 		this.punkte = punkte;
 		this.admin = admin;
 	}
 
 
-	public Benutzer(String username, String passwort, String steamid, String email, int punkte, int admin) {
+	public Benutzer(String username, String passwort, String steamid, String email, String zeitApp, int punkte, int admin) {
 		this.username = username;
 		this.passwort = passwort;
 		this.steamid = steamid;
 		this.email = email;
+<<<<<<< HEAD
+=======
+		this.zeitApp = zeitApp;
+>>>>>>> main
 		this.punkte = punkte;
 		this.admin = admin;
 	}
-	public Benutzer(String username, String passwort, String steamid, String email, int punkte) {
+	public Benutzer(String username, String passwort, String steamid, String email, String zeitApp, int punkte) {
 		this.username = username;
 		this.passwort = passwort;
 		this.steamid = steamid;
+		this.zeitApp = zeitApp;
+		this.punkte = punkte;
 		this.email = email;
 		this.punkte = punkte;
 	}
@@ -58,5 +66,11 @@ public class Benutzer {
 	}
 	public int getPunkte() {
 		return punkte;
+	}
+	public String getAppzeit() {
+		return zeitApp;
+	}
+	public int getID() {
+		return benutzerid;
 	}
 }

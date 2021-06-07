@@ -11,6 +11,7 @@ import javax.swing.border.LineBorder;
 
 import sqlverbindung.Benutzer;
 import sqlverbindung.DAO;
+import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Spiele;
 import sqlverbindung.Statistik;
@@ -33,24 +34,29 @@ public class Profil extends JPanel {
 	private Benutzer benutzer;
 	private String[] games = new String[7];
 	public Statistik statistik;
+	private JLabel labelAppZeit;
+	private JTextField textFieldAppZeit;
+	private DAO d = new DAO();;
+	private DAOStatistik ds = new DAOStatistik();
 
 	/**
 	 * Create the panel.
 	 */
 	public Profil(Benutzer benutzer) {
 		this.benutzer = benutzer;
+		getStatistik(benutzer);
 		addGames();
 		initGUI();
 		addNameUndEmail();
 		addPunkte();
 		addGesamtSpielzeit();
+		addAppZeit();
 	}
 	private void initGUI() {
 		setLayout(null);
 		{
 			//Erstellt ein scroll Panel.
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(314, 10, 476, 740);
 			add(scrollPane);
 			{
 				//Fügt die oberfläche des Scroll Panels hinzu.
@@ -179,13 +185,28 @@ public class Profil extends JPanel {
 			add(textFieldName);
 			textFieldName.setColumns(10);
 		}
+		// 
+		{
+			labelAppZeit = new JLabel("Zeit in der App:");
+			labelAppZeit.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			labelAppZeit.setBounds(10, 250, 140, 21);
+			add(labelAppZeit);
+		}
+		// 
+		{
+			textFieldAppZeit = new JTextField();
+			textFieldAppZeit.setEditable(false);
+			textFieldAppZeit.setBounds(135, 253, 96, 19);
+			add(textFieldAppZeit);
+			textFieldAppZeit.setColumns(10);
+		}
 	}
-	//Fügt Name und Email in die Text Felder ein.
+	//Fügt Name und Email des Benutzers in die Text Felder ein.
 	public void addNameUndEmail() {
 		textFieldName.setText(benutzer.getUsername());
 		textFieldEMail.setText(benutzer.getEmail());
 	}
-	//Fügt Punkte in das Text Feld ein.
+	//Fügt Punkte des Benutzers in das Text Feld ein.
 	public void addPunkte() {
 		textFieldPunkte.setText(Integer.toString(benutzer.getPunkte()));
 	}
@@ -196,14 +217,14 @@ public class Profil extends JPanel {
 	
 	//Fügt Spiele zum games Array hinzu.
 	public void addGames() {
-		DAO d = new DAO();
+		
 		Spiele s;
-		for(int i = 2; i <= 8; i++)
+		for(int i = 2; i <=8; i++)
 		{
 			
 			try {
 				s = d.selectSpiele(i);
-				games[i] = s.getName();
+				games[i-2] = s.getName();
 			} catch (DB_FehlerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -211,5 +232,17 @@ public class Profil extends JPanel {
 			
 		}
 		
+	}
+	//Fügt die Zeit die der Benutzer bisher in dieser App verbracht hat in das Text Felder ein.
+	public void addAppZeit() {
+		textFieldAppZeit.setText(benutzer.getAppzeit());
+	}
+	private void getStatistik(Benutzer b) {
+		try {
+			this.statistik = ds.selectStatistikforUser(b);
+		} catch (DB_FehlerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
