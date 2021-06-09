@@ -10,16 +10,18 @@ public class Main {
 
 	public static void main(String[] args) {
 		//Anmeldung a = new Anmeldung();
-		//Ist ein Test
+		
 		try {
 		SteamWebApiClient client = new SteamWebApiClient.SteamWebApiClientBuilder("ED23A4A111A5CE836DA67ED9DB8CABE4").build();
 		GetUserStatsForGameRequest request = SteamWebApiRequestFactory.createGetUserStatsForGameRequest(730, "76561198422471034");
 		GetUserStatsForGame gusfg = client.<GetUserStatsForGame> processRequest(request);
-		System.out.println(gusfg);
+		Integer s = gusfg.getPlayerstats().getStats().get(2).getValue();
+		System.out.println(s);
+		
 		} catch (SteamApiException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
+	
 	}
-
 }

@@ -20,10 +20,10 @@ public class SteamAPI {
 		client = new SteamWebApiClient.SteamWebApiClientBuilder("ED23A4A111A5CE836DA67ED9DB8CABE4").build();
 		
 	}
-	private String getUserStatsForGame(int appid, String steamid) throws SteamApiException {
-		GetUserStatsForGameRequest request = SteamWebApiRequestFactory.createGetUserStatsForGameRequest(appid, steamid);
+	private String getUserStatsForGame(int appid) throws SteamApiException {
+		GetUserStatsForGameRequest request = SteamWebApiRequestFactory.createGetUserStatsForGameRequest(appid, benutzer.getSteamid());
 		GetUserStatsForGame gusfg = client.<GetUserStatsForGame> processRequest(request);
-		return null;
+		return gusfg.getPlayerstats().getStats().get(2).getValue().toString();
 	}
 	
 }
