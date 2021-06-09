@@ -12,4 +12,7 @@ public class Rahmen {
 		this.bild = bild;
 	}
 
+	public int getRahmenID() {
+		return rahmenid;
+	}
 }
