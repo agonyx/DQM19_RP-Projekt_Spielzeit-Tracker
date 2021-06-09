@@ -12,16 +12,25 @@ public class Main {
 		//Anmeldung a = new Anmeldung();
 		
 		try {
-		SteamWebApiClient client = new SteamWebApiClient.SteamWebApiClientBuilder("ED23A4A111A5CE836DA67ED9DB8CABE4").build();
-		GetUserStatsForGameRequest request = SteamWebApiRequestFactory.createGetUserStatsForGameRequest(730, "76561198422471034");
-		GetUserStatsForGame gusfg = client.<GetUserStatsForGame> processRequest(request);
-		Integer s = gusfg.getPlayerstats().getStats().get(2).getValue();
-		System.out.println(s);
-		
+			System.out.println(getUserStatsForGame(730));
+			System.out.println(getUserStatsForGame(1172470));
+			System.out.println(getUserStatsForGame(594650));
+			System.out.println(getUserStatsForGame(739630));
+			System.out.println(getUserStatsForGame(493520));
+			System.out.println(getUserStatsForGame(863550));
+			
+			
+			
 		} catch (SteamApiException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
 	}
+	private static String getUserStatsForGame(int appid) throws SteamApiException {
+		SteamWebApiClient client = new SteamWebApiClient.SteamWebApiClientBuilder("ED23A4A111A5CE836DA67ED9DB8CABE4").build();
+		GetUserStatsForGameRequest request = SteamWebApiRequestFactory.createGetUserStatsForGameRequest(appid, "76561198799205809");
+		GetUserStatsForGame gusfg = client.<GetUserStatsForGame> processRequest(request);
+		return gusfg.getPlayerstats().getStats().get(2).getValue().toString();
+	}
+
 }
