@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class Hauptseite extends JFrame implements ActionListener {
 
@@ -101,6 +102,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		taskbar.add(avatarGesamt);
 
 		lblGesichtsbedeckung = new JLabel("");
+		lblGesichtsbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/avatare/AVATAR_000.png")));
 		lblGesichtsbedeckung.setBounds(0, 0, 256, 256);
 		avatarGesamt.add(lblGesichtsbedeckung);
 
@@ -202,7 +204,13 @@ public class Hauptseite extends JFrame implements ActionListener {
 		}
 	}
 	
-	
+	public void updateAvatarPicture(String koerperbez, String gesichterbez, String gesichtsbedeckungbez, String kopfbedeckungbez, String oberteilbez) {
+		lblAvatar.setIcon(new ImageIcon(Hauptseite.class.getResource("/avatare/" + koerperbez)));
+		lblGesicht.setIcon(new ImageIcon(Hauptseite.class.getResource("/gesichter/" + gesichterbez)));
+		lblGesichtsbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/gesichtsbedeckung/" + gesichtsbedeckungbez)));
+		lblKopfbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/kopfbedeckung/" + kopfbedeckungbez)));
+		lblOberteil.setIcon(new ImageIcon(Hauptseite.class.getResource("/oberteil/" + oberteilbez)));
+	}
 	
 	protected void BtnProfilActionPerformed(ActionEvent e) {
 		p = new Profil(benutzer);

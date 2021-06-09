@@ -10,5 +10,10 @@ public class Oberteil {
 		this.bezeichnung = bezeichnung;
 		this.bild = bild;
 	}
+	
+	public int getOberteilID() {
+		return oberteilid;	
+	}
+	
 }
 

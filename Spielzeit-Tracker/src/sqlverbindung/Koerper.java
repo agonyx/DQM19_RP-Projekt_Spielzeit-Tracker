@@ -11,5 +11,9 @@ public class Koerper {
 		this.bezeichnung=bezeichnung;
 		this.bilder = bilder;
 	}
+	
+	public int getKoerperID() {
+		return koerperid;
+	}
 
 }

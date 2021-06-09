@@ -33,8 +33,9 @@ public class DAOItems {
 			Gesichter[] gesicht = new Gesichter[size];
 			int count = 0;
 			do {
-				if(count <size)
-				gesicht[count] = new Gesichter(rs.getInt("GesichterID"), rs.getString("Bezeichnung"),rs.getString("Bilder"));
+				if (count < size)
+					gesicht[count] = new Gesichter(rs.getInt("GesichterID"), rs.getString("Bezeichnung"),
+							rs.getString("Bilder"));
 				count++;
 			} while (rs.next());
 			return gesicht;
@@ -63,9 +64,9 @@ public class DAOItems {
 			Gesichtsbedeckung[] gb = new Gesichtsbedeckung[size];
 			int count = 0;
 			do {
-				if(count <size)
-				gb[count] = new Gesichtsbedeckung(rs.getInt("GBID"), rs.getString("Bezeichnung"),
-						rs.getString("Bilder"));
+				if (count < size)
+					gb[count] = new Gesichtsbedeckung(rs.getInt("GBID"), rs.getString("Bezeichnung"),
+							rs.getString("Bilder"));
 				count++;
 			} while (rs.next());
 			return gb;
@@ -94,9 +95,9 @@ public class DAOItems {
 			Kopfbedeckung[] Kopfbedeckung = new Kopfbedeckung[size];
 			int count = 0;
 			do {
-				if(count <size)
-				Kopfbedeckung[count] = new Kopfbedeckung(rs.getInt("KopfbedeckungenID"), rs.getString("Bezeichnung"),
-						rs.getString("Bilder"));
+				if (count < size)
+					Kopfbedeckung[count] = new Kopfbedeckung(rs.getInt("KopfbedeckungenID"),
+							rs.getString("Bezeichnung"), rs.getString("Bilder"));
 				count++;
 			} while (rs.next());
 			return Kopfbedeckung;
@@ -125,9 +126,9 @@ public class DAOItems {
 			Koerper[] koerper = new Koerper[size];
 			int count = 0;
 			do {
-				if(count <size)
-				koerper[count] = new Koerper(rs.getInt("KoerperID"), rs.getString("Bezeichnung"),
-						rs.getString("Bilder"));
+				if (count < size)
+					koerper[count] = new Koerper(rs.getInt("KoerperID"), rs.getString("Bezeichnung"),
+							rs.getString("Bilder"));
 				count++;
 			} while (rs.next());
 			return koerper;
@@ -156,9 +157,9 @@ public class DAOItems {
 			Oberteil[] Oberteil = new Oberteil[size];
 			int count = 0;
 			do {
-				if(count <size)
-				Oberteil[count] = new Oberteil(rs.getInt("OberteilID"), rs.getString("Bezeichnung"),
-						rs.getString("Bilder"));
+				if (count < size)
+					Oberteil[count] = new Oberteil(rs.getInt("OberteilID"), rs.getString("Bezeichnung"),
+							rs.getString("Bilder"));
 				count++;
 			} while (rs.next());
 			return Oberteil;
@@ -186,8 +187,9 @@ public class DAOItems {
 			Rahmen[] rahmen = new Rahmen[size];
 			int count = 0;
 			do {
-				if(count <size)
-				rahmen[count] = new Rahmen(rs.getInt("RahmenID"), rs.getString("Bezeichnung"), rs.getString("Bilder"));
+				if (count < size)
+					rahmen[count] = new Rahmen(rs.getInt("RahmenID"), rs.getString("Bezeichnung"),
+							rs.getString("Bilder"));
 				count++;
 			} while (rs.next());
 			return rahmen;
@@ -203,16 +205,22 @@ public class DAOItems {
 			}
 		}
 	}
-	//Einfügen von Items
-	public void insertAvatarItems(Benutzer benutzer, Rahmen rahmen, Gesichter gesichter, Gesichtsbedeckung gesichtsbedeckung, Kopfbedeckung kopfbedeckung, Oberteil oberteil, Koerper koerper) throws DB_FehlerException {
+
+	// Erstellen eines angezeigten Benutzeravatars
+	public void insertAvatarItems(Benutzer benutzer, Rahmen rahmen, Gesichter gesichter,
+			Gesichtsbedeckung gesichtsbedeckung, Kopfbedeckung kopfbedeckung, Oberteil oberteil, Koerper koerper)
+			throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "Insert Into Avatar (BenutzerID, RahmenID, GesichterID, GesichterID, GBID, KopfbedeckungenID, OberteilID, AvatarbildID) Values (?,?,?,?)";
+			String sql = "Insert Into Avatar (BenutzerID, RahmenID, GesichterID, GBID, KopfbedeckungenID, OberteilID, AvatarbildID) Values (?,?,?,?,?,?,?)";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, benutzer.getUsername());
-			statement.setString(2, benutzer.getPasswort());
-			statement.setString(3, benutzer.getSteamid());
-			statement.setString(4, benutzer.getEmail());
+			statement.setInt(1, benutzer.getID());
+			statement.setInt(2, rahmen.getRahmenID());
+			statement.setInt(3, gesichter.getGesichterID());
+			statement.setInt(4, gesichtsbedeckung.getGBID());
+			statement.setInt(5, kopfbedeckung.getKopfbedeckungsID());
+			statement.setInt(6, oberteil.getOberteilID());
+			statement.setInt(7, koerper.getKoerperID());
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
@@ -226,7 +234,35 @@ public class DAOItems {
 			}
 		}
 	}
-	
+
+	public void changeAvatar(int benutzerid, Rahmen rahmen, Gesichter gesichter, Gesichtsbedeckung gesichtsbedeckung, Kopfbedeckung kopfbedeckung, Oberteil oberteil, Koerper koerper) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "update Avatar Set RahmenID = ?, GesichterID = ?, GBID = ?, KopfbedeckungenID = ?, OberteilID = ?, AvatarbildID = ? where BenutzerID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, rahmen.getRahmenID());
+			statement.setInt(2, gesichter.getGesichterID());
+			statement.setInt(3, gesichtsbedeckung.getGBID());
+			statement.setInt(4, kopfbedeckung.getKopfbedeckungsID());
+			statement.setInt(5, oberteil.getOberteilID());
+			statement.setInt(6, koerper.getKoerperID());
+			statement.setInt(7, benutzerid);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
+
 	public int getCount(String type) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
