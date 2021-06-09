@@ -10,4 +10,8 @@ public class Gesichtsbedeckung {
 			this.bezeichnung = bezeichnung;
 			this.bild = bild;
 		}
+		
+		public int getGBID() {
+			return gbid;
+		}
 	}

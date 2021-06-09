@@ -10,4 +10,8 @@ public class Gesichter {
 		this.bezeichnung = bezeichnung;
 		this.bild = bild;
 	}
+	
+	public int getGesichterID() {
+		return gesichterid;
+	}
 }

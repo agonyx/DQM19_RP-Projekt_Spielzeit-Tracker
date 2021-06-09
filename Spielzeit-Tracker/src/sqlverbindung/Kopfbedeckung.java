@@ -10,4 +10,8 @@ public class Kopfbedeckung {
 		this.bezeichnung = bezeichnung;
 		this.bild = bild;
 	}
+	
+	public int getKopfbedeckungsID() {
+		return kopfbedeckungenid;
+	}
 }
