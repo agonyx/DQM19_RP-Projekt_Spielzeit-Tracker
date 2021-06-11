@@ -2,6 +2,9 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.HashMap;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,16 +28,14 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 
-public class Shop extends JPanel {
+public class Shop extends JPanel implements MouseListener {
 	private JPanel panel;
 	private JScrollPane scrollPane;
 	private JPanel panelViewport;
 	private int itemcount = 6;
 	private JPanel panel_1;
-	private JPanel panel_2;
 	private JButton buyButton;
 	private JLabel labelNewLabel;
-	private JTextArea textArea;
 	private Gesichter[] gesichter;
 	private Gesichtsbedeckung[] gesichtsbedeckung;
 	private Kopfbedeckung[] kopfbedeckung;
@@ -42,11 +43,17 @@ public class Shop extends JPanel {
 	private Rahmen[] rahmen;
 	private Koerper[] koerper;
 	private DAOItems ditems;
+	private JLabel labelDescription;
+	private JLabel labelPrice;
+	private HashMap<JLabel, String> label_itembezeichnung;
+	private HashMap<JLabel, Integer> label_preis;
 
 
 	public Shop() {
 		setBackground(UIManager.getColor("Button.disabledShadow"));
 		ditems = new DAOItems();
+		label_itembezeichnung= new HashMap<>();
+		label_preis = new HashMap<>();
 		initComponents();
 		initItems();
 		createItemSections();
@@ -73,21 +80,19 @@ public class Shop extends JPanel {
 				}
 			}
 			{
-				panel_2 = new JPanel();
-				panel_2.setBounds(21, 348, 170, 270);
-				panel.add(panel_2);
-				panel_2.setLayout(null);
-				{
-					textArea = new JTextArea();
-					textArea.setEditable(false);
-					textArea.setBounds(0, 0, 170, 270);
-					panel_2.add(textArea);
-				}
+				buyButton = new JButton("Buy");
+				buyButton.setBounds(10, 667, 181, 23);
+				panel.add(buyButton);
 			}
 			{
-				buyButton = new JButton("Buy");
-				buyButton.setBounds(10, 667, 89, 23);
-				panel.add(buyButton);
+				labelDescription = new JLabel("");
+				labelDescription.setBounds(21, 561, 170, 14);
+				panel.add(labelDescription);
+			}
+			{
+				labelPrice = new JLabel("");
+				labelPrice.setBounds(21, 586, 170, 14);
+				panel.add(labelPrice);
 			}
 		}
 		{
@@ -134,6 +139,7 @@ public class Shop extends JPanel {
 				j[i].setBounds(10 + tabx, taby, 256, 256);
 				j[i].setBorder(new EtchedBorder());
 				l[i] = new JLabel();
+				l[i].addMouseListener(this);
 				j[i].add(l[i]);
 				j[i].setVisible(true);
 				tabx = tabx +332;
@@ -145,8 +151,10 @@ public class Shop extends JPanel {
 				count++;
 				j[i] = new JPanel();
 				j[i].setBounds(10 + tabx, taby, 256, 256);
-				j[i].setBorder(new EtchedBorder());;
+				j[i].setBorder(new EtchedBorder());
+				j[i].addMouseListener(this);
 				l[i] = new JLabel();
+				l[i].addMouseListener(this);
 				j[i].add(l[i]);
 				j[i].setVisible(true);
 				tabx = tabx +332;
@@ -168,6 +176,8 @@ public class Shop extends JPanel {
 				ImageIcon icon = new ImageIcon(gesichterPath);
 				l[i].setIcon(icon);
 				l[i].setToolTipText("Gesicht "+(i+1));
+				l[i].setName("Gesicht-" +gesichter[i].getGesichterID());
+				label_itembezeichnung.put(l[i], gesichter[i].getBezeichnung());
 			}
 			delay = gesichter.length;
 			for(int i = 0; i < gesichtsbedeckung.length; i++) {
@@ -183,7 +193,7 @@ public class Shop extends JPanel {
 				ImageIcon icon = new ImageIcon(gesichtsbedeckungPath);
 				l[i+delay].setIcon(icon);
 				l[i+delay].setToolTipText("Gesichtsbedeckung "+(i+1));
-
+				l[i+delay].setName("Gesichtsbedeckung-"+gesichtsbedeckung[i].getGBID());
 			}
 			delay = delay + gesichtsbedeckung.length;
 			for(int i = 0; i < kopfbedeckung.length; i++) {
@@ -199,6 +209,7 @@ public class Shop extends JPanel {
 				ImageIcon icon = new ImageIcon(kopfbedeckungPath);
 				l[i+delay].setIcon(icon);
 				l[i+delay].setToolTipText("Kopfbedeckung "+(i+1));
+				l[i+delay].setName("Kopfbedeckung-"+kopfbedeckung[i].getKopfbedeckungsID());
 			}
 			delay = delay + kopfbedeckung.length;
 			for(int i = 0; i < oberteil.length; i++) {
@@ -214,7 +225,7 @@ public class Shop extends JPanel {
 				ImageIcon icon = new ImageIcon(oberteilPath);
 				l[i+delay].setIcon(icon);
 				l[i+delay].setToolTipText("Oberteil "+(i+1));
-			}
+				l[i+delay].setName("Oberteil-"+oberteil[i].getOberteilID());}
 			delay = delay + oberteil.length;
 			for(int i = 0; i < rahmen.length; i++) {
 				String rahmenPath = null;
@@ -229,6 +240,8 @@ public class Shop extends JPanel {
 				ImageIcon icon = new ImageIcon(rahmenPath);
 				l[i+delay].setIcon(icon);
 				l[i+delay].setToolTipText("Rahmen "+(i+1));
+				l[i+delay].setName("Rahmen-"+rahmen[i].getRahmenID());
+				
 			}
 			delay = delay + rahmen.length;
 			for(int i = 0; i < koerper.length; i++) {
@@ -244,10 +257,38 @@ public class Shop extends JPanel {
 				ImageIcon icon = new ImageIcon(koerperPath);
 				l[i+delay].setIcon(icon);
 				l[i+delay].setToolTipText("Körper "+(i+1));
+				l[i+delay].setName("Koerper-"+koerper[i].getKoerperID());
+				
 				
 			}
 		panelViewport.setPreferredSize(new Dimension(621, taby+285));
 		panelViewport.revalidate();
 		panelViewport.repaint();
+	}
+	public void mouseClicked(MouseEvent me) {
+		System.out.println("Click recognized");
+		JLabel j  = (JLabel) me.getSource();
+		labelDescription.setText(label_itembezeichnung.get(j));
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

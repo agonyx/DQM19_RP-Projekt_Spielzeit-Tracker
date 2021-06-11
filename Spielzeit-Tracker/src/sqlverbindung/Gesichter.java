@@ -14,4 +14,7 @@ public class Gesichter {
 	public int getGesichterID() {
 		return gesichterid;
 	}
+	public String getBezeichnung() {
+		return bezeichnung;
+	}
 }

@@ -42,6 +42,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private Shop shop;
 	private Adminoberflaeche ao;
 	private Profil p;
+	private JLabel labelNewLabel;
 
 	
 	public Hauptseite(Benutzer bb) {
@@ -86,12 +87,12 @@ public class Hauptseite extends JFrame implements ActionListener {
 
 		avatarGesamt = new JPanel();
 		avatarGesamt.setLayout(null);
-		avatarGesamt.setBounds(10, 11, 270, 291);
+		avatarGesamt.setBounds(10, 0, 270, 291);
 		taskbar.add(avatarGesamt);
 
 		lblGesichtsbedeckung = new JLabel("");
 		lblGesichtsbedeckung.setIcon(new ImageIcon("image/avatare/AVATAR_000.png"));
-		lblGesichtsbedeckung.setBounds(0, 0, 256, 256);
+		lblGesichtsbedeckung.setBounds(7, 33, 256, 256);
 		avatarGesamt.add(lblGesichtsbedeckung);
 
 		lblKopfbedeckung = new JLabel("");
@@ -135,6 +136,10 @@ public class Hauptseite extends JFrame implements ActionListener {
 			buttonAdmin.setBounds(157, 677, 123, 23);
 			taskbar.add(buttonAdmin);
 		}
+		
+		labelNewLabel = new JLabel("New label");
+		labelNewLabel.setBounds(20, 302, 260, 14);
+		taskbar.add(labelNewLabel);
 
 		panel = new JPanel();
 		panel.setBounds(302, 0, 865, 725);
