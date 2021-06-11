@@ -132,8 +132,8 @@ public class Shop extends JPanel implements MouseListener {
 		int count = 0;
 		int delay;
 
-			for(int i = 0; i < j.length; i++) {
-				if(count<2) {
+		for(int i = 0; i < j.length; i++) {
+			if(count<2) {
 				count++;
 				j[i] = new JPanel();
 				j[i].setBounds(10 + tabx, taby, 256, 256);
@@ -144,7 +144,7 @@ public class Shop extends JPanel implements MouseListener {
 				j[i].setVisible(true);
 				tabx = tabx +332;
 				panelViewport.add(j[i]);
-				} else {
+			} else {
 				taby = taby + 285;
 				tabx = 0;
 				count = 0;
@@ -159,108 +159,112 @@ public class Shop extends JPanel implements MouseListener {
 				j[i].setVisible(true);
 				tabx = tabx +332;
 				panelViewport.add(j[i]);
-				}
+			}
 		}
 
-			//Ermittelt anhand der Anzahl der einzelenen Elemente den Pfad der ihnen zugewiesenen Bilder und zeigt sie an.
-			for(int i = 0; i < gesichter.length; i++) {
-				String gesichterPath = null;
-				if(i<10) {
-					gesichterPath = "image/gesichter/GESICHT_00"+i+".png";
-				} else if(i<100) {
-					gesichterPath = "image/gesichter/GESICHT_0"+i+".png";
-				} else if (i>100) {
-					gesichterPath = "image/gesichter/GESICHT_"+i+".png";
-				}
-				//System.out.println(gesichterPath);
-				ImageIcon icon = new ImageIcon(gesichterPath);
-				l[i].setIcon(icon);
-				l[i].setToolTipText("Gesicht "+(i+1));
-				l[i].setName("Gesicht-" +gesichter[i].getGesichterID());
-				label_itembezeichnung.put(l[i], gesichter[i].getBezeichnung());
+		//Ermittelt anhand der Anzahl der einzelenen Elemente den Pfad der ihnen zugewiesenen Bilder und zeigt sie an.
+		for(int i = 0; i < gesichter.length; i++) {
+			String gesichterPath = "image/gesichter/"+gesichter[i].getBild()+".png";
+			ImageIcon icon = new ImageIcon(gesichterPath);
+			l[i].setIcon(icon);
+			l[i].setToolTipText("Gesicht "+(i+1));
+			l[i].setName("Gesicht-" +gesichter[i].getGesichterID());
+			label_itembezeichnung.put(l[i], gesichter[i].getBezeichnung());
+			label_preis.put(l[i], gesichter[i].getPreis());
+		}
+		delay = gesichter.length;
+		for(int i = 0; i < gesichtsbedeckung.length; i++) {
+			String gesichtsbedeckungPath = null;
+			if(i<10) {
+				gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_00"+i+".png";
+			} else if(i<100) {
+				gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_0"+i+".png";
+			} else if (i>100) {
+				gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_"+i+".png";
 			}
-			delay = gesichter.length;
-			for(int i = 0; i < gesichtsbedeckung.length; i++) {
-				String gesichtsbedeckungPath = null;
-				if(i<10) {
-					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_00"+i+".png";
-				} else if(i<100) {
-					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_0"+i+".png";
-				} else if (i>100) {
-					gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_"+i+".png";
-				}
-				//System.out.println(gesichtsbedeckungPath);
-				ImageIcon icon = new ImageIcon(gesichtsbedeckungPath);
-				l[i+delay].setIcon(icon);
-				l[i+delay].setToolTipText("Gesichtsbedeckung "+(i+1));
-				l[i+delay].setName("Gesichtsbedeckung-"+gesichtsbedeckung[i].getGBID());
+			//System.out.println(gesichtsbedeckungPath);
+			ImageIcon icon = new ImageIcon(gesichtsbedeckungPath);
+			l[i+delay].setIcon(icon);
+			l[i+delay].setToolTipText("Gesichtsbedeckung "+(i+1));
+			l[i+delay].setName("Gesichtsbedeckung-"+gesichtsbedeckung[i].getGBID());
+			label_itembezeichnung.put(l[i+delay],gesichtsbedeckung[i].getBezeichnung());
+			label_preis.put(l[i+delay],gesichtsbedeckung[i].getPreis());
+		}
+		delay = delay + gesichtsbedeckung.length;
+		for(int i = 0; i < kopfbedeckung.length; i++) {
+			String kopfbedeckungPath = null;
+			if(i<10) {
+				kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_00"+i+".png";
+			} else if(i<100) {
+				kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_0"+i+".png";
+			} else if (i>100) {
+				kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_"+i+".png";
 			}
-			delay = delay + gesichtsbedeckung.length;
-			for(int i = 0; i < kopfbedeckung.length; i++) {
-				String kopfbedeckungPath = null;
-				if(i<10) {
-					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_00"+i+".png";
-				} else if(i<100) {
-					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_0"+i+".png";
-				} else if (i>100) {
-					kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_"+i+".png";
-				}
-				//System.out.println(kopfbedeckungPath);
-				ImageIcon icon = new ImageIcon(kopfbedeckungPath);
-				l[i+delay].setIcon(icon);
-				l[i+delay].setToolTipText("Kopfbedeckung "+(i+1));
-				l[i+delay].setName("Kopfbedeckung-"+kopfbedeckung[i].getKopfbedeckungsID());
+			//System.out.println(kopfbedeckungPath);
+			ImageIcon icon = new ImageIcon(kopfbedeckungPath);
+			l[i+delay].setIcon(icon);
+			l[i+delay].setToolTipText("Kopfbedeckung "+(i+1));
+			l[i+delay].setName("Kopfbedeckung-"+kopfbedeckung[i].getKopfbedeckungsID());
+			label_itembezeichnung.put(l[i+delay],kopfbedeckung[i].getBezeichnung());
+			label_preis.put(l[i+delay],kopfbedeckung[i].getPreis());
+		}
+		delay = delay + kopfbedeckung.length;
+		for(int i = 0; i < oberteil.length; i++) {
+			String oberteilPath = null;
+			if(i<10) {
+				oberteilPath = "image/oberteil/OBERTEIL_00"+i+".png";
+			} else if(i<100) {
+				oberteilPath = "image/oberteil/OBERTEIL_0"+i+".png";
+			} else if (i>100) {
+				oberteilPath = "image/oberteil/OBERTEIL_"+i+".png";
 			}
-			delay = delay + kopfbedeckung.length;
-			for(int i = 0; i < oberteil.length; i++) {
-				String oberteilPath = null;
-				if(i<10) {
-					oberteilPath = "image/oberteil/OBERTEIL_00"+i+".png";
-				} else if(i<100) {
-					oberteilPath = "image/oberteil/OBERTEIL_0"+i+".png";
-				} else if (i>100) {
-					oberteilPath = "image/oberteil/OBERTEIL_"+i+".png";
-				}
-				//System.out.println(oberteilPath);
-				ImageIcon icon = new ImageIcon(oberteilPath);
-				l[i+delay].setIcon(icon);
-				l[i+delay].setToolTipText("Oberteil "+(i+1));
-				l[i+delay].setName("Oberteil-"+oberteil[i].getOberteilID());}
-			delay = delay + oberteil.length;
-			for(int i = 0; i < rahmen.length; i++) {
-				String rahmenPath = null;
-				if(i<10) {
-					rahmenPath = "image/rahmen/RAHMEN_00"+i+".png";
-				} else if(i<100) {
-					rahmenPath = "image/rahmen/RAHMEN_0"+i+".png";
-				} else if (i>100) {
-					rahmenPath = "image/rahmen/RAHMEN_"+i+".png";
-				}
-				//System.out.println(rahmenPath);
-				ImageIcon icon = new ImageIcon(rahmenPath);
-				l[i+delay].setIcon(icon);
-				l[i+delay].setToolTipText("Rahmen "+(i+1));
-				l[i+delay].setName("Rahmen-"+rahmen[i].getRahmenID());
-				
+			//System.out.println(oberteilPath);
+			ImageIcon icon = new ImageIcon(oberteilPath);
+			l[i+delay].setIcon(icon);
+			l[i+delay].setToolTipText("Oberteil "+(i+1));
+			l[i+delay].setName("Oberteil-"+oberteil[i].getOberteilID());
+			label_itembezeichnung.put(l[i+delay],oberteil[i].getBezeichnung());
+			label_preis.put(l[i+delay],oberteil[i].getPreis());
+		}
+
+		delay = delay + oberteil.length;
+		for(int i = 0; i < rahmen.length; i++) {
+			String rahmenPath = null;
+			if(i<10) {
+				rahmenPath = "image/rahmen/RAHMEN_00"+i+".png";
+			} else if(i<100) {
+				rahmenPath = "image/rahmen/RAHMEN_0"+i+".png";
+			} else if (i>100) {
+				rahmenPath = "image/rahmen/RAHMEN_"+i+".png";
 			}
-			delay = delay + rahmen.length;
-			for(int i = 0; i < koerper.length; i++) {
-				String koerperPath = null;
-				if(i<10) {
-					koerperPath = "image/avatare/AVATAR_00"+i+".png";
-				} else if(i<100) {
-					koerperPath = "image/avatare/AVATAR_0"+i+".png";
-				} else if (i>100) {
-					koerperPath = "image/avatare/AVATAR_"+i+".png";
-				}
-				//System.out.println(koerperPath);
-				ImageIcon icon = new ImageIcon(koerperPath);
-				l[i+delay].setIcon(icon);
-				l[i+delay].setToolTipText("Körper "+(i+1));
-				l[i+delay].setName("Koerper-"+koerper[i].getKoerperID());
-				
-				
+			//System.out.println(rahmenPath);
+			ImageIcon icon = new ImageIcon(rahmenPath);
+			l[i+delay].setIcon(icon);
+			l[i+delay].setToolTipText("Rahmen "+(i+1));
+			l[i+delay].setName("Rahmen-"+rahmen[i].getRahmenID());
+			label_itembezeichnung.put(l[i+delay],rahmen[i].getBezeichnung());
+			label_preis.put(l[i+delay],rahmen[i].getPreis());
+
+		}
+		delay = delay + rahmen.length;
+		for(int i = 0; i < koerper.length; i++) {
+			String koerperPath = null;
+			if(i<10) {
+				koerperPath = "image/avatare/AVATAR_00"+i+".png";
+			} else if(i<100) {
+				koerperPath = "image/avatare/AVATAR_0"+i+".png";
+			} else if (i>100) {
+				koerperPath = "image/avatare/AVATAR_"+i+".png";
 			}
+			//System.out.println(koerperPath);
+			ImageIcon icon = new ImageIcon(koerperPath);
+			l[i+delay].setIcon(icon);
+			l[i+delay].setToolTipText("Körper "+(i+1));
+			l[i+delay].setName("Koerper-"+koerper[i].getKoerperID());
+			label_itembezeichnung.put(l[i+delay],koerper[i].getBezeichnung());
+			label_preis.put(l[i+delay],koerper[i].getPreis());
+
+		}
 		panelViewport.setPreferredSize(new Dimension(621, taby+285));
 		panelViewport.revalidate();
 		panelViewport.repaint();
@@ -268,27 +272,31 @@ public class Shop extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent me) {
 		System.out.println("Click recognized");
 		JLabel j  = (JLabel) me.getSource();
-		labelDescription.setText(label_itembezeichnung.get(j));
+		labelDescription.setText("Bezeichnung: "+label_itembezeichnung.get(j));
+		labelPrice.setText("Preis: "+label_preis.get(j));
+		System.out.println(j.getName());
+		System.out.println(j.getIcon().toString());
 		
+
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

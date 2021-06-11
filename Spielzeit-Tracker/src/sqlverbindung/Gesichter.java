@@ -4,6 +4,7 @@ public class Gesichter {
 	private int gesichterid;
 	private String bezeichnung;
 	private String bild;
+	private int preis;
 	
 	public Gesichter (int gesichterid, String bezeichnung, String bild) {
 		this.gesichterid = gesichterid;
@@ -16,5 +17,13 @@ public class Gesichter {
 	}
 	public String getBezeichnung() {
 		return bezeichnung;
+	}
+
+	public int getPreis() {
+		return preis;
+	}
+
+	public String getBild() {
+		return bild;
 	}
 }
