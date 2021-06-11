@@ -130,11 +130,13 @@ public class Anmeldung extends JFrame implements ActionListener {
 	protected void loginButton_actionPerformed(ActionEvent e) {
 		try {
 			if (textFieldEmailBenutzername.getText().isBlank()||textFieldPasswort.getText().isBlank()) {
-
+				JOptionPane.showMessageDialog(this, "Die leeren Felder müssen gefüllt werden!","Fehler",JOptionPane.ERROR_MESSAGE);
 			} else {
+				//Sucht nach Benutzer mit Attribut in Datenbank
 				Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
 
 				if(ben.getPasswort().equals(textFieldPasswort.getText())) {
+					//checkt ob bereits ein Dokument existiert
 					if(checkBoxNewCheckBox.isSelected()) {
 						if(fm.doesExist("Userdata.txt")) {
 							fm.delete("Userdata.txt");
@@ -142,6 +144,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 						fm.create("Userdata.txt");
 						fm.write("Userdata.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
 					}
+					//Kreiert eine Statistik für den Benutzer falls dieser nicht bereits eine hat
 					if(!ds.doesStatistikForUserExist(ben)) {
 						ds.createStatistikForUser(ben);
 					}
@@ -155,7 +158,6 @@ public class Anmeldung extends JFrame implements ActionListener {
 			}
 			} catch (DB_FehlerException e1) {
 				JOptionPane.showMessageDialog(this, "Falsches Passwort oder Nutzer existiert nicht","Fehler",JOptionPane.ERROR_MESSAGE);
-				e1.printStackTrace();
 			} catch (FileCreationError e2) {
 			} catch (IOException e1) {
 				e1.printStackTrace();
