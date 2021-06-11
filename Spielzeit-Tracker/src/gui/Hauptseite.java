@@ -42,7 +42,6 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private Shop shop;
 	private Adminoberflaeche ao;
 	private Profil p;
-	private long startTime;
 
 	
 	public Hauptseite(Benutzer bb) {
@@ -70,19 +69,8 @@ public class Hauptseite extends JFrame implements ActionListener {
 	}
 
 	private void initGUI() {
-		long startTime = System.currentTimeMillis();
 		setTitle("Spielzeitracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    addWindowListener(new WindowAdapter()
-        {
-            @Override
-            public void windowClosing(WindowEvent e)
-            {
-                long endTime = System.currentTimeMillis();
-                TimeTracking(startTime, endTime, benutzer);
-                e.getWindow().dispose();
-            }
-        });
 		setBounds(100, 100, 1180, 753);
 		setVisible(true);
 		contentPane = new JPanel();
@@ -102,7 +90,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		taskbar.add(avatarGesamt);
 
 		lblGesichtsbedeckung = new JLabel("");
-		lblGesichtsbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/avatare/AVATAR_000.png")));
+		lblGesichtsbedeckung.setIcon(new ImageIcon("image/avatare/AVATAR_000.png"));
 		lblGesichtsbedeckung.setBounds(0, 0, 256, 256);
 		avatarGesamt.add(lblGesichtsbedeckung);
 
@@ -187,29 +175,17 @@ public class Hauptseite extends JFrame implements ActionListener {
 		switchTo(Views.ADMIN);
 	}
 	protected void BtnAbmeldenActionPerformed(ActionEvent e) {
-		long endTime = System.nanoTime();
-        TimeTracking(startTime, endTime, benutzer);
 		Anmeldung a = new Anmeldung();
 		a.setVisible(true);
 		dispose();
 	}
-	//Verrechnet End- und Startzeit der App
-	public void TimeTracking(long startTime , long endTime, Benutzer bb) {
-		long totalTime = endTime - startTime;
-        String AppTime = bb.getAppzeit() + (totalTime/60000);
-        try {
-			d.UpdateAppTime(AppTime);
-		} catch (DB_FehlerException e1) {
-			e1.printStackTrace();
-		}
-	}
 	
 	public void updateAvatarPicture(String koerperbez, String gesichterbez, String gesichtsbedeckungbez, String kopfbedeckungbez, String oberteilbez) {
-		lblAvatar.setIcon(new ImageIcon(Hauptseite.class.getResource("/avatare/" + koerperbez)));
-		lblGesicht.setIcon(new ImageIcon(Hauptseite.class.getResource("/gesichter/" + gesichterbez)));
-		lblGesichtsbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/gesichtsbedeckung/" + gesichtsbedeckungbez)));
-		lblKopfbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/kopfbedeckung/" + kopfbedeckungbez)));
-		lblOberteil.setIcon(new ImageIcon(Hauptseite.class.getResource("/oberteil/" + oberteilbez)));
+		lblAvatar.setIcon(new ImageIcon(Hauptseite.class.getResource("image/avatare/" + koerperbez)));
+		lblGesicht.setIcon(new ImageIcon(Hauptseite.class.getResource("image/gesichter/" + gesichterbez)));
+		lblGesichtsbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("image/gesichtsbedeckung/" + gesichtsbedeckungbez)));
+		lblKopfbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("image/kopfbedeckung/" + kopfbedeckungbez)));
+		lblOberteil.setIcon(new ImageIcon(Hauptseite.class.getResource("image/oberteil/" + oberteilbez)));
 	}
 	
 	protected void BtnProfilActionPerformed(ActionEvent e) {

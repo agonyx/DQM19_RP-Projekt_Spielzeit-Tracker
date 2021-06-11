@@ -129,41 +129,45 @@ public class Anmeldung extends JFrame implements ActionListener {
 
 	protected void loginButton_actionPerformed(ActionEvent e) {
 		try {
-			Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
+			if (textFieldEmailBenutzername.getText().isBlank()||textFieldPasswort.getText().isBlank()) {
 
-			if(ben.getPasswort().equals(textFieldPasswort.getText())) {
-				if(checkBoxNewCheckBox.isSelected()) {
-					if(fm.doesExist("Userdata.txt")) {
-						fm.delete("Userdata.txt");
-					}
-					fm.create("Userdata.txt");
-					fm.write("Userdata.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
-				}
-				if(!ds.doesStatistikForUserExist(ben)) {
-					ds.createStatistikForUser(ben);
-				}
-				System.out.println("[System] Login successfull");
-				Hauptseite hs = new Hauptseite(ben);
-				hs.setBenutzer(ben);
-				dispose();
 			} else {
-				JOptionPane.showMessageDialog(this, "Falsches Passwort","Fehler",JOptionPane.ERROR_MESSAGE);
-			}	
-		} catch (DB_FehlerException e1) {
-			JOptionPane.showMessageDialog(this, "Falsches Passwort oder Nutzer existiert nicht","Fehler",JOptionPane.ERROR_MESSAGE);
-			e1.printStackTrace();
-		} catch (FileCreationError e2) {
-		} catch (IOException e1) {
-			e1.printStackTrace();
+				Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
+
+				if(ben.getPasswort().equals(textFieldPasswort.getText())) {
+					if(checkBoxNewCheckBox.isSelected()) {
+						if(fm.doesExist("Userdata.txt")) {
+							fm.delete("Userdata.txt");
+						}
+						fm.create("Userdata.txt");
+						fm.write("Userdata.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
+					}
+					if(!ds.doesStatistikForUserExist(ben)) {
+						ds.createStatistikForUser(ben);
+					}
+					System.out.println("[System] Login successfull");
+					Hauptseite hs = new Hauptseite(ben);
+					hs.setBenutzer(ben);
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(this, "Falsches Passwort","Fehler",JOptionPane.ERROR_MESSAGE);
+				}	
+			}
+			} catch (DB_FehlerException e1) {
+				JOptionPane.showMessageDialog(this, "Falsches Passwort oder Nutzer existiert nicht","Fehler",JOptionPane.ERROR_MESSAGE);
+				e1.printStackTrace();
+			} catch (FileCreationError e2) {
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		protected void textFieldEmailBenutzername_focusGained(FocusEvent e) {
+			if(textFieldEmailBenutzername.getText().equals("Email / Benutzername")) {
+				textFieldEmailBenutzername.setText("");
+			}
+		}
+		protected void registrierungButton_actionPerformed(ActionEvent e) {
+			Registrierung rg = new Registrierung();
+			dispose();
 		}
 	}
-	protected void textFieldEmailBenutzername_focusGained(FocusEvent e) {
-		if(textFieldEmailBenutzername.getText().equals("Email / Benutzername")) {
-			textFieldEmailBenutzername.setText("");
-		}
-	}
-	protected void registrierungButton_actionPerformed(ActionEvent e) {
-		Registrierung rg = new Registrierung();
-		dispose();
-	}
-}
