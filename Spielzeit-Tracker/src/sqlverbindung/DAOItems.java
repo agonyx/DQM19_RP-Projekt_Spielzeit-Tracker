@@ -27,7 +27,6 @@ public class DAOItems {
 			conn = DriverManager.getConnection(url);
 
 			String sql = "select * from Gesichter";
-			System.out.println(1);
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet rs = statement.executeQuery();
 			int size = getCount("Gesichter");

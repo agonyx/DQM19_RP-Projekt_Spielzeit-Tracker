@@ -9,6 +9,7 @@ import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 public class Statistiken extends JPanel {
 	private JLabel labelSpiel;
@@ -76,13 +77,12 @@ public class Statistiken extends JPanel {
 		initComponents();
 	}
 	private void initComponents() {
-		setBackground(Color.DARK_GRAY);
+		setBackground(UIManager.getColor("Button.background"));
 		setLayout(null);
 		JPanel panel = new JPanel();
 		{
 			panel_2 = new JPanel();
 			panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			panel_2.setBackground(Color.LIGHT_GRAY);
 			panel_2.setBounds(30, 213, 800, 486);
 			add(panel_2);
 			panel_2.setLayout(null);
@@ -333,7 +333,7 @@ public class Statistiken extends JPanel {
 			panel_6 = new JPanel();
 			panel_6.setLayout(null);
 			panel_6.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			panel_6.setBackground(Color.LIGHT_GRAY);
+			panel_6.setBackground(UIManager.getColor("Button.background"));
 			panel_6.setBounds(448, 35, 382, 123);
 			add(panel_6);
 			{
@@ -365,7 +365,7 @@ public class Statistiken extends JPanel {
 			panel_3.setBounds(30, 35, 382, 123);
 			add(panel_3);
 			panel_3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			panel_3.setBackground(Color.LIGHT_GRAY);
+			panel_3.setBackground(UIManager.getColor("Button.background"));
 			panel_3.setLayout(null);
 			{
 				labelMostHours_2 = new JLabel("nummer");
