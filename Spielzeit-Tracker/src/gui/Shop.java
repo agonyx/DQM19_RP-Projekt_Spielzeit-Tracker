@@ -24,12 +24,11 @@ import sqlverbindung.Rahmen;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.JTable;
 import javax.swing.UIManager;
 
 public class Shop extends JPanel implements MouseListener {
+	
 	private JPanel panel;
 	private JScrollPane scrollPane;
 	private JPanel panelViewport;

@@ -118,7 +118,7 @@ public class DAOGetandSet {
 	}
 	
 
-	public void createAvatar(Benutzer b) throws DB_FehlerException {
+	public void createDefaultAvatar(Benutzer b) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
 			String sql = "Insert Into Avatar (BenutzerID, KoerperID) Values ("+b.getID()+",1)";
@@ -363,6 +363,33 @@ public class DAOGetandSet {
 			statement.setInt(4, kopfbedeckung.getKopfbedeckungsID());
 			statement.setInt(5, oberteil.getOberteilID());
 			statement.setInt(6, koerper.getKoerperID());
+			statement.setInt(7, benutzerid);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
+	public void changeAvatar(int benutzerid, int rahmenID, int gesichterID, int gesichtsbedeckungID, int kopfbedeckungID, int oberteilID, int koerperID) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "update Avatar Set RahmenID = ?, GesichterID = ?, GBID = ?, KopfbedeckungenID = ?, OberteilID = ?, AvatarbildID = ? where BenutzerID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, rahmenID);
+			statement.setInt(2, gesichterID);
+			statement.setInt(3, gesichtsbedeckungID);
+			statement.setInt(4, kopfbedeckungID);
+			statement.setInt(5, oberteilID);
+			statement.setInt(6, koerperID);
 			statement.setInt(7, benutzerid);
 			statement.executeUpdate();
 		} catch (SQLException e) {
