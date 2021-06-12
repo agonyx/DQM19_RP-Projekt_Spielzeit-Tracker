@@ -58,6 +58,7 @@ public class Profil extends JPanel {
 				{
 					scrollPane = new JScrollPane();
 					scrollPane.setBounds(250, 10, 600, 680);
+					scrollPane.setBorder(null);
 					add(scrollPane);
 					{
 						panelViewport = new JPanel();
@@ -73,7 +74,7 @@ public class Profil extends JPanel {
 					{
 						JPanel gamePanel = new JPanel();
 						gamePanel.setBorder(new LineBorder(Color.BLUE, 3));
-						gamePanel.setBounds(10, 10 + (i + delay),  580, 50);
+						gamePanel.setBounds(10, 0 + (i + delay),  580, 50);
 						gamePanel.setLayout(null);
 						JLabel gameTitle = new JLabel(games[i].getName());
 						gameTitle.setBounds(10, 5, 300, 40);
