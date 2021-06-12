@@ -402,23 +402,23 @@ public class DAOGetandSet {
 			}
 		}
 	}	
-	public void getAllGames() {
+	public Spiele[] getAllGames() throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
 
 			String sql = "select * from Spiele";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet rs = statement.executeQuery();
-			int size = getCount("Gesichter");
-			Gesichter[] gesicht = new Gesichter[size];
+			int size = getCount("Spiele");
+			Spiele[] spiel = new Spiele[size];
 			int count = 0;
 			while (rs.next()) {
 				if (count < size)
-					gesicht[count] = new Gesichter(rs.getInt("GesichterID"), rs.getString("Bezeichnung"),
-							rs.getString("Bilder"));
+					spiel[count] = new Spiele(rs.getInt("SpielID"), rs.getInt("AppID"),
+							rs.getString("Bezeichnung"));
 				count++;
 			}
-			return gesicht;
+			return spiel;
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
 		} finally {

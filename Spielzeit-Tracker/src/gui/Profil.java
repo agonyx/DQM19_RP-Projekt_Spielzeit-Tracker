@@ -22,18 +22,14 @@ public class Profil extends JPanel {
 	private JLabel labelMitgliedseit;
 	private JLabel labelSpielzeitgesamt;
 	private JLabel labelPunkte;
-	private JLabel labelRang;
 	private JTextField textFieldSpielzeitgesamt;
 	private JTextField textFieldPunkte;
-	private JTextField textFieldRang;
 	private JTextField textFieldMitgliedseit;
 	private JTextField textFieldEMail;
 	private JTextField textFieldName;
 	private Benutzer benutzer;
 	private String[] games = new String[7];
 	public Statistik statistik;
-	private JLabel labelAppZeit;
-	private JTextField textFieldAppZeit;
 	private DAOSelect d = new DAOSelect();;
 	private DAOStatistik ds = new DAOStatistik();
 	private JScrollPane scrollPane;
@@ -69,11 +65,12 @@ public class Profil extends JPanel {
 				}
 				{
 					//Fügt Für jedes Spiel in games ein Game Panel hinzu mit infos zum Spiel.
+					int delay = 60;
 					for(int i = 0; i < games.length; i++)
 					{
 						JPanel gamePanel = new JPanel();
 						gamePanel.setBorder(new LineBorder(Color.BLUE, 3));
-						gamePanel.setBounds(10, 10 + (i + 60),  460, 50);
+						gamePanel.setBounds(0, 0 + (i + delay),  460, 50);
 						gamePanel.setLayout(null);
 						JLabel gameTitle = new JLabel(games[i]);
 						gameTitle.setBounds(10, 5, 300, 40);
@@ -93,6 +90,7 @@ public class Profil extends JPanel {
 						spielzeitTextField.setEditable(false);
 						gamePanel.add(spielzeitTextField);
 						panelViewport.add(gamePanel);
+						delay = delay +60;
 					}
 
 				}
@@ -175,21 +173,7 @@ public class Profil extends JPanel {
 			textFieldName.setColumns(10);
 		}
 
-		// 
-		{
-			labelAppZeit = new JLabel("Zeit in der App:");
-			labelAppZeit.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			labelAppZeit.setBounds(10, 210, 140, 21);
-			add(labelAppZeit);
-		}
-		// 
-		{
-			textFieldAppZeit = new JTextField();
-			textFieldAppZeit.setEditable(false);
-			textFieldAppZeit.setBounds(135, 213, 96, 19);
-			add(textFieldAppZeit);
-			textFieldAppZeit.setColumns(10);
-		}
+	
 	}
 	//Fügt Name und Email des Benutzers in die Text Felder ein.
 	public void addNameUndEmail() {
@@ -232,4 +216,5 @@ public class Profil extends JPanel {
 			e.printStackTrace();
 		}
 	}
+	
 }
