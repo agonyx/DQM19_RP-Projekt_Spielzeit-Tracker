@@ -458,4 +458,74 @@ public class DAOGetandSet {
 			}
 		}
 	}
+	public boolean doesSpielzeitEntryExist(Benutzer b, Spiele spiel) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Spielzeit";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				if(rs.getInt("BenutzerID") == b.getID() && rs.getInt("SpielID") == spiel.getSpielID()){
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
+	public void createSpielzeitEntry(Benutzer b, Spiele spiel) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "Insert Into Spielzeit (BenutzerID, SpielID) Values (?,?)";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, b.getID());
+			statement.setInt(2, spiel.getSpielID());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
+	public void setSpielzeit(Benutzer b, Spiele spiel, double spielzeit) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "Update Spielzeit Set Zeit = ? where BenutzerID = ? and SpielID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sql);
+			statement.setDouble(1, spielzeit);
+			statement.setInt(2, b.getID());
+			statement.setInt(3, spiel.getSpielID());
+			
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
 }

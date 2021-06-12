@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.HashMap;
+
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
@@ -35,6 +37,7 @@ public class Profil extends JPanel {
 	private JScrollPane scrollPane;
 	private JPanel panelViewport;
 	private DAOGetandSet dg;
+	private static HashMap<Integer, Integer> spielzeiten;
 
 	/**
 	 * Create the panel.
@@ -42,6 +45,7 @@ public class Profil extends JPanel {
 	public Profil(Benutzer benutzer) {
 		dg = new DAOGetandSet();
 		this.benutzer = benutzer;
+		spielzeiten = Hauptseite.getSpielzeiten();
 		getStatistik(benutzer);
 		addGames();
 		initGUI();
@@ -79,19 +83,18 @@ public class Profil extends JPanel {
 						JLabel gameTitle = new JLabel(games[i].getName());
 						gameTitle.setBounds(10, 5, 300, 40);
 						gamePanel.add(gameTitle);
-						JLabel spiellabel = new JLabel(games[i].getName());
-						spiellabel.setBounds(250, 5, 50, 20);
-						gamePanel.add(spiellabel);
-						JLabel spielzeitlabel = new JLabel(games[i].getName());
-						spielzeitlabel.setBounds(250, 30, 50, 20);
-						gamePanel.add(spielzeitlabel);
-						JTextField spielTextField = new JTextField();
-						spielTextField.setBounds(400, 5, 50, 20);
-						spielTextField.setEditable(false);
-						gamePanel.add(spielTextField);
+						JLabel labelh= new JLabel("Std");
+						labelh.setBounds(540, 17, 50, 20);
+						gamePanel.add(labelh);
 						JTextField spielzeitTextField = new JTextField();
-						spielzeitTextField.setBounds(400, 30, 50, 20);
+						spielzeitTextField.setBounds(450, 17, 75, 20);
 						spielzeitTextField.setEditable(false);
+						if(spielzeiten.get(games[i].getAppID()) != null) {
+							spielzeitTextField.setText(String.valueOf(minutesToHours(spielzeiten.get(games[i].getAppID()))));
+						} else {
+							spielzeitTextField.setText("N/A");
+						}
+						
 						gamePanel.add(spielzeitTextField);
 						panelViewport.add(gamePanel);
 						delay = delay +60;
@@ -214,6 +217,9 @@ public class Profil extends JPanel {
 	}
 	private void addMitgliedDatum() {
 		textFieldMitgliedseit.setText(statistik.getDate());
+	}
+	private int minutesToHours(int integer) {
+		return (integer/60);
 	}
 	
 }

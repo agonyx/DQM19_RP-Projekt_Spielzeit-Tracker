@@ -13,5 +13,10 @@ public class Spielzeit {
 		this.spieleid = spieleid;
 		this.spielzeit = spielzeit;
 	}
+	public Spielzeit (int benutzerid, int spieleid, double spielzeit) {
+		this.benutzerid = benutzerid;
+		this.spieleid = spieleid;
+		this.spielzeit = spielzeit;
+	}
 
 }
