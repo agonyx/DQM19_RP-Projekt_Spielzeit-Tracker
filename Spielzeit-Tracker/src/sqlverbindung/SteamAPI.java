@@ -29,9 +29,9 @@ public class SteamAPI {
 		HashMap<Integer, Integer> hashmap = new HashMap<>();
 		hashmap = getPlaytimeForGamesIfOwned(steamid,appids);
 		int spielzeit = 0;
-		for(int i = 0 ; i<hashmap.size(); i++) {
+		for(int i = 0 ; i<appids.length; i++) {
 			if (hashmap.get(appids[i]) != null) {
-				spielzeit = hashmap.get(appids[i]);
+				spielzeit += hashmap.get(appids[i]);
 			}
 		}
 		return spielzeit;

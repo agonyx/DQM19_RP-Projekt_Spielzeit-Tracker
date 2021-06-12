@@ -27,14 +27,13 @@ public class ThreadAnmeldung extends Thread{
 		}
 		try {
 			Spiele[] games = d.getAllGames();
-			for(int i = 0; i < games.length; i++) {
+			for(int i = 1; i < games.length; i++) {
 				if (!d.doesSpielzeitEntryExist(ben, games[i])) {
-					System.out.println("kommt rein");
 					d.createSpielzeitEntry(ben, games[i]);
 				}
 			}
 		} catch (DB_FehlerException e) {
-			System.out.println("[System Error] Spielzeit Einträge existieren bereits");
+			e.printStackTrace();
 		}
 
 	}

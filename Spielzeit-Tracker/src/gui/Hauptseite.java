@@ -3,6 +3,7 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import sqlverbindung.Avatar;
 import sqlverbindung.Benutzer;
 import sqlverbindung.DAOGetandSet;
 import sqlverbindung.DAOSelect;
+import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Spiele;
 import sqlverbindung.Spielzeit;
@@ -53,6 +55,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private Statistiken statistiken;
 	private Shop shop;
 	private Adminoberflaeche ao;
+	private DAOStatistik ds = new DAOStatistik();
 	private Profil p;
 	private JLabel labelPunkte;
 	private static Avatar avatar;
@@ -256,6 +259,10 @@ public class Hauptseite extends JFrame implements ActionListener {
 			if (d.doesSpielzeitEntryExist(bb, games[i]) && spielzeiten.get(games[i].getAppID()) != null) {
 				d.setSpielzeit(bb, games[i], minutesToHours((int)spielzeiten.get(games[i].getAppID())));
 			}
+		}
+		for(int i = 0; i < games.length; i++) {
+			ds.setTotalPlaytime(bb, minutesToHours(totalPlaytime));
+		
 		}
 	}
 	public static HashMap<Integer, Integer> getSpielzeiten() {

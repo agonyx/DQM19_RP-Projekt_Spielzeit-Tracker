@@ -461,15 +461,11 @@ public class DAOGetandSet {
 	public boolean doesSpielzeitEntryExist(Benutzer b, Spiele spiel) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "select * from Spielzeit";
+			String sql = "select * from Spielzeit where BenutzerID = "+b.getID() +" and "+ "SpielID = " +spiel.getSpielID();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
-				if(rs.getInt("BenutzerID") == b.getID() && rs.getInt("SpielID") == spiel.getSpielID()){
-					return true;
-				} else {
-					return false;
-				}
+				return true;
 			} else {
 				return false;
 			}
