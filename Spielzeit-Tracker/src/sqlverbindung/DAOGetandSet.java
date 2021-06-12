@@ -510,7 +510,7 @@ public class DAOGetandSet {
 			statement.setDouble(1, spielzeit);
 			statement.setInt(2, b.getID());
 			statement.setInt(3, spiel.getSpielID());
-			
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
 		} finally {

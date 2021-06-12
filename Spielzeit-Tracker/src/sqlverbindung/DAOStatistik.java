@@ -107,7 +107,7 @@ public class DAOStatistik {
 		LocalDateTime now = LocalDateTime.now();  
 		return dtf.format(now);  
 	}
-	public void setTotalPlaytime(Benutzer b, int time) throws DB_FehlerException {
+	public void setTotalPlaytime(Benutzer b, double time) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
 			String sql = "Update Statistik Set Gesamtspielzeit = ? where BenutzerID = ?";

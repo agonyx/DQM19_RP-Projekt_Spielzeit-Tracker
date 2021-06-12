@@ -106,10 +106,9 @@ public class Hauptseite extends JFrame implements ActionListener {
 	public static Avatar getAvatar() { 
 		return avatar;
 	}
-	private int minutesToHours(int integer) {
-		return (integer/60);
+	private double minutesToHours(int doouble) {
+		return (doouble/60);
 	}
-
 	private void initGUI() {
 		setTitle("Spielzeitracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -256,8 +255,8 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private void setPlaytimeDB(Benutzer bb) throws DB_FehlerException {
 		Spiele[] games = d.getAllGames();
 		for(int i = 0; i < games.length; i++) {
-			if (d.doesSpielzeitEntryExist(bb, games[i]) && spielzeiten.get(games[i].getAppID()) != null) {
-				d.setSpielzeit(bb, games[i], minutesToHours((int)spielzeiten.get(games[i].getAppID())));
+			if (spielzeiten.get(games[i].getAppID()) != null) {
+				d.setSpielzeit(bb, games[i], minutesToHours(spielzeiten.get(games[i].getAppID())));
 			}
 		}
 		for(int i = 0; i < games.length; i++) {
