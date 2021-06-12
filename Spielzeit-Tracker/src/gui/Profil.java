@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import sqlverbindung.Benutzer;
+import sqlverbindung.DAOGetandSet;
 import sqlverbindung.DAOSelect;
 import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
@@ -28,17 +29,18 @@ public class Profil extends JPanel {
 	private JTextField textFieldEMail;
 	private JTextField textFieldName;
 	private Benutzer benutzer;
-	private String[] games = new String[7];
+	private Spiele[] games;
 	public Statistik statistik;
-	private DAOSelect d = new DAOSelect();;
 	private DAOStatistik ds = new DAOStatistik();
 	private JScrollPane scrollPane;
 	private JPanel panelViewport;
+	private DAOGetandSet dg;
 
 	/**
 	 * Create the panel.
 	 */
 	public Profil(Benutzer benutzer) {
+		dg = new DAOGetandSet();
 		this.benutzer = benutzer;
 		getStatistik(benutzer);
 		addGames();
@@ -72,14 +74,14 @@ public class Profil extends JPanel {
 						gamePanel.setBorder(new LineBorder(Color.BLUE, 3));
 						gamePanel.setBounds(0, 0 + (i + delay),  460, 50);
 						gamePanel.setLayout(null);
-						JLabel gameTitle = new JLabel(games[i]);
+						JLabel gameTitle = new JLabel(games[i].getName());
 						gameTitle.setBounds(10, 5, 300, 40);
 						gamePanel.add(gameTitle);
-						JLabel spiellabel = new JLabel(games[i]);
-						spiellabel.setBounds(350, 5, 50, 20);
+						JLabel spiellabel = new JLabel(games[i].getName());
+						spiellabel.setBounds(250, 5, 50, 20);
 						gamePanel.add(spiellabel);
-						JLabel spielzeitlabel = new JLabel(games[i]);
-						spielzeitlabel.setBounds(350, 30, 50, 20);
+						JLabel spielzeitlabel = new JLabel(games[i].getName());
+						spielzeitlabel.setBounds(250, 30, 50, 20);
 						gamePanel.add(spielzeitlabel);
 						JTextField spielTextField = new JTextField();
 						spielTextField.setBounds(400, 5, 50, 20);
@@ -191,19 +193,11 @@ public class Profil extends JPanel {
 
 	//Fügt Spiele zum games Array hinzu.
 	public void addGames() {
-
-		Spiele s;
-		for(int i = 2; i <=8; i++)
-		{
-
-			try {
-				s = d.selectSpiele(i);
-				games[i-2] = s.getName();
-			} catch (DB_FehlerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		try {
+			games = dg.getAllGames();
+		} catch (DB_FehlerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}

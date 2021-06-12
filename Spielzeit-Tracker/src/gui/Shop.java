@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
-import sqlverbindung.DAOItems;
+import sqlverbindung.DAOGetandSet;
 import sqlverbindung.DAOSelect;
 import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Gesichter;
@@ -41,7 +41,7 @@ public class Shop extends JPanel implements MouseListener {
 	private Oberteil[] oberteil;
 	private Rahmen[] rahmen;
 	private Koerper[] koerper;
-	private DAOItems ditems;
+	private DAOGetandSet ditems;
 	private DAOSelect ds;
 	private JLabel labelDescription;
 	private JLabel labelPrice;
@@ -51,7 +51,7 @@ public class Shop extends JPanel implements MouseListener {
 
 	public Shop() {
 		setBackground(UIManager.getColor("Button.disabledShadow"));
-		ditems = new DAOItems();
+		ditems = new DAOGetandSet();
 		ds = new DAOSelect();
 		label_itembezeichnung= new HashMap<>();
 		label_preis = new HashMap<>();
