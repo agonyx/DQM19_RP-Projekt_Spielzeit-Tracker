@@ -45,7 +45,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private Shop shop;
 	private Adminoberflaeche ao;
 	private Profil p;
-	private JLabel labelNewLabel;
+	private JLabel labelPunkte;
 	private static Avatar avatar;
 
 	
@@ -145,20 +145,25 @@ public class Hauptseite extends JFrame implements ActionListener {
 		btnStatistiken.setBounds(10, 446, 270, 66);
 		taskbar.add(btnStatistiken);
 
+		if(benutzer.isAdmin()) {
 		btnAbmelden = new JButton("Abmelden");
 		btnAbmelden.addActionListener(this);
 		btnAbmelden.setBounds(10, 677, 137, 23);
 		taskbar.add(btnAbmelden);
-		{
-			buttonAdmin = new JButton("Admin");
-			buttonAdmin.addActionListener(this);
-			buttonAdmin.setBounds(157, 677, 123, 23);
-			taskbar.add(buttonAdmin);
-		}
 		
-		labelNewLabel = new JLabel("New label");
-		labelNewLabel.setBounds(20, 302, 260, 14);
-		taskbar.add(labelNewLabel);
+		buttonAdmin = new JButton("Admin");
+		buttonAdmin.addActionListener(this);
+		buttonAdmin.setBounds(157, 677, 123, 23);
+		taskbar.add(buttonAdmin);
+		} else {
+			btnAbmelden = new JButton("Abmelden");
+			btnAbmelden.addActionListener(this);
+			btnAbmelden.setBounds(10, 677, 270, 23);
+			taskbar.add(btnAbmelden);
+		}
+		labelPunkte = new JLabel("Punkte: ");
+		labelPunkte.setBounds(20, 302, 260, 14);
+		taskbar.add(labelPunkte);
 
 		panel = new JPanel();
 		panel.setBounds(302, 0, 865, 725);

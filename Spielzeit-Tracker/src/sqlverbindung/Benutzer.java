@@ -53,8 +53,11 @@ public class Benutzer {
 	public String getEmail() {
 		return email;
 	}
-	public int getAdmin() {
-		return admin;
+	public boolean isAdmin() {
+		if(admin == 1) {
+			return true;
+		}
+		return false;
 	}
 	public int getPunkte() {
 		return punkte;
