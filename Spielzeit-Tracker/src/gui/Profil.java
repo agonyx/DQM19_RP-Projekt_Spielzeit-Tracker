@@ -57,6 +57,7 @@ public class Profil extends JPanel {
 		{
 			//Erstellt ein scroll Panel.
 			scrollPane = new JScrollPane();
+			scrollPane.setBounds(250, 10, 600, 680);
 			add(scrollPane);
 			{
 				//Fügt die oberfläche des Scroll Panels hinzu.
@@ -130,13 +131,7 @@ public class Profil extends JPanel {
 			labelPunkte.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			add(labelPunkte);
 		}
-		//Zeigt "Rang:" vor dem Rang Textfeld an.
-		{
-			labelRang = new JLabel("Rang:");
-			labelRang.setBounds(10, 210, 100, 21);
-			labelRang.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			add(labelRang);
-		}
+		
 		//Textfeld für die Gesamte Spielzeit
 		{
 			textFieldSpielzeitgesamt = new JTextField();
@@ -152,14 +147,6 @@ public class Profil extends JPanel {
 			textFieldPunkte.setEditable(false);
 			add(textFieldPunkte);
 			textFieldPunkte.setColumns(10);
-		}
-		//Textfeld für den Rang
-		{
-			textFieldRang = new JTextField();
-			textFieldRang.setBounds(135, 213, 96, 19);
-			textFieldRang.setEditable(false);
-			add(textFieldRang);
-			textFieldRang.setColumns(10);
 		}
 		//Textfeld für das beitritts Datum
 		{
@@ -189,14 +176,14 @@ public class Profil extends JPanel {
 		{
 			labelAppZeit = new JLabel("Zeit in der App:");
 			labelAppZeit.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			labelAppZeit.setBounds(10, 250, 140, 21);
+			labelAppZeit.setBounds(10, 210, 140, 21);
 			add(labelAppZeit);
 		}
 		// 
 		{
 			textFieldAppZeit = new JTextField();
 			textFieldAppZeit.setEditable(false);
-			textFieldAppZeit.setBounds(135, 253, 96, 19);
+			textFieldAppZeit.setBounds(135, 213, 96, 19);
 			add(textFieldAppZeit);
 			textFieldAppZeit.setColumns(10);
 		}
