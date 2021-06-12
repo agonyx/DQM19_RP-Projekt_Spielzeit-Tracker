@@ -7,7 +7,8 @@ import javax.swing.border.EmptyBorder;
 import io.FileCreationError;
 import io.FileManager;
 import sqlverbindung.Benutzer;
-import sqlverbindung.DAO;
+import sqlverbindung.DAOGetandSet;
+import sqlverbindung.DAOSelect;
 import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
 
@@ -32,7 +33,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 	private JButton exitButton;
 	private JButton loginButton;
 	private JCheckBox checkBoxNewCheckBox;
-	private DAO d;
+	private DAOGetandSet d;
 	private DAOStatistik ds;
 	private FileManager fm;
 	private JPasswordField textFieldPasswort;
@@ -55,7 +56,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 		this.repaint();
 	}
 	private void initComponents() {
-		d = new DAO();
+		d = new DAOGetandSet();
 		ds = new DAOStatistik();
 		fm = new FileManager();
 		setVisible(true);

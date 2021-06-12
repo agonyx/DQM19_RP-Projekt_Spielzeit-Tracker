@@ -12,6 +12,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import sqlverbindung.DAOItems;
+import sqlverbindung.DAOSelect;
 import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Gesichter;
 import sqlverbindung.Gesichtsbedeckung;
@@ -33,7 +34,6 @@ public class Shop extends JPanel implements MouseListener {
 	private JScrollPane scrollPane;
 	private JPanel panelViewport;
 	private int itemcount = 6;
-	private JPanel panel_1;
 	private JButton buyButton;
 	private Gesichter[] gesichter;
 	private Gesichtsbedeckung[] gesichtsbedeckung;
@@ -42,22 +42,22 @@ public class Shop extends JPanel implements MouseListener {
 	private Rahmen[] rahmen;
 	private Koerper[] koerper;
 	private DAOItems ditems;
+	private DAOSelect ds;
 	private JLabel labelDescription;
 	private JLabel labelPrice;
 	private HashMap<JLabel, String> label_itembezeichnung;
 	private HashMap<JLabel, Integer> label_preis;
-	private JLabel labelKoerper;
 
 
 	public Shop() {
 		setBackground(UIManager.getColor("Button.disabledShadow"));
 		ditems = new DAOItems();
+		ds = new DAOSelect();
 		label_itembezeichnung= new HashMap<>();
 		label_preis = new HashMap<>();
 		initComponents();
 		initItems();
 		createItemSections();
-		initCurrentAvatar();
 	}
 	private void initComponents() {
 		setLayout(null);
@@ -68,18 +68,6 @@ public class Shop extends JPanel implements MouseListener {
 			panel.setBounds(10, 11, 215, 701);
 			add(panel);
 			panel.setLayout(null);
-			{
-				panel_1 = new JPanel();
-				panel_1.setBackground(Color.WHITE);
-				panel_1.setBounds(21, 11, 170, 270);
-				panel.add(panel_1);
-				panel_1.setLayout(null);
-				{
-					labelKoerper = new JLabel("New label");
-					labelKoerper.setBounds(60, 256, 46, 14);
-					panel_1.add(labelKoerper);
-				}
-			}
 			{
 				buyButton = new JButton("Buy");
 				buyButton.setBounds(10, 667, 181, 23);
@@ -110,10 +98,7 @@ public class Shop extends JPanel implements MouseListener {
 		}
 
 	}
-	private void initCurrentAvatar() {
-		ImageIcon koerpericon = new ImageIcon("image/avatare/"+Hauptseite.getAvatar().getKoerperid() +".png");
-		System.out.println(koerpericon.getDescription());
-		labelKoerper.setIcon(koerpericon);
+	private void init() {
 	}
 	private void initItems() {
 		try {

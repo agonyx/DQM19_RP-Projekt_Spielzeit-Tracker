@@ -11,7 +11,8 @@ import javax.swing.JButton;
 
 import sqlverbindung.Avatar;
 import sqlverbindung.Benutzer;
-import sqlverbindung.DAO;
+import sqlverbindung.DAOGetandSet;
+import sqlverbindung.DAOSelect;
 import sqlverbindung.DB_FehlerException;
 
 import java.awt.Color;
@@ -39,7 +40,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private HashMap<Views,JPanel> panels;
 	private JButton buttonAdmin;
 	private static Benutzer benutzer;
-	private DAO d = new DAO();
+	private DAOGetandSet d = new DAOGetandSet();
 	private Statistiken statistiken;
 	private Shop shop;
 	private Adminoberflaeche ao;
@@ -62,6 +63,9 @@ public class Hauptseite extends JFrame implements ActionListener {
 		}
 		panels = new HashMap();
 		initGUI();
+		statistiken = new Statistiken();
+		panels.put(Views.STATISTIKEN, statistiken);
+		switchTo(Views.STATISTIKEN);
 		
 	}
 	//Panel wechseln

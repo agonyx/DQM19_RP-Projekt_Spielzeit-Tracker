@@ -14,7 +14,8 @@ import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 
 import sqlverbindung.Benutzer;
-import sqlverbindung.DAO;
+import sqlverbindung.DAOGetandSet;
+import sqlverbindung.DAOSelect;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -143,7 +144,7 @@ public class Registrierung extends JFrame implements ActionListener {
 	
 	protected void do_buttonRegistrierung_actionPerformed(ActionEvent argo) {
 		try {
-			DAO d = new DAO();
+			DAOGetandSet d = new DAOGetandSet();
 			String falsche = "Flasche eingabe.";
 			Pattern p = Pattern.compile("@");
 			Matcher m = p.matcher(textFieldEmail.getText());
@@ -153,7 +154,7 @@ public class Registrierung extends JFrame implements ActionListener {
 					if(d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email") == false)
 					{
 						if(d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID") == false) {
-							Benutzer b = new Benutzer(textFieldBenutzername.getText(), textFieldPasswort.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), null, 0, 0);
+							Benutzer b = new Benutzer(textFieldBenutzername.getText(), textFieldPasswort.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), 0, 0);
 							d.insertBenutzer(b);
 							d.createAvatar(b);
 							Anmeldung a = new Anmeldung();

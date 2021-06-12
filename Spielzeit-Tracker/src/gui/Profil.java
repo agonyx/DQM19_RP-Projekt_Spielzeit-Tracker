@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import sqlverbindung.Benutzer;
-import sqlverbindung.DAO;
+import sqlverbindung.DAOSelect;
 import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Spiele;
@@ -36,7 +36,7 @@ public class Profil extends JPanel {
 	public Statistik statistik;
 	private JLabel labelAppZeit;
 	private JTextField textFieldAppZeit;
-	private DAO d = new DAO();;
+	private DAOSelect d = new DAOSelect();;
 	private DAOStatistik ds = new DAOStatistik();
 
 	/**
@@ -50,7 +50,6 @@ public class Profil extends JPanel {
 		addNameUndEmail();
 		addPunkte();
 		addGesamtSpielzeit();
-		addAppZeit();
 	}
 	private void initGUI() {
 		setLayout(null);
@@ -186,20 +185,6 @@ public class Profil extends JPanel {
 			textFieldName.setColumns(10);
 		}
 		// 
-		{
-			labelAppZeit = new JLabel("Zeit in der App:");
-			labelAppZeit.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			labelAppZeit.setBounds(10, 250, 140, 21);
-			add(labelAppZeit);
-		}
-		// 
-		{
-			textFieldAppZeit = new JTextField();
-			textFieldAppZeit.setEditable(false);
-			textFieldAppZeit.setBounds(135, 253, 96, 19);
-			add(textFieldAppZeit);
-			textFieldAppZeit.setColumns(10);
-		}
 	}
 	//Fügt Name und Email des Benutzers in die Text Felder ein.
 	public void addNameUndEmail() {
@@ -234,9 +219,6 @@ public class Profil extends JPanel {
 		
 	}
 	//Fügt die Zeit die der Benutzer bisher in dieser App verbracht hat in das Text Felder ein.
-	public void addAppZeit() {
-		textFieldAppZeit.setText(benutzer.getAppzeit());
-	}
 	private void getStatistik(Benutzer b) {
 		try {
 			this.statistik = ds.selectStatistikforUser(b);
