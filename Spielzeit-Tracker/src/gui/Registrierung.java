@@ -154,11 +154,17 @@ public class Registrierung extends JFrame implements ActionListener {
 			do_buttonNewButton_actionPerformed(e);
 		}
 	}
+	// Öffnet Anmeldung und schließt diese Fenster.
 	protected void do_buttonNewButton_actionPerformed(ActionEvent e) {
 		Anmeldung a = new Anmeldung();
 		dispose();
 	}
-
+	
+	/*
+	 * Prüft ob die Felder leer sind, bereits in der Datenbank existieren und ob die Passwort Felder überein stimmen. 
+	 * Gibt eine Fehler Meldung aus, sollte etwas nicht stimmen.
+	 * Wenn alles richtig sein, wird der Benutzer angelegt, die Anmeldung geöffnet und dieses Fenster geschlossen. 
+	 */
 	protected void do_buttonRegistrierung_actionPerformed(ActionEvent argo) {
 		try {
 			DAO d = new DAO();
