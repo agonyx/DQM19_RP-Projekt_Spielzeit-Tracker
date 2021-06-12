@@ -48,6 +48,7 @@ public class Profil extends JPanel {
 		addNameUndEmail();
 		addPunkte();
 		addGesamtSpielzeit();
+		addMitgliedDatum();
 	}
 	private void initGUI() {
 		setBounds(30, 213, 865, 725);
@@ -67,12 +68,12 @@ public class Profil extends JPanel {
 				}
 				{
 					//Fügt Für jedes Spiel in games ein Game Panel hinzu mit infos zum Spiel.
-					int delay = 60;
+					int delay = 0;
 					for(int i = 0; i < games.length; i++)
 					{
 						JPanel gamePanel = new JPanel();
 						gamePanel.setBorder(new LineBorder(Color.BLUE, 3));
-						gamePanel.setBounds(0, 0 + (i + delay),  460, 50);
+						gamePanel.setBounds(10, 10 + (i + delay),  580, 50);
 						gamePanel.setLayout(null);
 						JLabel gameTitle = new JLabel(games[i].getName());
 						gameTitle.setBounds(10, 5, 300, 40);
@@ -178,21 +179,21 @@ public class Profil extends JPanel {
 	
 	}
 	//Fügt Name und Email des Benutzers in die Text Felder ein.
-	public void addNameUndEmail() {
+	private void addNameUndEmail() {
 		textFieldName.setText(benutzer.getUsername());
 		textFieldEMail.setText(benutzer.getEmail());
 	}
 	//Fügt Punkte des Benutzers in das Text Feld ein.
-	public void addPunkte() {
+	private void addPunkte() {
 		textFieldPunkte.setText(Integer.toString(benutzer.getPunkte()));
 	}
 
-	public void addGesamtSpielzeit() {
+	private void addGesamtSpielzeit() {
 		textFieldSpielzeitgesamt.setText(Double.toString(statistik.getGesamtzeit()));
 	}
 
 	//Fügt Spiele zum games Array hinzu.
-	public void addGames() {
+	private void addGames() {
 		try {
 			games = dg.getAllGames();
 		} catch (DB_FehlerException e) {
@@ -209,6 +210,9 @@ public class Profil extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	private void addMitgliedDatum() {
+		textFieldMitgliedseit.setText(statistik.getDate());
 	}
 	
 }
