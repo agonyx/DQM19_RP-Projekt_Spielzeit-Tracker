@@ -1,12 +1,9 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -16,10 +13,8 @@ import javax.swing.border.TitledBorder;
 
 import sqlverbindung.Benutzer;
 import sqlverbindung.DAOGetandSet;
-import sqlverbindung.DAOSelect;
 
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
@@ -165,8 +160,9 @@ public class Registrierung extends JFrame implements ActionListener {
 						{
 							if(d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID") == false) {
 								if(d.getIfBenutzerWithAttributeExistWahr(textFieldBenutzername.getText(), "Username") == false) {
-									Benutzer b = new Benutzer(textFieldBenutzername.getText(), passwortField.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), null, 0, 0);
+									Benutzer b = new Benutzer(textFieldBenutzername.getText(), passwortField.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), 0, 0);
 									d.insertBenutzer(b);
+									d.createAvatar(b);
 									Anmeldung a = new Anmeldung();
 									dispose();
 								} else {
