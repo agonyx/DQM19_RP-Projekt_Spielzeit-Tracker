@@ -165,7 +165,7 @@ public class Registrierung extends JFrame implements ActionListener {
 						{
 							if(d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID") == false) {
 								if(d.getIfBenutzerWithAttributeExistWahr(textFieldBenutzername.getText(), "Username") == false) {
-									Benutzer b = new Benutzer(textFieldBenutzername.getText(), passwortField.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), null, 0, 0);
+									Benutzer b = new Benutzer(textFieldBenutzername.getText(), passwortField.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), 0, 0);
 									d.insertBenutzer(b);
 									Anmeldung a = new Anmeldung();
 									dispose();
