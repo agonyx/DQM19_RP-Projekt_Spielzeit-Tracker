@@ -35,7 +35,6 @@ public class Shop extends JPanel implements MouseListener {
 	private int itemcount = 6;
 	private JPanel panel_1;
 	private JButton buyButton;
-	private JLabel labelNewLabel;
 	private Gesichter[] gesichter;
 	private Gesichtsbedeckung[] gesichtsbedeckung;
 	private Kopfbedeckung[] kopfbedeckung;
@@ -47,6 +46,7 @@ public class Shop extends JPanel implements MouseListener {
 	private JLabel labelPrice;
 	private HashMap<JLabel, String> label_itembezeichnung;
 	private HashMap<JLabel, Integer> label_preis;
+	private JLabel labelKoerper;
 
 
 	public Shop() {
@@ -57,6 +57,7 @@ public class Shop extends JPanel implements MouseListener {
 		initComponents();
 		initItems();
 		createItemSections();
+		initCurrentAvatar();
 	}
 	private void initComponents() {
 		setLayout(null);
@@ -74,9 +75,9 @@ public class Shop extends JPanel implements MouseListener {
 				panel.add(panel_1);
 				panel_1.setLayout(null);
 				{
-					labelNewLabel = new JLabel("AVATAR");
-					labelNewLabel.setBounds(10, 11, 80, 14);
-					panel_1.add(labelNewLabel);
+					labelKoerper = new JLabel("New label");
+					labelKoerper.setBounds(60, 256, 46, 14);
+					panel_1.add(labelKoerper);
 				}
 			}
 			{
@@ -109,6 +110,11 @@ public class Shop extends JPanel implements MouseListener {
 		}
 
 	}
+	private void initCurrentAvatar() {
+		ImageIcon koerpericon = new ImageIcon("image/avatare/"+Hauptseite.getAvatar().getKoerperid() +".png");
+		System.out.println(koerpericon.getDescription());
+		labelKoerper.setIcon(koerpericon);
+	}
 	private void initItems() {
 		try {
 			gesichter = ditems.getAllGesichter();
@@ -132,6 +138,7 @@ public class Shop extends JPanel implements MouseListener {
 		int count = 0;
 		int delay;
 
+		//JPanel und Label werden generiert
 		for(int i = 0; i < j.length; i++) {
 			if(count<2) {
 				count++;
@@ -152,7 +159,6 @@ public class Shop extends JPanel implements MouseListener {
 				j[i] = new JPanel();
 				j[i].setBounds(10 + tabx, taby, 256, 256);
 				j[i].setBorder(new EtchedBorder());
-				j[i].addMouseListener(this);
 				l[i] = new JLabel();
 				l[i].addMouseListener(this);
 				j[i].add(l[i]);
@@ -174,15 +180,7 @@ public class Shop extends JPanel implements MouseListener {
 		}
 		delay = gesichter.length;
 		for(int i = 0; i < gesichtsbedeckung.length; i++) {
-			String gesichtsbedeckungPath = null;
-			if(i<10) {
-				gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_00"+i+".png";
-			} else if(i<100) {
-				gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_0"+i+".png";
-			} else if (i>100) {
-				gesichtsbedeckungPath = "image/gesichtsbedeckung/GESICHTSBEDECKUNG_"+i+".png";
-			}
-			//System.out.println(gesichtsbedeckungPath);
+			String gesichtsbedeckungPath = "image/gesichtsbedeckung/"+gesichtsbedeckung[i].getBild() +".png";
 			ImageIcon icon = new ImageIcon(gesichtsbedeckungPath);
 			l[i+delay].setIcon(icon);
 			l[i+delay].setToolTipText("Gesichtsbedeckung "+(i+1));
@@ -192,15 +190,7 @@ public class Shop extends JPanel implements MouseListener {
 		}
 		delay = delay + gesichtsbedeckung.length;
 		for(int i = 0; i < kopfbedeckung.length; i++) {
-			String kopfbedeckungPath = null;
-			if(i<10) {
-				kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_00"+i+".png";
-			} else if(i<100) {
-				kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_0"+i+".png";
-			} else if (i>100) {
-				kopfbedeckungPath = "image/kopfbedeckung/KOPFBEDECKUNG_"+i+".png";
-			}
-			//System.out.println(kopfbedeckungPath);
+			String kopfbedeckungPath = "image/kopfbedeckung/"+kopfbedeckung[i].getBild()+".png";
 			ImageIcon icon = new ImageIcon(kopfbedeckungPath);
 			l[i+delay].setIcon(icon);
 			l[i+delay].setToolTipText("Kopfbedeckung "+(i+1));
@@ -210,15 +200,7 @@ public class Shop extends JPanel implements MouseListener {
 		}
 		delay = delay + kopfbedeckung.length;
 		for(int i = 0; i < oberteil.length; i++) {
-			String oberteilPath = null;
-			if(i<10) {
-				oberteilPath = "image/oberteil/OBERTEIL_00"+i+".png";
-			} else if(i<100) {
-				oberteilPath = "image/oberteil/OBERTEIL_0"+i+".png";
-			} else if (i>100) {
-				oberteilPath = "image/oberteil/OBERTEIL_"+i+".png";
-			}
-			//System.out.println(oberteilPath);
+			String oberteilPath = "image/oberteil/"+oberteil[i].getBild()+".png";
 			ImageIcon icon = new ImageIcon(oberteilPath);
 			l[i+delay].setIcon(icon);
 			l[i+delay].setToolTipText("Oberteil "+(i+1));
@@ -229,53 +211,33 @@ public class Shop extends JPanel implements MouseListener {
 
 		delay = delay + oberteil.length;
 		for(int i = 0; i < rahmen.length; i++) {
-			String rahmenPath = null;
-			if(i<10) {
-				rahmenPath = "image/rahmen/RAHMEN_00"+i+".png";
-			} else if(i<100) {
-				rahmenPath = "image/rahmen/RAHMEN_0"+i+".png";
-			} else if (i>100) {
-				rahmenPath = "image/rahmen/RAHMEN_"+i+".png";
-			}
-			//System.out.println(rahmenPath);
+			String rahmenPath = "image/rahmen/"+rahmen[i].getBild()+".png";
 			ImageIcon icon = new ImageIcon(rahmenPath);
 			l[i+delay].setIcon(icon);
 			l[i+delay].setToolTipText("Rahmen "+(i+1));
-			l[i+delay].setName("Rahmen-"+rahmen[i].getRahmenID());
+			l[i+delay].setName("Rahmen-"+(i+1));
 			label_itembezeichnung.put(l[i+delay],rahmen[i].getBezeichnung());
 			label_preis.put(l[i+delay],rahmen[i].getPreis());
 
 		}
 		delay = delay + rahmen.length;
 		for(int i = 0; i < koerper.length; i++) {
-			String koerperPath = null;
-			if(i<10) {
-				koerperPath = "image/avatare/AVATAR_00"+i+".png";
-			} else if(i<100) {
-				koerperPath = "image/avatare/AVATAR_0"+i+".png";
-			} else if (i>100) {
-				koerperPath = "image/avatare/AVATAR_"+i+".png";
-			}
-			//System.out.println(koerperPath);
+			String koerperPath = "image/avatare/"+koerper[i].getBild()+".png";
 			ImageIcon icon = new ImageIcon(koerperPath);
 			l[i+delay].setIcon(icon);
 			l[i+delay].setToolTipText("Körper "+(i+1));
 			l[i+delay].setName("Koerper-"+koerper[i].getKoerperID());
 			label_itembezeichnung.put(l[i+delay],koerper[i].getBezeichnung());
 			label_preis.put(l[i+delay],koerper[i].getPreis());
-
 		}
 		panelViewport.setPreferredSize(new Dimension(621, taby+285));
 		panelViewport.revalidate();
 		panelViewport.repaint();
 	}
 	public void mouseClicked(MouseEvent me) {
-		System.out.println("Click recognized");
 		JLabel j  = (JLabel) me.getSource();
-		labelDescription.setText("Bezeichnung: "+label_itembezeichnung.get(j));
+		labelDescription.setText(label_itembezeichnung.get(j));
 		labelPrice.setText("Preis: "+label_preis.get(j));
-		System.out.println(j.getName());
-		System.out.println(j.getIcon().toString());
 		
 
 	}

@@ -446,4 +446,48 @@ public class DAO {
 			}
 		}
 	}
+
+	public void createAvatar(Benutzer b) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "Insert Into Avatar (BenutzerID, KoerperID) Values ("+b.getID()+",1)";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+		
+	}
+	public Avatar getAvatar(Benutzer b) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Avatar where BenutzerID = " + b.getID();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				Avatar a = new Avatar(rs.getInt("GesichterID"),rs.getInt("GBID") , rs.getInt("RahmenID"), b.getID(), rs.getInt("KopfbedeckungenID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
+				return a;
+			} else {
+				throw new DB_FehlerException("Der Avatar für diesen Benutzer konnte nicht gefunden werden");
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
 }

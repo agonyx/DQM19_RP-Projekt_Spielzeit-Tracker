@@ -39,25 +39,6 @@ public class Registrierung extends JFrame implements ActionListener {
 	private JLabel labelSteamID;
 
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Registrierung frame = new Registrierung();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	/**
-	 * Create the frame.
-	 */
 	public Registrierung() {
 		initGUI();
 		setVisible(true);
@@ -174,6 +155,7 @@ public class Registrierung extends JFrame implements ActionListener {
 						if(d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID") == false) {
 							Benutzer b = new Benutzer(textFieldBenutzername.getText(), textFieldPasswort.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), null, 0, 0);
 							d.insertBenutzer(b);
+							d.createAvatar(b);
 							Anmeldung a = new Anmeldung();
 							dispose();
 						} else {

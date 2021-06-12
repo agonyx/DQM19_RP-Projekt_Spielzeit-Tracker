@@ -32,12 +32,12 @@ public class DAOItems {
 			int size = getCount("Gesichter");
 			Gesichter[] gesicht = new Gesichter[size];
 			int count = 0;
-			do {
+			while (rs.next()) {
 				if (count < size)
 					gesicht[count] = new Gesichter(rs.getInt("GesichterID"), rs.getString("Bezeichnung"),
 							rs.getString("Bilder"));
 				count++;
-			} while (rs.next());
+			}
 			return gesicht;
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
@@ -63,12 +63,12 @@ public class DAOItems {
 			int size = getCount("Gesichtsbedeckungen");
 			Gesichtsbedeckung[] gb = new Gesichtsbedeckung[size];
 			int count = 0;
-			do {
+			while (rs.next()) {
 				if (count < size)
 					gb[count] = new Gesichtsbedeckung(rs.getInt("GBID"), rs.getString("Bezeichnung"),
 							rs.getString("Bilder"));
 				count++;
-			} while (rs.next());
+			} 
 			return gb;
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
@@ -94,12 +94,12 @@ public class DAOItems {
 			int size = getCount("Kopfbedeckungen");
 			Kopfbedeckung[] Kopfbedeckung = new Kopfbedeckung[size];
 			int count = 0;
-			do {
+			while (rs.next()) {
 				if (count < size)
 					Kopfbedeckung[count] = new Kopfbedeckung(rs.getInt("KopfbedeckungenID"),
 							rs.getString("Bezeichnung"), rs.getString("Bilder"));
 				count++;
-			} while (rs.next());
+			} 
 			return Kopfbedeckung;
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
@@ -125,7 +125,7 @@ public class DAOItems {
 			int size = getCount("Koerper");
 			Koerper[] koerper = new Koerper[size];
 			int count = 0;
-			do {
+			while (rs.next()) {
 				if (count < size)
 					koerper[count] = new Koerper(rs.getInt("KoerperID"), rs.getString("Bezeichnung"),
 							rs.getString("Bilder"));
@@ -156,7 +156,7 @@ public class DAOItems {
 			int size = getCount("Oberteil");
 			Oberteil[] Oberteil = new Oberteil[size];
 			int count = 0;
-			do {
+			while (rs.next()) {
 				if (count < size)
 					Oberteil[count] = new Oberteil(rs.getInt("OberteilID"), rs.getString("Bezeichnung"),
 							rs.getString("Bilder"));
@@ -186,7 +186,7 @@ public class DAOItems {
 			int size = getCount("Rahmen");
 			Rahmen[] rahmen = new Rahmen[size];
 			int count = 0;
-			do {
+			while (rs.next()) {
 				if (count < size)
 					rahmen[count] = new Rahmen(rs.getInt("RahmenID"), rs.getString("Bezeichnung"),
 							rs.getString("Bilder"));

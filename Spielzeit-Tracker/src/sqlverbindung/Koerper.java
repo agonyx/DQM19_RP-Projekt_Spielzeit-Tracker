@@ -23,4 +23,7 @@ public class Koerper {
 	public int getPreis() {
 		return preis;
 	}
+	public String getBild() {
+		return bilder;
+	}
 }

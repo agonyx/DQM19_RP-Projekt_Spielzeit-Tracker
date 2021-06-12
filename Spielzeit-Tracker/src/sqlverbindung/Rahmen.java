@@ -23,4 +23,7 @@ public class Rahmen {
 	public int getPreis() {
 		return preis;
 	}
+	public String getBild() {
+		return bild;
+	}
 }

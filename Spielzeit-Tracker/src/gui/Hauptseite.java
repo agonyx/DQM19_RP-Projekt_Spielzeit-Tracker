@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
+import sqlverbindung.Avatar;
 import sqlverbindung.Benutzer;
 import sqlverbindung.DAO;
 import sqlverbindung.DB_FehlerException;
@@ -43,11 +45,21 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private Adminoberflaeche ao;
 	private Profil p;
 	private JLabel labelNewLabel;
+	private static Avatar avatar;
 
 	
 	public Hauptseite(Benutzer bb) {
 		setResizable(false);
 		benutzer = bb;
+		try {
+			avatar = d.getAvatar(bb);
+		} catch (DB_FehlerException e) {
+			try {
+				d.createAvatar(bb);
+			} catch (DB_FehlerException e1) {
+				e1.printStackTrace();
+			}
+		}
 		panels = new HashMap();
 		initGUI();
 		
@@ -67,6 +79,9 @@ public class Hauptseite extends JFrame implements ActionListener {
 	}
 	public static Benutzer getBenutzer() {
 		return benutzer;
+	}
+	public static Avatar getAvatar() { 
+		return avatar;
 	}
 
 	private void initGUI() {

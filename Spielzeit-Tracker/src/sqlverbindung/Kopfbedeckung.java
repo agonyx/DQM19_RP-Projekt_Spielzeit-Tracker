@@ -22,4 +22,7 @@ public class Kopfbedeckung {
 	public int getPreis() {
 		return preis;
 	}
+	public String getBild() {
+		return bild;
+	}
 }

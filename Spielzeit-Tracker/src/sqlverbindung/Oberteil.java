@@ -22,6 +22,8 @@ public class Oberteil {
 	public int getPreis() {
 		return preis;
 	}
-	
+	public String getBild() {
+		return bild;
+	}
 }
 
