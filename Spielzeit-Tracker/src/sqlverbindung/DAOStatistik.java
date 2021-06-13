@@ -107,5 +107,27 @@ public class DAOStatistik {
 		LocalDateTime now = LocalDateTime.now();  
 		return dtf.format(now);  
 	}
+	public void setTotalPlaytime(Benutzer b, double time) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "Update Statistik Set Gesamtspielzeit = ? where BenutzerID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sql);
+			statement.setDouble(1, time);
+			statement.setInt(2, b.getID());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
 
 }

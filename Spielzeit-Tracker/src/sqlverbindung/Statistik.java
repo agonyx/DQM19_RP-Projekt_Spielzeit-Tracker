@@ -20,4 +20,7 @@ public class Statistik {
 	public double getGesamtzeit() {
 		return gesamtzeit;
 	}
+	public String getDate() {
+		return date;
+	}
 }

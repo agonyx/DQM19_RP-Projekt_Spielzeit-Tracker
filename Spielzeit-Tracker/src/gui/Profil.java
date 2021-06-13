@@ -6,10 +6,13 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.HashMap;
+
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import sqlverbindung.Benutzer;
+import sqlverbindung.DAOGetandSet;
 import sqlverbindung.DAOSelect;
 import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
@@ -17,81 +20,86 @@ import sqlverbindung.Spiele;
 import sqlverbindung.Statistik;
 
 public class Profil extends JPanel {
-	private JScrollPane scrollPane;
 	private JLabel labelName;
 	private JLabel labelEMail;
 	private JLabel labelMitgliedseit;
 	private JLabel labelSpielzeitgesamt;
 	private JLabel labelPunkte;
-	private JLabel labelRang;
 	private JTextField textFieldSpielzeitgesamt;
 	private JTextField textFieldPunkte;
-	private JTextField textFieldRang;
 	private JTextField textFieldMitgliedseit;
 	private JTextField textFieldEMail;
 	private JTextField textFieldName;
-	private JPanel panelViewport;
 	private Benutzer benutzer;
-	private String[] games = new String[7];
+	private Spiele[] games;
 	public Statistik statistik;
-	private JLabel labelAppZeit;
-	private JTextField textFieldAppZeit;
-	private DAOSelect d = new DAOSelect();;
 	private DAOStatistik ds = new DAOStatistik();
+	private JScrollPane scrollPane;
+	private JPanel panelViewport;
+	private DAOGetandSet dg;
+	private static HashMap<Integer, Integer> spielzeiten;
 
 	/**
 	 * Create the panel.
 	 */
 	public Profil(Benutzer benutzer) {
+		dg = new DAOGetandSet();
 		this.benutzer = benutzer;
+		spielzeiten = Hauptseite.getSpielzeiten();
 		getStatistik(benutzer);
 		addGames();
 		initGUI();
 		addNameUndEmail();
 		addPunkte();
 		addGesamtSpielzeit();
+		addMitgliedDatum();
 	}
 	private void initGUI() {
+		setBounds(30, 213, 865, 725);
 		setLayout(null);
 		{
-			//Erstellt ein scroll Panel.
-			scrollPane = new JScrollPane();
-			scrollPane.setBounds(250, 10, 600, 680);
-			add(scrollPane);
 			{
-				//Fügt die oberfläche des Scroll Panels hinzu.
-				panelViewport = new JPanel();
-				scrollPane.setViewportView(panelViewport);
+				{
+					scrollPane = new JScrollPane();
+					scrollPane.setBounds(250, 10, 600, 680);
+					scrollPane.setBorder(null);
+					add(scrollPane);
+					{
+						panelViewport = new JPanel();
+						scrollPane.setViewportView(panelViewport);
+						panelViewport.setLayout(null);
+						
+					}
+				}
 				{
 					//Fügt Für jedes Spiel in games ein Game Panel hinzu mit infos zum Spiel.
+					int delay = 0;
 					for(int i = 0; i < games.length; i++)
 					{
 						JPanel gamePanel = new JPanel();
 						gamePanel.setBorder(new LineBorder(Color.BLUE, 3));
-						gamePanel.setBounds(10, 10 + (i + 60),  460, 50);
+						gamePanel.setBounds(10, 0 + (i + delay),  580, 50);
 						gamePanel.setLayout(null);
-						panelViewport.add(gamePanel);
-						JLabel gameTitle = new JLabel(games[i]);
+						JLabel gameTitle = new JLabel(games[i].getName());
 						gameTitle.setBounds(10, 5, 300, 40);
 						gamePanel.add(gameTitle);
-						JLabel spiellabel = new JLabel(games[i]);
-						spiellabel.setBounds(350, 5, 50, 20);
-						gamePanel.add(spiellabel);
-						JLabel spielzeitlabel = new JLabel(games[i]);
-						spielzeitlabel.setBounds(350, 30, 50, 20);
-						gamePanel.add(spielzeitlabel);
-						JTextField spielTextField = new JTextField();
-						spielTextField.setBounds(400, 5, 50, 20);
-						spielTextField.setEditable(false);
-						gamePanel.add(spielTextField);
+						JLabel labelh= new JLabel("Std");
+						labelh.setBounds(540, 17, 50, 20);
+						gamePanel.add(labelh);
 						JTextField spielzeitTextField = new JTextField();
-						spielzeitTextField.setBounds(400, 30, 50, 20);
+						spielzeitTextField.setBounds(450, 17, 75, 20);
 						spielzeitTextField.setEditable(false);
+						if(spielzeiten.get(games[i].getAppID()) != null) {
+							spielzeitTextField.setText(String.valueOf(minutesToHours(spielzeiten.get(games[i].getAppID()))));
+						} else {
+							spielzeitTextField.setText("N/A");
+						}
+						
 						gamePanel.add(spielzeitTextField);
+						panelViewport.add(gamePanel);
+						delay = delay +60;
 					}
-					//Zeichnet das Scroll Panel neu.
-					panelViewport.repaint();
-					
+
 				}
 			}
 		}
@@ -171,53 +179,32 @@ public class Profil extends JPanel {
 			add(textFieldName);
 			textFieldName.setColumns(10);
 		}
-		// 
-		{
-			labelAppZeit = new JLabel("Zeit in der App:");
-			labelAppZeit.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			labelAppZeit.setBounds(10, 210, 140, 21);
-			add(labelAppZeit);
-		}
-		// 
-		{
-			textFieldAppZeit = new JTextField();
-			textFieldAppZeit.setEditable(false);
-			textFieldAppZeit.setBounds(135, 213, 96, 19);
-			add(textFieldAppZeit);
-			textFieldAppZeit.setColumns(10);
-		}
+
+	
 	}
 	//Fügt Name und Email des Benutzers in die Text Felder ein.
-	public void addNameUndEmail() {
+	private void addNameUndEmail() {
 		textFieldName.setText(benutzer.getUsername());
 		textFieldEMail.setText(benutzer.getEmail());
 	}
 	//Fügt Punkte des Benutzers in das Text Feld ein.
-	public void addPunkte() {
+	private void addPunkte() {
 		textFieldPunkte.setText(Integer.toString(benutzer.getPunkte()));
 	}
-	
-	public void addGesamtSpielzeit() {
+
+	private void addGesamtSpielzeit() {
 		textFieldSpielzeitgesamt.setText(Double.toString(statistik.getGesamtzeit()));
 	}
-	
+
 	//Fügt Spiele zum games Array hinzu.
-	public void addGames() {
-		
-		Spiele s;
-		for(int i = 2; i <=8; i++)
-		{
-			
-			try {
-				s = d.selectSpiele(i);
-				games[i-2] = s.getName();
-			} catch (DB_FehlerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+	private void addGames() {
+		try {
+			games = dg.getAllGames();
+		} catch (DB_FehlerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
+
 	}
 	//Fügt die Zeit die der Benutzer bisher in dieser App verbracht hat in das Text Felder ein.
 	private void getStatistik(Benutzer b) {
@@ -228,4 +215,11 @@ public class Profil extends JPanel {
 			e.printStackTrace();
 		}
 	}
+	private void addMitgliedDatum() {
+		textFieldMitgliedseit.setText(statistik.getDate());
+	}
+	private int minutesToHours(int integer) {
+		return (integer/60);
+	}
+	
 }

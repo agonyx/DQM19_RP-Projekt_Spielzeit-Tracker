@@ -1,19 +1,29 @@
 package gui;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.lukaspradel.steamapi.core.exception.SteamApiException;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 import sqlverbindung.Avatar;
 import sqlverbindung.Benutzer;
 import sqlverbindung.DAOGetandSet;
 import sqlverbindung.DAOSelect;
+import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
+import sqlverbindung.Spiele;
+import sqlverbindung.Spielzeit;
+import sqlverbindung.SteamAPI;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -41,25 +51,34 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private JButton buttonAdmin;
 	private static Benutzer benutzer;
 	private DAOGetandSet d = new DAOGetandSet();
+	private SteamAPI steam = new SteamAPI();
 	private Statistiken statistiken;
 	private Shop shop;
 	private Adminoberflaeche ao;
+	private DAOStatistik ds = new DAOStatistik();
 	private Profil p;
-	private JLabel labelNewLabel;
+	private JLabel labelPunkte;
 	private static Avatar avatar;
-
+	private static HashMap<Integer, Integer> spielzeiten = new HashMap<Integer,Integer>();
+	private static int totalPlaytime;
+	
 	
 	public Hauptseite(Benutzer bb) {
 		setResizable(false);
 		benutzer = bb;
 		try {
+			addPlaytime(bb);
+			setPlaytimeDB(bb);
 			avatar = d.getAvatar(bb);
 		} catch (DB_FehlerException e) {
 			try {
-				d.createAvatar(bb);
+				d.createDefaultAvatar(bb);
 			} catch (DB_FehlerException e1) {
 				e1.printStackTrace();
 			}
+		} catch (SteamApiException e) {			
+			JOptionPane.showMessageDialog(this, "Es gibt einen Fehler mit der SteamAPI oder deiner SteamID :c", "Fehler",JOptionPane.ERROR_MESSAGE);
+			dispose();
 		}
 		panels = new HashMap();
 		initGUI();
@@ -87,7 +106,9 @@ public class Hauptseite extends JFrame implements ActionListener {
 	public static Avatar getAvatar() { 
 		return avatar;
 	}
-
+	private double minutesToHours(int doouble) {
+		return (doouble/60);
+	}
 	private void initGUI() {
 		setTitle("Spielzeitracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -145,20 +166,25 @@ public class Hauptseite extends JFrame implements ActionListener {
 		btnStatistiken.setBounds(10, 446, 270, 66);
 		taskbar.add(btnStatistiken);
 
+		if(benutzer.isAdmin()) {
 		btnAbmelden = new JButton("Abmelden");
 		btnAbmelden.addActionListener(this);
 		btnAbmelden.setBounds(10, 677, 137, 23);
 		taskbar.add(btnAbmelden);
-		{
-			buttonAdmin = new JButton("Admin");
-			buttonAdmin.addActionListener(this);
-			buttonAdmin.setBounds(157, 677, 123, 23);
-			taskbar.add(buttonAdmin);
-		}
 		
-		labelNewLabel = new JLabel("New label");
-		labelNewLabel.setBounds(20, 302, 260, 14);
-		taskbar.add(labelNewLabel);
+		buttonAdmin = new JButton("Admin");
+		buttonAdmin.addActionListener(this);
+		buttonAdmin.setBounds(157, 677, 123, 23);
+		taskbar.add(buttonAdmin);
+		} else {
+			btnAbmelden = new JButton("Abmelden");
+			btnAbmelden.addActionListener(this);
+			btnAbmelden.setBounds(10, 677, 270, 23);
+			taskbar.add(btnAbmelden);
+		}
+		labelPunkte = new JLabel("Punkte: ");
+		labelPunkte.setBounds(20, 302, 260, 14);
+		taskbar.add(labelPunkte);
 
 		panel = new JPanel();
 		panel.setBounds(302, 0, 865, 725);
@@ -217,5 +243,33 @@ public class Hauptseite extends JFrame implements ActionListener {
 		panels.put(Views.PROFIl, p);
 		switchTo(Views.PROFIl);
 	}
+	public void addPlaytime(Benutzer bb) throws SteamApiException, DB_FehlerException {
+		Spiele[] spiele = d.getAllGames();
+		ArrayList<Integer> appids = new ArrayList<Integer>();
+		for(int i = 0; i<spiele.length; i++) {
+			appids.add(spiele[i].getAppID());
+		}
+		spielzeiten = steam.getPlaytimeForGamesIfOwned(bb.getSteamid(), appids.toArray(new Integer[0]));
+		totalPlaytime = steam.getTotalPlaytimeHours(bb.getSteamid(), appids.toArray(new Integer[0]));
+	}
+	private void setPlaytimeDB(Benutzer bb) throws DB_FehlerException {
+		Spiele[] games = d.getAllGames();
+		for(int i = 0; i < games.length; i++) {
+			if (spielzeiten.get(games[i].getAppID()) != null) {
+				d.setSpielzeit(bb, games[i], minutesToHours(spielzeiten.get(games[i].getAppID())));
+			}
+		}
+		for(int i = 0; i < games.length; i++) {
+			ds.setTotalPlaytime(bb, minutesToHours(totalPlaytime));
+		
+		}
+	}
+	public static HashMap<Integer, Integer> getSpielzeiten() {
+		return spielzeiten;
+	}
+	public static int getTotalPlaytime() {
+		return totalPlaytime;
+	}
+
 }
 

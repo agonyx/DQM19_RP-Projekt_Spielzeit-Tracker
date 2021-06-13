@@ -11,6 +11,8 @@ import sqlverbindung.DAOGetandSet;
 import sqlverbindung.DAOSelect;
 import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
+import sqlverbindung.Spiele;
+import threads.ThreadAnmeldung;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -146,9 +148,8 @@ public class Anmeldung extends JFrame implements ActionListener {
 						fm.write("Userdata.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
 					}
 					//Kreiert eine Statistik für den Benutzer falls dieser nicht bereits eine hat
-					if(!ds.doesStatistikForUserExist(ben)) {
-						ds.createStatistikForUser(ben);
-					}
+					ThreadAnmeldung ta = new ThreadAnmeldung(ben);
+					ta.start();
 					System.out.println("[System] Login successfull");
 					Hauptseite hs = new Hauptseite(ben);
 					hs.setBenutzer(ben);

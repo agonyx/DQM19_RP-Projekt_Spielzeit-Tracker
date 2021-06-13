@@ -15,5 +15,10 @@ public class Spiele {
 	public String getName() {
 		return name;
 	}
-
+	public int getSpielID() {
+		return spieleid;
+	}
+	public int getAppID() {
+		return appid;
+	}
 }

@@ -24,15 +24,27 @@ public class SteamAPI {
 		client = new SteamWebApiClient.SteamWebApiClientBuilder("ED23A4A111A5CE836DA67ED9DB8CABE4").build();
 
 	}
+
+	public int getTotalPlaytimeHours(String steamid, Integer[] appids) throws SteamApiException{
+		HashMap<Integer, Integer> hashmap = new HashMap<>();
+		hashmap = getPlaytimeForGamesIfOwned(steamid,appids);
+		int spielzeit = 0;
+		for(int i = 0 ; i<appids.length; i++) {
+			if (hashmap.get(appids[i]) != null) {
+				spielzeit += hashmap.get(appids[i]);
+			}
+		}
+		return spielzeit;
+	}
 	//Gibt eine HashMap, mit AppIds als Key, wieder aus der Spielzeit für jedes Game, dass für die Suche beigefügt wurde (Integer[] games), entnommen werden kann
-	public HashMap<Integer, Integer> getPlaytimeForGamesIfOwned(String steamid,Integer[] games) throws SteamApiException {
+	public HashMap<Integer, Integer> getPlaytimeForGamesIfOwned(String steamid,Integer[] appids) throws SteamApiException {
 		SteamWebApiClient client = new SteamWebApiClient.SteamWebApiClientBuilder("ED23A4A111A5CE836DA67ED9DB8CABE4").build();
 		GetOwnedGamesRequest request = SteamWebApiRequestFactory.createGetOwnedGamesRequest(steamid);
 		GetOwnedGames gowg = client.<GetOwnedGames> processRequest(request);
 		//Speichere Resultset der Anfrage als List
 		List<Game> s = gowg.getResponse().getGames();
 		//Mache den Array zu einer Liste um Contains nutzen zu können
-		List<Integer> ga = Arrays.asList(games);
+		List<Integer> ga = Arrays.asList(appids);
 		//HashMap wird erstellt
 		HashMap<Integer, Integer> result = new HashMap<>();
 		int x = 0;
