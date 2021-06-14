@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 public class DAOStatistik {
 	private String database;
@@ -129,5 +130,57 @@ public class DAOStatistik {
 
 		}
 	}
+	public int getRank(Benutzer b) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "SELECT rank() OVER (Order by Gesamtspielzeit DESC) as Rang FROM Statistik WHERE BenutzerID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, b.getID());
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+					return rs.getInt("Rang");
+			} else {
+				throw new DB_FehlerException(sql);
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
+	public int getRankGames(Benutzer b,Spiele spiel) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "SELECT rank() OVER (Order by Zeit DESC) as Rang FROM Spielzeit WHERE BenutzerID = ? and SpielID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, b.getID());
+			statement.setInt(2, spiel.getSpielID());
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("Rang");
+				} else {
+					throw new DB_FehlerException("");
+				}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
+
 
 }
