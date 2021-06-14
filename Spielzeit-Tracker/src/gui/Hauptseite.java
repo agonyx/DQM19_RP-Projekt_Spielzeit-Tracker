@@ -53,7 +53,6 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private static Benutzer benutzer;
 	private DAOGetandSet d = new DAOGetandSet();
 	private SteamAPI steam = new SteamAPI();
-	private Statistiken statistiken;
 	private Shop shop;
 	private Adminoberflaeche ao;
 	private DAOStatistik ds = new DAOStatistik();
@@ -83,10 +82,9 @@ public class Hauptseite extends JFrame implements ActionListener {
 		}
 		panels = new HashMap();
 		initGUI();
-		statistiken = new Statistiken();
-		panels.put(Views.STATISTIKEN, statistiken);
-		switchTo(Views.STATISTIKEN);
-		
+		p = new Profil(benutzer);
+		panels.put(Views.PROFIl, p);
+		switchTo(Views.PROFIl);
 	}
 	//Panel wechseln
 	public void switchTo(Views v) {
@@ -162,11 +160,6 @@ public class Hauptseite extends JFrame implements ActionListener {
 		btnShop.setBounds(10, 523, 270, 66);
 		taskbar.add(btnShop);
 
-		btnStatistiken = new JButton("Statistiken");
-		btnStatistiken.addActionListener(this);
-		btnStatistiken.setBounds(10, 446, 270, 66);
-		taskbar.add(btnStatistiken);
-
 		if(benutzer.isAdmin()) {
 		btnAbmelden = new JButton("Abmelden");
 		btnAbmelden.addActionListener(this);
@@ -206,14 +199,6 @@ public class Hauptseite extends JFrame implements ActionListener {
 		if (e.getSource() == btnShop) {
 			BtnShopActionPerformed(e);
 		}
-		if (e.getSource() == btnStatistiken) {
-			BtnStatistikenActionPerformed(e);
-		}
-	}
-	protected void BtnStatistikenActionPerformed(ActionEvent e) {
-		statistiken = new Statistiken();
-		panels.put(Views.STATISTIKEN, statistiken);
-		switchTo(Views.STATISTIKEN);
 	}
 	protected void BtnShopActionPerformed(ActionEvent e) {
 		shop = new Shop();
