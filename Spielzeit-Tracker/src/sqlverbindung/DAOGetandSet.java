@@ -1,5 +1,6 @@
 package sqlverbindung;
 
+import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -28,7 +29,7 @@ public class DAOGetandSet {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet rs = statement.executeQuery();
 			if(rs.next()) {
-				 Benutzer b = new Benutzer(rs.getInt("BenutzerID"),rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getInt("Punkte"), 0);
+				 Benutzer b = new Benutzer(rs.getInt("BenutzerID"),rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getInt("Punkte"), rs.getInt("Admin"));
 				 return b;
 			} else {
 				throw new DB_FehlerException("Benuzter mit Attribut nicht gefunden!");
@@ -510,6 +511,52 @@ public class DAOGetandSet {
 			statement.setDouble(1, spielzeit);
 			statement.setInt(2, b.getID());
 			statement.setInt(3, spiel.getSpielID());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
+	public int getSpielZeit(Benutzer bb) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Statistik where BenutzerID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, bb.getID());
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("Gesamtspielzeit");
+			} else {
+				throw new DB_FehlerException(sql);
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
+	public void setPoints(Benutzer bb, int amount) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "Update Benutzer Set Punkte = ? where BenutzerID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, amount);
+			statement.setInt(2, bb.getID());
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
