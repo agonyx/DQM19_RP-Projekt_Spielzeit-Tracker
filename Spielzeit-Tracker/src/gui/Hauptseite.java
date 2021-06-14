@@ -1,16 +1,30 @@
 package gui;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.lukaspradel.steamapi.core.exception.SteamApiException;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
+
+import sqlverbindung.Avatar;
 import sqlverbindung.Benutzer;
-import sqlverbindung.DAO;
+import sqlverbindung.DAOGetandSet;
+import sqlverbindung.DAOSelect;
+import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
+import sqlverbindung.Spiele;
+import sqlverbindung.Spielzeit;
+import sqlverbindung.Statistik;
+import sqlverbindung.SteamAPI;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -37,20 +51,40 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private HashMap<Views,JPanel> panels;
 	private JButton buttonAdmin;
 	private static Benutzer benutzer;
-	private DAO d = new DAO();
-	private Statistiken statistiken;
+	private DAOGetandSet d = new DAOGetandSet();
+	private SteamAPI steam = new SteamAPI();
 	private Shop shop;
 	private Adminoberflaeche ao;
+	private DAOStatistik ds = new DAOStatistik();
 	private Profil p;
-	private long startTime;
-
+	private JLabel labelPunkte;
+	private static Avatar avatar;
+	private static HashMap<Integer, Integer> spielzeiten = new HashMap<Integer,Integer>();
+	private static int totalPlaytime;
 	
 	public Hauptseite(Benutzer bb) {
 		setResizable(false);
 		benutzer = bb;
+		try {
+			addPlaytime(bb);
+			calcPoints(bb);
+			setPlaytimeDB(bb);
+			avatar = d.getAvatar(bb);
+		} catch (DB_FehlerException e) {
+			try {
+				d.createDefaultAvatar(bb);
+			} catch (DB_FehlerException e1) {
+				e1.printStackTrace();
+			}
+		} catch (SteamApiException e) {			
+			JOptionPane.showMessageDialog(this, "Es gibt einen Fehler mit der SteamAPI oder deiner SteamID :c", "Fehler",JOptionPane.ERROR_MESSAGE);
+			dispose();
+		}
 		panels = new HashMap();
 		initGUI();
-		
+		p = new Profil(benutzer);
+		panels.put(Views.PROFIl, p);
+		switchTo(Views.PROFIl);
 	}
 	//Panel wechseln
 	public void switchTo(Views v) {
@@ -68,21 +102,15 @@ public class Hauptseite extends JFrame implements ActionListener {
 	public static Benutzer getBenutzer() {
 		return benutzer;
 	}
-
+	public static Avatar getAvatar() { 
+		return avatar;
+	}
+	private double minutesToHours(int doouble) {
+		return (doouble/60);
+	}
 	private void initGUI() {
-		long startTime = System.currentTimeMillis();
 		setTitle("Spielzeitracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    addWindowListener(new WindowAdapter()
-        {
-            @Override
-            public void windowClosing(WindowEvent e)
-            {
-                long endTime = System.currentTimeMillis();
-                TimeTracking(startTime, endTime, benutzer);
-                e.getWindow().dispose();
-            }
-        });
 		setBounds(100, 100, 1180, 753);
 		setVisible(true);
 		contentPane = new JPanel();
@@ -98,12 +126,12 @@ public class Hauptseite extends JFrame implements ActionListener {
 
 		avatarGesamt = new JPanel();
 		avatarGesamt.setLayout(null);
-		avatarGesamt.setBounds(10, 11, 270, 291);
+		avatarGesamt.setBounds(10, 0, 270, 291);
 		taskbar.add(avatarGesamt);
 
 		lblGesichtsbedeckung = new JLabel("");
-		lblGesichtsbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/avatare/AVATAR_000.png")));
-		lblGesichtsbedeckung.setBounds(0, 0, 256, 256);
+		lblGesichtsbedeckung.setIcon(new ImageIcon("image/avatare/AVATAR_000.png"));
+		lblGesichtsbedeckung.setBounds(7, 33, 256, 256);
 		avatarGesamt.add(lblGesichtsbedeckung);
 
 		lblKopfbedeckung = new JLabel("");
@@ -132,21 +160,25 @@ public class Hauptseite extends JFrame implements ActionListener {
 		btnShop.setBounds(10, 523, 270, 66);
 		taskbar.add(btnShop);
 
-		btnStatistiken = new JButton("Statistiken");
-		btnStatistiken.addActionListener(this);
-		btnStatistiken.setBounds(10, 446, 270, 66);
-		taskbar.add(btnStatistiken);
-
+		if(benutzer.isAdmin()) {
 		btnAbmelden = new JButton("Abmelden");
 		btnAbmelden.addActionListener(this);
 		btnAbmelden.setBounds(10, 677, 137, 23);
 		taskbar.add(btnAbmelden);
-		{
-			buttonAdmin = new JButton("Admin");
-			buttonAdmin.addActionListener(this);
-			buttonAdmin.setBounds(157, 677, 123, 23);
-			taskbar.add(buttonAdmin);
+		
+		buttonAdmin = new JButton("Admin");
+		buttonAdmin.addActionListener(this);
+		buttonAdmin.setBounds(157, 677, 123, 23);
+		taskbar.add(buttonAdmin);
+		} else {
+			btnAbmelden = new JButton("Abmelden");
+			btnAbmelden.addActionListener(this);
+			btnAbmelden.setBounds(10, 677, 270, 23);
+			taskbar.add(btnAbmelden);
 		}
+		labelPunkte = new JLabel("Punkte: " + benutzer.getPunkte());
+		labelPunkte.setBounds(20, 302, 260, 14);
+		taskbar.add(labelPunkte);
 
 		panel = new JPanel();
 		panel.setBounds(302, 0, 865, 725);
@@ -167,14 +199,6 @@ public class Hauptseite extends JFrame implements ActionListener {
 		if (e.getSource() == btnShop) {
 			BtnShopActionPerformed(e);
 		}
-		if (e.getSource() == btnStatistiken) {
-			BtnStatistikenActionPerformed(e);
-		}
-	}
-	protected void BtnStatistikenActionPerformed(ActionEvent e) {
-		statistiken = new Statistiken();
-		panels.put(Views.STATISTIKEN, statistiken);
-		switchTo(Views.STATISTIKEN);
 	}
 	protected void BtnShopActionPerformed(ActionEvent e) {
 		shop = new Shop();
@@ -187,29 +211,17 @@ public class Hauptseite extends JFrame implements ActionListener {
 		switchTo(Views.ADMIN);
 	}
 	protected void BtnAbmeldenActionPerformed(ActionEvent e) {
-		long endTime = System.nanoTime();
-        TimeTracking(startTime, endTime, benutzer);
 		Anmeldung a = new Anmeldung();
 		a.setVisible(true);
 		dispose();
 	}
-	//Verrechnet End- und Startzeit der App
-	public void TimeTracking(long startTime , long endTime, Benutzer bb) {
-		long totalTime = endTime - startTime;
-        String AppTime = bb.getAppzeit() + (totalTime/60000);
-        try {
-			d.UpdateAppTime(AppTime);
-		} catch (DB_FehlerException e1) {
-			e1.printStackTrace();
-		}
-	}
 	
 	public void updateAvatarPicture(String koerperbez, String gesichterbez, String gesichtsbedeckungbez, String kopfbedeckungbez, String oberteilbez) {
-		lblAvatar.setIcon(new ImageIcon(Hauptseite.class.getResource("/avatare/" + koerperbez)));
-		lblGesicht.setIcon(new ImageIcon(Hauptseite.class.getResource("/gesichter/" + gesichterbez)));
-		lblGesichtsbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/gesichtsbedeckung/" + gesichtsbedeckungbez)));
-		lblKopfbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("/kopfbedeckung/" + kopfbedeckungbez)));
-		lblOberteil.setIcon(new ImageIcon(Hauptseite.class.getResource("/oberteil/" + oberteilbez)));
+		lblAvatar.setIcon(new ImageIcon(Hauptseite.class.getResource("image/avatare/" + koerperbez)));
+		lblGesicht.setIcon(new ImageIcon(Hauptseite.class.getResource("image/gesichter/" + gesichterbez)));
+		lblGesichtsbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("image/gesichtsbedeckung/" + gesichtsbedeckungbez)));
+		lblKopfbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("image/kopfbedeckung/" + kopfbedeckungbez)));
+		lblOberteil.setIcon(new ImageIcon(Hauptseite.class.getResource("image/oberteil/" + oberteilbez)));
 	}
 	
 	protected void BtnProfilActionPerformed(ActionEvent e) {
@@ -217,5 +229,50 @@ public class Hauptseite extends JFrame implements ActionListener {
 		panels.put(Views.PROFIl, p);
 		switchTo(Views.PROFIl);
 	}
+	public void addPlaytime(Benutzer bb) throws SteamApiException, DB_FehlerException {
+		Spiele[] spiele = d.getAllGames();
+		ArrayList<Integer> appids = new ArrayList<Integer>();
+		for(int i = 0; i<spiele.length; i++) {
+			appids.add(spiele[i].getAppID());
+		}
+		spielzeiten = steam.getPlaytimeForGamesIfOwned(bb.getSteamid(), appids.toArray(new Integer[0]));
+		totalPlaytime = steam.getTotalPlaytimeHours(bb.getSteamid(), appids.toArray(new Integer[0]));
+	}
+	private void setPlaytimeDB(Benutzer bb) throws DB_FehlerException {
+		Spiele[] games = d.getAllGames();
+		for(int i = 0; i < games.length; i++) {
+			if (spielzeiten.get(games[i].getAppID()) != null) {
+				d.setSpielzeit(bb, games[i], minutesToHours(spielzeiten.get(games[i].getAppID())));
+			}
+		}
+		for(int i = 0; i < games.length; i++) {
+			ds.setTotalPlaytime(bb, minutesToHours(totalPlaytime));
+		
+		}
+	}
+	private void calcPoints(Benutzer bb) throws DB_FehlerException {
+		int punkteOLD = bb.getPunkte();
+		int punkte = 0;
+		if (bb.getPunkte() == -1) {
+			punkte = (int) (minutesToHours(getTotalPlaytime()))* 5;
+		} else {
+			Statistik s = ds.selectStatistikforUser(bb);
+			double lastKnownHoursvsNew = getTotalPlaytime() - (s.getGesamtzeit()*60);
+			if (lastKnownHoursvsNew != 0)  {
+				punkte = (int) (bb.getPunkte() + (minutesToHours((int) lastKnownHoursvsNew) * 5));
+			}
+		}
+		if (!(punkte == punkteOLD)) {
+		d.setPoints(bb, punkte);
+		bb.setPunkte(punkte);
+		}
+	}
+	public static HashMap<Integer, Integer> getSpielzeiten() {
+		return spielzeiten;
+	}
+	public static int getTotalPlaytime() {
+		return totalPlaytime;
+	}
+
 }
 

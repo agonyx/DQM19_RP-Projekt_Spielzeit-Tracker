@@ -22,29 +22,45 @@ public class Avatar {
 		this.koerperid = koerperid;
 	}
 	
-	public void setgesichterID(int gesichterid) {
+	public Avatar ( int gesichterid, int gbid, int rahmenid, int benutzerid, int kopfbedeckungid, int oberteilid, int koerperid) {
 		this.gesichterid = gesichterid;
-	}
-	
-	public void setGesichtsbedeckungsID(int gbid) {
 		this.gbid = gbid;
-	}
-	
-	public void setKopfbedeckungenID(int kopfbedeckungsid) {
-		this.kopfbedeckungid = kopfbedeckungsid;
-	}
-	
-	public void setOberteilID(int oberteilid) {
-		this.oberteilid = oberteilid;
-	}
-	
-	public void setKoerperID(int koerperid) {
-		this.koerperid = koerperid;
-	}
-	/*public Avatar(int accessoireid, int kostuemid, int rahmenid, int benutzerid) {
-		this.accessoireid = accessoireid;
-		this.kostuemid = kostuemid;
 		this.rahmenid = rahmenid;
 		this.benutzerid = benutzerid;
-	}*/
+		this.kopfbedeckungid = kopfbedeckungid;
+		this.oberteilid = oberteilid;
+		this.koerperid = koerperid;
+	}
+
+	public int getAvatarid() {
+		return avatarid;
+	}
+
+	public int getRahmenid() {
+		return rahmenid;
+	}
+
+	public int getBenutzerid() {
+		return benutzerid;
+	}
+
+	public int getGesichterid() {
+		return gesichterid;
+	}
+
+	public int getGbid() {
+		return gbid;
+	}
+
+	public int getKopfbedeckungid() {
+		return kopfbedeckungid;
+	}
+
+	public int getOberteilid() {
+		return oberteilid;
+	}
+
+	public int getKoerperid() {
+		return koerperid;
+	}
 }

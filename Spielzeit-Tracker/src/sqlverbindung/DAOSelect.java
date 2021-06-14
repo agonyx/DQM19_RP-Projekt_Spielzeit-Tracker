@@ -9,14 +9,12 @@ import java.sql.SQLException;
 
 import gui.Hauptseite;
 
-public class DAO {
+public class DAOSelect {
 
 
 	private String database;
 	private String url;
 	private Connection conn = null;
-	private ResultSet rs;
-	private Benutzer b;
 	private Avatar avatar;
 	private Gesichter gesichter;
 	private Gesichtsbedeckung gesichtsbedeckung;
@@ -28,7 +26,7 @@ public class DAO {
 	private Koerper koerper;
 		
 
-	public DAO() {
+	public DAOSelect() {
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e) {
@@ -49,7 +47,7 @@ public class DAO {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				Benutzer benutzer = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"),
-						rs.getString("Email"), rs.getString("ZeitApp"), rs.getInt("Punkte"), rs.getInt("Admin"));
+						rs.getString("Email"), rs.getInt("Punkte"), rs.getInt("Admin"));
 				return benutzer;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -251,7 +249,7 @@ public class DAO {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				koerper = new Koerper(rs.getInt("KoerperID"),
-						rs.getString("Bezeichnung"), rs.getString("Bild"));
+						rs.getString("Bezeichnung"), rs.getString("Bilder"));
 				return koerper;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -355,105 +353,4 @@ public class DAO {
 		}
 	}
 	
-	//InsertIntoAnweisungen
-	public void insertBenutzer(Benutzer benutzer) throws DB_FehlerException {
-		try {
-			conn = DriverManager.getConnection(url);
-			String sql = "Insert Into Benutzer (Username, Passwort, SteamID, Email) Values (?,?,?,?)";
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, benutzer.getUsername());
-			statement.setString(2, benutzer.getPasswort());
-			statement.setString(3, benutzer.getSteamid());
-			statement.setString(4, benutzer.getEmail());
-			statement.executeUpdate();
-		} catch (SQLException e) {
-			throw new DB_FehlerException(e.getMessage());
-		} finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				throw new DB_FehlerException(e.getMessage());
-			}
-		}
-	}
-
-	
-	
-	//SelectAnweisungen zur Überprüfung
-	public Benutzer getIfBenutzerWithAttributeExist(String inputTry, String tabellenAttribut) throws DB_FehlerException {
-		try {
-			conn = DriverManager.getConnection(url);
-			String sql = "select * from Benutzer where ? = ?";
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, tabellenAttribut);
-			statement.setString(2, inputTry);
-			rs = statement.executeQuery();
-			System.out.println(rs.getString("Username"));
-			if(rs.next()) {
-				 b = new Benutzer(rs.getInt("BenutzerID"),rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getString("ZeitApp"), rs.getInt("Punkte"), 0);
-				 return b;
-			} else {
-				throw new DB_FehlerException("Benutzer mit Attribut nicht gefunden!");
-			}
-		} catch (SQLException e) {
-			throw new DB_FehlerException(e.getMessage());
-		} finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				throw new DB_FehlerException(e.getMessage());
-			}
-		}
-	}
-	
-	public boolean getIfBenutzerWithAttributeExistWahr(String inputTry, String tabellenAttribut) throws DB_FehlerException {
-		try {
-			conn = DriverManager.getConnection(url);
-			String sql = "select * from Benutzer where ? = ?";
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, tabellenAttribut);
-			statement.setString(2, inputTry);
-			rs = statement.executeQuery();
-			ResultSet rs = statement.executeQuery();
-			if(rs.next()) {
-				 return true;
-			} else {
-				return false;
-			}
-		} catch (SQLException e) {
-			return false;
-			
-		} finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				throw new DB_FehlerException(e.getMessage());
-			}
-		}
-	}
-	
-	public void UpdateAppTime(String totalTime) throws DB_FehlerException {
-		try {
-			conn = DriverManager.getConnection(url);
-			String sql = "UPDATE Benutzer SET ZeitApp = "+ totalTime + " WHERE Username = '" + Hauptseite.getBenutzer().getUsername()+"';";
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.executeUpdate();
-		} catch (SQLException e) {
-			throw new DB_FehlerException(e.getMessage());
-		} finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				throw new DB_FehlerException(e.getMessage());
-			}
-		}
-	}
 }

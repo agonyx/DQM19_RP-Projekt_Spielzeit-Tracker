@@ -7,9 +7,12 @@ import javax.swing.border.EmptyBorder;
 import io.FileCreationError;
 import io.FileManager;
 import sqlverbindung.Benutzer;
-import sqlverbindung.DAO;
+import sqlverbindung.DAOGetandSet;
+import sqlverbindung.DAOSelect;
 import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
+import sqlverbindung.Spiele;
+import threads.ThreadAnmeldung;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -32,12 +35,11 @@ public class Anmeldung extends JFrame implements ActionListener {
 	private JButton exitButton;
 	private JButton loginButton;
 	private JCheckBox checkBoxNewCheckBox;
-	private DAO d;
+	private DAOGetandSet d;
 	private DAOStatistik ds;
 	private FileManager fm;
 	private JPasswordField textFieldPasswort;
 	private JButton registrierungButton;
-	private Benutzer ben;
 
 	public Anmeldung() {
 		initComponents();
@@ -56,7 +58,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 		this.repaint();
 	}
 	private void initComponents() {
-		d = new DAO();
+		d = new DAOGetandSet();
 		ds = new DAOStatistik();
 		fm = new FileManager();
 		setVisible(true);
@@ -130,42 +132,46 @@ public class Anmeldung extends JFrame implements ActionListener {
 
 	protected void loginButton_actionPerformed(ActionEvent e) {
 		try {
-			ben = d.getIfBenutzerWithAttributeExist(textFieldEmailBenutzername.getText(),"Username");
-			System.out.println("test");
-			Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
-			if(ben.getPasswort().equals(textFieldPasswort.getText())) {
-				if(checkBoxNewCheckBox.isSelected()) {
-					if(fm.doesExist("Userdata.txt")) {
-						fm.delete("Userdata.txt");
-					}
-					fm.create("Userdata.txt");
-					fm.write("Userdata.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
-				}
-				if(!ds.doesStatistikForUserExist(ben)) {
-					ds.createStatistikForUser(ben);
-				}
-				System.out.println("[System] Login successfull");
-				Hauptseite hs = new Hauptseite(ben);
-				hs.setBenutzer(ben);
-				dispose();
+			if (textFieldEmailBenutzername.getText().isBlank()||textFieldPasswort.getText().isBlank()) {
+				JOptionPane.showMessageDialog(this, "Die leeren Felder müssen gefüllt werden!","Fehler",JOptionPane.ERROR_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(this, "Falsches Passwort","Fehler",JOptionPane.ERROR_MESSAGE);
-			}	
-		} catch (DB_FehlerException e1) {
-			JOptionPane.showMessageDialog(this, "Falsches Passwort oder Nutzer existiert nicht","Fehler",JOptionPane.ERROR_MESSAGE);
-			e1.printStackTrace();
-		} catch (FileCreationError e2) {
-		} catch (IOException e1) {
-			e1.printStackTrace();
+				//Sucht nach Benutzer mit Attribut in Datenbank
+				Benutzer ben = d.getIfBenutzerWithAttributeExist(("\"" +textFieldEmailBenutzername.getText() + "\""),"Username");
+
+				if(ben.getPasswort().equals(textFieldPasswort.getText())) {
+					//checkt ob bereits ein Dokument existiert
+					if(checkBoxNewCheckBox.isSelected()) {
+						if(fm.doesExist("Userdata.txt")) {
+							fm.delete("Userdata.txt");
+						}
+						fm.create("Userdata.txt");
+						fm.write("Userdata.txt", "Username: " + textFieldEmailBenutzername.getText() + "\n " +"Passwort: " +textFieldPasswort.getText());
+					}
+					//Kreiert eine Statistik für den Benutzer falls dieser nicht bereits eine hat
+					ThreadAnmeldung ta = new ThreadAnmeldung(ben);
+					ta.start();
+					System.out.println("[System] Login successfull");
+					Hauptseite hs = new Hauptseite(ben);
+					hs.setBenutzer(ben);
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(this, "Falsches Passwort","Fehler",JOptionPane.ERROR_MESSAGE);
+				}	
+			}
+			} catch (DB_FehlerException e1) {
+				JOptionPane.showMessageDialog(this, "Falsches Passwort oder Nutzer existiert nicht","Fehler",JOptionPane.ERROR_MESSAGE);
+			} catch (FileCreationError e2) {
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		protected void textFieldEmailBenutzername_focusGained(FocusEvent e) {
+			if(textFieldEmailBenutzername.getText().equals("Email / Benutzername")) {
+				textFieldEmailBenutzername.setText("");
+			}
+		}
+		protected void registrierungButton_actionPerformed(ActionEvent e) {
+			Registrierung rg = new Registrierung();
+			dispose();
 		}
 	}
-	protected void textFieldEmailBenutzername_focusGained(FocusEvent e) {
-		if(textFieldEmailBenutzername.getText().equals("Email / Benutzername")) {
-			textFieldEmailBenutzername.setText("");
-		}
-	}
-	protected void registrierungButton_actionPerformed(ActionEvent e) {
-		Registrierung rg = new Registrierung();
-		dispose();
-	}
-}

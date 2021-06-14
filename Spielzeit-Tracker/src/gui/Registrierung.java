@@ -1,11 +1,9 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -14,10 +12,9 @@ import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 
 import sqlverbindung.Benutzer;
-import sqlverbindung.DAO;
+import sqlverbindung.DAOGetandSet;
 
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
@@ -30,34 +27,16 @@ public class Registrierung extends JFrame implements ActionListener {
 	private JLabel labelBenutzername;
 	private JTextField textFieldBenutzername;
 	private JLabel labelPasswort;
-	private JTextField textFieldPasswort;
+	private JPasswordField passwortField;
 	private JLabel labelPasswortbestaetigen;
-	private JTextField textFieldPasswortbestaetigen;
+	private JPasswordField passwortBestaetigenField;
 	private JButton buttonNewButton;
 	private JButton buttonRegistrierung;
 	private JTextField textFieldSteamID;
 	private JLabel labelSteamID;
 
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Registrierung frame = new Registrierung();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	/**
-	 * Create the frame.
-	 */
+
+
 	public Registrierung() {
 		initGUI();
 		setVisible(true);
@@ -102,11 +81,10 @@ public class Registrierung extends JFrame implements ActionListener {
 			contentPane.add(labelPasswort);
 		}
 		{
-			textFieldPasswort = new JTextField();
-			textFieldPasswort.setText("Passwort");
-			textFieldPasswort.setBounds(166, 97, 212, 19);
-			contentPane.add(textFieldPasswort);
-			textFieldPasswort.setColumns(10);
+			passwortField = new JPasswordField();
+			passwortField.setBounds(166, 97, 212, 19);
+			contentPane.add(passwortField);
+			passwortField.setColumns(10);
 		}
 		{
 			labelPasswortbestaetigen = new JLabel("Passwort best\u00E4tigen:");
@@ -115,11 +93,10 @@ public class Registrierung extends JFrame implements ActionListener {
 			contentPane.add(labelPasswortbestaetigen);
 		}
 		{
-			textFieldPasswortbestaetigen = new JTextField();
-			textFieldPasswortbestaetigen.setText("Passwort best\u00E4tigen");
-			textFieldPasswortbestaetigen.setBounds(166, 137, 212, 19);
-			contentPane.add(textFieldPasswortbestaetigen);
-			textFieldPasswortbestaetigen.setColumns(10);
+			passwortBestaetigenField = new JPasswordField();
+			passwortBestaetigenField.setBounds(166, 137, 212, 19);
+			contentPane.add(passwortBestaetigenField);
+			passwortBestaetigenField.setColumns(10);
 		}
 		{
 			buttonNewButton = new JButton("Abbruch");
@@ -155,44 +132,60 @@ public class Registrierung extends JFrame implements ActionListener {
 			do_buttonNewButton_actionPerformed(e);
 		}
 	}
+	// Öffnet Anmeldung und schließt diese Fenster.
 	protected void do_buttonNewButton_actionPerformed(ActionEvent e) {
 		Anmeldung a = new Anmeldung();
 		dispose();
 	}
 	
+	/*
+	 * Prüft ob die Felder leer sind, bereits in der Datenbank existieren und ob die Passwort Felder überein stimmen. 
+	 * Gibt eine Fehler Meldung aus, sollte etwas nicht stimmen.
+	 * Wenn alles richtig sein, wird der Benutzer angelegt, die Anmeldung geöffnet und dieses Fenster geschlossen. 
+	 */
 	protected void do_buttonRegistrierung_actionPerformed(ActionEvent argo) {
 		try {
-			DAO d = new DAO();
+			DAOGetandSet d = new DAOGetandSet();
 			String falsche = "Flasche eingabe.";
 			Pattern p = Pattern.compile("@");
 			Matcher m = p.matcher(textFieldEmail.getText());
-			if(textFieldPasswort.getText().equals(textFieldPasswortbestaetigen.getText()))
-			{
-				if(m.find()) {
-					if(d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email") == false)
-					{
-						if(d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID") == false) {
-							Benutzer b = new Benutzer(textFieldBenutzername.getText(), textFieldPasswort.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), null, 0, 0);
-							d.insertBenutzer(b);
-							Anmeldung a = new Anmeldung();
-							dispose();
+			if(textFieldBenutzername.getText() == null || passwortField.getText() == null || passwortBestaetigenField.getText() == null || textFieldSteamID.getText() == null || textFieldEmail.getText() == null) {
+				JOptionPane.showMessageDialog(this, "Alle Felder Müssen Ausgefühlt sein.", falsche, ABORT);
+			} else {
+
+				if(passwortField.getText().equals(passwortBestaetigenField.getText()))
+				{
+					if(m.find()) {
+						if(d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email") == false)
+						{
+							if(d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID") == false) {
+								if(d.getIfBenutzerWithAttributeExistWahr(textFieldBenutzername.getText(), "Username") == false) {
+									Benutzer b = new Benutzer(textFieldBenutzername.getText(), passwortField.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), 0, 0);
+									d.insertBenutzer(b);
+									d.createDefaultAvatar(b);
+									Anmeldung a = new Anmeldung();
+									dispose();
+								} else {
+									JOptionPane.showMessageDialog(this, falsche,"Benutzername wird bereits genutz.", JOptionPane.ERROR_MESSAGE);
+								}
+
+							} else {
+								JOptionPane.showMessageDialog(this, falsche,"Steam API wird bereits genutz.", JOptionPane.ERROR_MESSAGE);
+							}
+
 						} else {
-							JOptionPane.showMessageDialog(this, falsche,"Steam API wird bereits genutz.", JOptionPane.ERROR_MESSAGE);
-						}
-						
-					} else {
 							JOptionPane.showMessageDialog(this, falsche,"Email existiert bereits.", JOptionPane.ERROR_MESSAGE);
 						}
-				} else
+					} else
 					{
 						JOptionPane.showMessageDialog(this, falsche,"Keine gültige Email.", JOptionPane.ERROR_MESSAGE);
 					}
-					
-			} else 
+
+				} else 
 				{
 					JOptionPane.showMessageDialog(this, falsche,"Passwörter Stimmen nicht über ein.", JOptionPane.ERROR_MESSAGE);
 				}		
-			
+			}
 		} catch(NumberFormatException e)
 		{
 			e.getMessage();
