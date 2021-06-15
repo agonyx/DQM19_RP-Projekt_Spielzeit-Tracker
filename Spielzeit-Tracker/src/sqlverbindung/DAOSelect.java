@@ -360,7 +360,7 @@ public class DAOSelect {
 			statement.setInt(1, appID);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
-				Spiele spiel = new Spiele(rs.getInt("SpielID"),appID,rs.getString("Bezeichnung"));
+				Spiele spiel = new Spiele(rs.getInt("SpielID"), appID,rs.getString("Bezeichnung"));
 				return spiel;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");

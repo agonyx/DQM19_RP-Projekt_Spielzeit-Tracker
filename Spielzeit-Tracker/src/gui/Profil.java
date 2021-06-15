@@ -65,8 +65,8 @@ public class Profil extends JPanel {
 			addGameMostHours();
 		} catch (DB_FehlerException e) {
 			JOptionPane.showMessageDialog(this, "KRITISCHER FEHLER");
+			e.printStackTrace();
 			System.exit(0);
-			
 		}
 
 	}
@@ -248,6 +248,7 @@ public class Profil extends JPanel {
 		double max=0;
 		int appid = 0;
 		for(int i=0; i<games.length; i++) {
+			System.out.println(spielzeiten.get(appids.get(i)));
 			if(spielzeiten.get(appids.get(i)) != null) {
 				if(spielzeiten.get(appids.get(i))>max) {
 					max = spielzeiten.get(appids.get(i));

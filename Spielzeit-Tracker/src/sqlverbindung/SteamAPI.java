@@ -47,7 +47,6 @@ public class SteamAPI {
 		List<Integer> ga = Arrays.asList(appids);
 		//HashMap wird erstellt
 		HashMap<Integer, Integer> result = new HashMap<>();
-		int x = 0;
 		for(int i = 0; i < s.size(); i++) {
 			if (ga.contains(s.get(i).getAppid())) {
 				result.put(s.get(i).getAppid(), s.get(i).getPlaytimeForever());
