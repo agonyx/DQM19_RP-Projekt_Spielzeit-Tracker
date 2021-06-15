@@ -13,9 +13,6 @@ public class Koerper {
 		this.bilder = bilder;
 	}
 
-	public int getKoerperID() {
-		return koerperid;
-	}
 	public String getBezeichnung() {
 		return bezeichnung;
 	}
