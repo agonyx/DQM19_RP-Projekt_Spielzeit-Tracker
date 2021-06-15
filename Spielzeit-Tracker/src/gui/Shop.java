@@ -53,13 +53,13 @@ public class Shop extends JPanel implements MouseListener {
 	private HashMap<JLabel, Integer> label_preis;
 
 	public Shop(Hauptseite hs) {
+		this.hs = hs;
+		benutzer = hs.getBenutzer();
 		setBackground(UIManager.getColor("Button.disabledShadow"));
 		ditems = new DAOGetandSet();
 		ds = new DAOSelect();
 		label_itembezeichnung = new HashMap<>();
 		label_preis = new HashMap<>();
-		this.hs = hs;
-		benutzer = hs.getBenutzer();
 		initComponents();
 		initItems();
 		createItemSections();
@@ -104,9 +104,6 @@ public class Shop extends JPanel implements MouseListener {
 			}
 		}
 
-	}
-
-	private void init() {
 	}
 
 	private void initItems() {
@@ -232,14 +229,26 @@ public class Shop extends JPanel implements MouseListener {
 	}
 
 	public void mouseClicked(MouseEvent me) {
-		avatar = initAvatar(benutzer);
+		avatar = hs.getAvatar();
+		String standardKoerper = "";
+		String standardGesicht = "";
+		String standardGesichtsbedeckung = "";
+		String standardKopfbedeckung = "";
+		String standardOberteil = "";
 		try {
-		String StandardKoerper = ds.selectKoerper(avatar.getKoerperid()).getBild();
-		String StandardGesicht = ds.selectGesicht(avatar.getGesichterid()).getBild();
-		String StandardGesichtsbedeckung = ds.selectGesichtsbedeckung(avatar.getGbid()).getBild();
-		String StandardKopfbedeckung = ds.selectKopfbedeckung(avatar.getKopfbedeckungid()).getBild();
-		String StandardOberteil = ds.selectOberteil(avatar.getOberteilid()).getBild();
-		
+			if(String.valueOf(avatar.getKoerperid())!= null&& avatar.getKoerperid() != 0)  {
+				standardKoerper = ds.selectKoerper(avatar.getKoerperid()).getBild();
+			}
+			if(String.valueOf(avatar.getGesichterid())!= null && avatar.getGesichterid() != 0)  {
+				standardGesicht = ds.selectGesicht(avatar.getGesichterid()).getBild();
+			}
+			if(String.valueOf(avatar.getGbid())!= null&& avatar.getGbid() != 0)  {
+				standardGesichtsbedeckung = ds.selectGesichtsbedeckung(avatar.getGbid()).getBild();
+			} if(String.valueOf(avatar.getKopfbedeckungid())!= null&& avatar.getKopfbedeckungid() != 0)  {
+				standardKopfbedeckung = ds.selectKopfbedeckung(avatar.getKopfbedeckungid()).getBild();
+			} if(String.valueOf(avatar.getOberteilid())!= null&& avatar.getOberteilid() != 0)  {
+				standardOberteil = ds.selectOberteil(avatar.getOberteilid()).getBild();
+			}
 		JLabel j  = (JLabel) me.getSource();
 		String jName = j.getName();
 		int jID = Integer.parseInt(jName.substring(jName.length() -1));
@@ -247,19 +256,19 @@ public class Shop extends JPanel implements MouseListener {
 		
 		switch (jName) {
 		case "Koerper":
-			hs.updateAvatarPicture(ds.selectKoerper(jID).getBild(), StandardGesicht , StandardGesichtsbedeckung, ds.selectKopfbedeckung(jID).getBild() , StandardOberteil);
+			hs.updateAvatarPicture(ds.selectKoerper(jID).getBild(), standardGesicht , standardGesichtsbedeckung, ds.selectKopfbedeckung(jID).getBild() , standardOberteil);
 			break;
 		case "Gesicht":
-			hs.updateAvatarPicture(StandardKoerper, ds.selectGesicht(jID).getBild(), StandardGesichtsbedeckung, StandardKopfbedeckung , StandardOberteil);
+			hs.updateAvatarPicture(standardKoerper, ds.selectGesicht(jID).getBild(), standardGesichtsbedeckung, standardKopfbedeckung , standardOberteil);
 			break;
 		case "Gesichtsbedeckung":
-			hs.updateAvatarPicture(StandardKoerper, StandardGesicht , ds.selectGesichtsbedeckung(jID).getBild(), StandardKopfbedeckung , StandardOberteil);
+			hs.updateAvatarPicture(standardKoerper, standardGesicht , ds.selectGesichtsbedeckung(jID).getBild(), standardKopfbedeckung , standardOberteil);
 			break;
 		case "Kopfbedeckung":
-			hs.updateAvatarPicture(StandardKoerper, StandardGesicht , StandardGesichtsbedeckung, ds.selectKopfbedeckung(jID).getBild() , StandardOberteil);
+			hs.updateAvatarPicture(standardKoerper, standardGesicht , standardGesichtsbedeckung, ds.selectKopfbedeckung(jID).getBild() , standardOberteil);
 			break;
 		case "Oberteil":
-			hs.updateAvatarPicture(StandardKoerper, StandardGesicht , StandardGesichtsbedeckung, StandardKopfbedeckung , ds.selectOberteil(jID).getBild());
+			hs.updateAvatarPicture(standardKoerper, standardGesicht , standardGesichtsbedeckung, standardKopfbedeckung , ds.selectOberteil(jID).getBild());
 			break;
 		}
 		labelDescription.setText(label_itembezeichnung.get(j));
@@ -271,14 +280,6 @@ public class Shop extends JPanel implements MouseListener {
 		}
 	}
 
-	public Avatar initAvatar(Benutzer b) {
-		try {
-			avatar = ds.selectUserAvatar(b.getID());
-		} catch (DB_FehlerException e) {
-			e.printStackTrace();
-		}
-		return avatar;
-	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {

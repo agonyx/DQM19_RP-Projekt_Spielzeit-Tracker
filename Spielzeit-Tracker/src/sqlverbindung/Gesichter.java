@@ -20,7 +20,6 @@ public class Gesichter {
 	public String getBezeichnung() {
 		return bezeichnung;
 	}
-
 	public int getPreis() {
 		return preis;
 	}
