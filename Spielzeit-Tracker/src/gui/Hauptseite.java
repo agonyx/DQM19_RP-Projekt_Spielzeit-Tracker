@@ -62,7 +62,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private static Avatar avatar;
 	private static HashMap<Integer, Integer> spielzeiten = new HashMap<Integer,Integer>();
 	private static int totalPlaytime;
-	
+
 	public Hauptseite(Benutzer bb) {
 		setResizable(false);
 		benutzer = bb;
@@ -71,6 +71,11 @@ public class Hauptseite extends JFrame implements ActionListener {
 			calcPoints(bb);
 			setPlaytimeDB(bb);
 			avatar = d.getAvatar(bb);
+			panels = new HashMap();
+			initGUI();
+			p = new Profil(benutzer);
+			panels.put(Views.PROFIl, p);
+			switchTo(Views.PROFIl);
 		} catch (DB_FehlerException e) {
 			try {
 				d.createDefaultAvatar(bb);
@@ -81,11 +86,6 @@ public class Hauptseite extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(this, "Es gibt einen Fehler mit der SteamAPI oder deiner SteamID :c", "Fehler",JOptionPane.ERROR_MESSAGE);
 			dispose();
 		}
-		panels = new HashMap();
-		initGUI();
-		p = new Profil(benutzer);
-		panels.put(Views.PROFIl, p);
-		switchTo(Views.PROFIl);
 	}
 	//Panel wechseln
 	public void switchTo(Views v) {
@@ -98,7 +98,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	}
 	public void setBenutzer(Benutzer ben) {
 		benutzer = ben;
-		
+
 	}
 	public static Benutzer getBenutzer() {
 		return benutzer;
@@ -162,15 +162,15 @@ public class Hauptseite extends JFrame implements ActionListener {
 		taskbar.add(btnShop);
 
 		if(benutzer.isAdmin()) {
-		btnAbmelden = new JButton("Abmelden");
-		btnAbmelden.addActionListener(this);
-		btnAbmelden.setBounds(10, 677, 137, 23);
-		taskbar.add(btnAbmelden);
-		
-		buttonAdmin = new JButton("Admin");
-		buttonAdmin.addActionListener(this);
-		buttonAdmin.setBounds(157, 677, 123, 23);
-		taskbar.add(buttonAdmin);
+			btnAbmelden = new JButton("Abmelden");
+			btnAbmelden.addActionListener(this);
+			btnAbmelden.setBounds(10, 677, 137, 23);
+			taskbar.add(btnAbmelden);
+
+			buttonAdmin = new JButton("Admin");
+			buttonAdmin.addActionListener(this);
+			buttonAdmin.setBounds(157, 677, 123, 23);
+			taskbar.add(buttonAdmin);
 		} else {
 			btnAbmelden = new JButton("Abmelden");
 			btnAbmelden.addActionListener(this);
@@ -216,7 +216,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		a.setVisible(true);
 		dispose();
 	}
-	
+
 	public void updateAvatarPicture(String koerperbez, String gesichterbez, String gesichtsbedeckungbez, String kopfbedeckungbez, String oberteilbez) {
 		lblAvatar.setIcon(new ImageIcon("image/avatare/" + koerperbez + ".png"));
 		lblGesicht.setIcon(new ImageIcon("image/gesichter/" + gesichterbez + ".png"));
@@ -224,7 +224,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		lblKopfbedeckung.setIcon(new ImageIcon("image/kopfbedeckung/" + kopfbedeckungbez + ".png"));
 		lblOberteil.setIcon(new ImageIcon("image/oberteil/" + oberteilbez + ".png"));
 	}
-	
+
 	protected void BtnProfilActionPerformed(ActionEvent e) {
 		p = new Profil(benutzer);
 		panels.put(Views.PROFIl, p);
@@ -246,10 +246,8 @@ public class Hauptseite extends JFrame implements ActionListener {
 				d.setSpielzeit(bb, games[i], minutesToHours(spielzeiten.get(games[i].getAppID())));
 			}
 		}
-		for(int i = 0; i < games.length; i++) {
-			ds.setTotalPlaytime(bb, minutesToHours(totalPlaytime));
-		
-		}
+		ds.setTotalPlaytime(bb, minutesToHours(totalPlaytime));
+
 	}
 	private void calcPoints(Benutzer bb) throws DB_FehlerException {
 		int punkteOLD = bb.getPunkte();
@@ -264,8 +262,8 @@ public class Hauptseite extends JFrame implements ActionListener {
 			}
 		}
 		if (!(punkte == punkteOLD)) {
-		d.setPoints(bb, punkte);
-		bb.setPunkte(punkte);
+			d.setPoints(bb, punkte);
+			bb.setPunkte(punkte);
 		}
 	}
 	public static HashMap<Integer, Integer> getSpielzeiten() {
