@@ -33,6 +33,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
+import java.text.SimpleDateFormat;  
+import java.util.Date;
+
 public class Hauptseite extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
@@ -62,6 +65,8 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private static Avatar avatar;
 	private static HashMap<Integer, Integer> spielzeiten = new HashMap<Integer,Integer>();
 	private static int totalPlaytime;
+	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	private Date date = new Date();
 	
 	public Hauptseite(Benutzer bb) {
 		setResizable(false);
@@ -273,6 +278,10 @@ public class Hauptseite extends JFrame implements ActionListener {
 	}
 	public static int getTotalPlaytime() {
 		return totalPlaytime;
+	}
+	public void daybonus () throws DB_FehlerException {
+		dsel.updateDaybonustime(benutzer, formatter.format(date));
+		
 	}
 
 }

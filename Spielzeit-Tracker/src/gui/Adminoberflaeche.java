@@ -156,9 +156,8 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 			}
 			else 
 				{
-				System.out.println("jeff");
 				if(bigpp.getIfBenutzerWithAttributeExistWahr(textFieldBenutzerID.getText(), "BenutzerID")){
-					pp.updateBenutzer(Hauptseite.getBenutzer().getID(), 1);
+					pp.updateAdminStatus(Hauptseite.getBenutzer().getID(), 1);
 					}
 				}
 		} 
@@ -174,9 +173,8 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 			}
 			else 
 				{
-				System.out.println("jeremy");
 				if(bigpp.getIfBenutzerWithAttributeExistWahr(textFieldBenutzerID.getText(), "BenutzerID")){
-					pp.updateBenutzer(Hauptseite.getBenutzer().getID(), 0);
+					pp.updateAdminStatus(Hauptseite.getBenutzer().getID(), 0);
 					}
 				}
 		} 
