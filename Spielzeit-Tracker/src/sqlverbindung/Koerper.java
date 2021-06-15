@@ -17,9 +17,6 @@ public class Koerper {
 		return koerperid;
 	}
 
-	public int getKoerperID() {
-		return koerperid;
-	}
 	public String getBezeichnung() {
 		return bezeichnung;
 	}

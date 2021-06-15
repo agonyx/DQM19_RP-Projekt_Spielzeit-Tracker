@@ -106,7 +106,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				avatar = new Avatar(benutzerid, rs.getInt("GesichterID"),
-						rs.getInt("GBID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"), rs.getInt("KopfbedeckungID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
+						rs.getInt("GBID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"), rs.getInt("KopfbedeckungenID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
 				return avatar;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -128,14 +128,14 @@ public class DAOSelect {
 	public Gesichter selectGesicht(int gesichterid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "select * from Gesicht where GesichterID = ?";
+			String sql = "select * from Gesichter where GesichterID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, gesichterid);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				gesichter = new Gesichter(rs.getInt("GesichterID"),
-						rs.getString("Bezeichnung"), rs.getString("Bild"));
+						rs.getString("Bezeichnung"), rs.getString("Bilder"));
 				return gesichter;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -164,7 +164,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				gesichtsbedeckung = new Gesichtsbedeckung(rs.getInt("GBID"),
-						rs.getString("Bezeichnung"), rs.getString("Bild"));
+						rs.getString("Bezeichnung"), rs.getString("Bilder"));
 				return gesichtsbedeckung;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -193,7 +193,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				kopfbedeckung = new Kopfbedeckung(rs.getInt("KopfbedeckungenID"),
-						rs.getString("Bezeichnung"), rs.getString("Bild"));
+						rs.getString("Bezeichnung"), rs.getString("Bilder"));
 				return kopfbedeckung;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -221,7 +221,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				oberteil = new Oberteil(rs.getInt("OberteilID"),
-						rs.getString("Bezeichnung"), rs.getString("Bild"));
+						rs.getString("Bezeichnung"), rs.getString("Bilder"));
 				return oberteil;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -278,7 +278,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				rahmen = new Rahmen(rs.getInt("RahmenID"),
-						rs.getString("Bezeichnung"), rs.getString("Bild"));
+						rs.getString("Bezeichnung"), rs.getString("Bilder"));
 				return rahmen;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");

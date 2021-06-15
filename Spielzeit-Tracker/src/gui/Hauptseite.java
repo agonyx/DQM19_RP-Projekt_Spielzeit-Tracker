@@ -56,6 +56,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private Shop shop;
 	private Adminoberflaeche ao;
 	private DAOStatistik ds = new DAOStatistik();
+	private DAOSelect dsel = new DAOSelect();
 	private Profil p;
 	private JLabel labelPunkte;
 	private static Avatar avatar;
@@ -130,8 +131,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		taskbar.add(avatarGesamt);
 
 		lblGesichtsbedeckung = new JLabel("");
-		lblGesichtsbedeckung.setIcon(new ImageIcon("image/avatare/AVATAR_000.png"));
-		lblGesichtsbedeckung.setBounds(7, 33, 256, 256);
+		lblGesichtsbedeckung.setBounds(0, 0, 256, 256);
 		avatarGesamt.add(lblGesichtsbedeckung);
 
 		lblKopfbedeckung = new JLabel("");
@@ -147,6 +147,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		avatarGesamt.add(lblGesicht);
 
 		lblAvatar = new JLabel("");
+		lblAvatar.setIcon(new ImageIcon("image/avatare/AVATAR_000.png"));
 		lblAvatar.setBounds(0, 0, 256, 256);
 		avatarGesamt.add(lblAvatar);
 
@@ -201,7 +202,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		}
 	}
 	protected void BtnShopActionPerformed(ActionEvent e) {
-		shop = new Shop();
+		shop = new Shop(this);
 		panels.put(Views.SHOP, shop);
 		switchTo(Views.SHOP);
 	}
@@ -217,11 +218,11 @@ public class Hauptseite extends JFrame implements ActionListener {
 	}
 	
 	public void updateAvatarPicture(String koerperbez, String gesichterbez, String gesichtsbedeckungbez, String kopfbedeckungbez, String oberteilbez) {
-		lblAvatar.setIcon(new ImageIcon(Hauptseite.class.getResource("image/avatare/" + koerperbez)));
-		lblGesicht.setIcon(new ImageIcon(Hauptseite.class.getResource("image/gesichter/" + gesichterbez)));
-		lblGesichtsbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("image/gesichtsbedeckung/" + gesichtsbedeckungbez)));
-		lblKopfbedeckung.setIcon(new ImageIcon(Hauptseite.class.getResource("image/kopfbedeckung/" + kopfbedeckungbez)));
-		lblOberteil.setIcon(new ImageIcon(Hauptseite.class.getResource("image/oberteil/" + oberteilbez)));
+		lblAvatar.setIcon(new ImageIcon("image/avatare/" + koerperbez + ".png"));
+		lblGesicht.setIcon(new ImageIcon("image/gesichter/" + gesichterbez + ".png"));
+		lblGesichtsbedeckung.setIcon(new ImageIcon("image/gesichtsbedeckung/" + gesichtsbedeckungbez + ".png"));
+		lblKopfbedeckung.setIcon(new ImageIcon("image/kopfbedeckung/" + kopfbedeckungbez + ".png"));
+		lblOberteil.setIcon(new ImageIcon("image/oberteil/" + oberteilbez + ".png"));
 	}
 	
 	protected void BtnProfilActionPerformed(ActionEvent e) {
