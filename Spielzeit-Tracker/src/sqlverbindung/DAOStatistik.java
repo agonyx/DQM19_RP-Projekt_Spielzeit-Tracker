@@ -181,6 +181,32 @@ public class DAOStatistik {
 
 		}
 	}
+	public int getRankHoursGames(Benutzer b,Spiele spiel) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "SELECT BenutzerID,Zeit,rank() OVER (Order by Zeit DESC) as Rang FROM Spielzeit WHERE SpielID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, spiel.getSpielID());
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				if (rs.getInt("BenutzerID") == b.getID()) {
+					return rs.getInt("Rang");
+				}
+			}
+			throw new DB_FehlerException("");
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
 
 
 }

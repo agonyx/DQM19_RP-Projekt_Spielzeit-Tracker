@@ -352,5 +352,31 @@ public class DAOSelect {
 
 		}
 	}
+	public Spiele selectGame(int appID) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Spiele where AppID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, appID);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				Spiele spiel = new Spiele(rs.getInt("SpielID"),appID,rs.getString("Bezeichnung"));
+				return spiel;
+			} else {
+				throw new DB_FehlerException("Die ID existiert nicht");
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
 	
 }
