@@ -573,7 +573,7 @@ public class DAOGetandSet {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, b.getID());
 			statement.setInt(2, itemID);
-			statement.setString(2, type);
+			statement.setString(3, type);
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
@@ -616,11 +616,9 @@ public class DAOGetandSet {
 	public boolean doesItemExist(String type,int itemID) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "select * from ? WHERE ?ID = ?";
+			String sql = "select * from "+type+" WHERE "+type+"ID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, type);
-			statement.setString(2, type);
-			statement.setInt(3, itemID);
+			statement.setInt(1, itemID);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				return true;
