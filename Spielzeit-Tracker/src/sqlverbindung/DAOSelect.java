@@ -135,7 +135,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				gesichter = new Gesichter(rs.getInt("GesichterID"),
-						rs.getString("Bezeichnung"), rs.getString("Bilder"));
+						rs.getString("Bezeichnung"), rs.getString("Bild"),rs.getString("Typ"));
 				return gesichter;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -164,7 +164,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				gesichtsbedeckung = new Gesichtsbedeckung(rs.getInt("GBID"),
-						rs.getString("Bezeichnung"), rs.getString("Bilder"));
+						rs.getString("Bezeichnung"), rs.getString("Bild"),rs.getString("Typ"));
 				return gesichtsbedeckung;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -193,7 +193,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				kopfbedeckung = new Kopfbedeckung(rs.getInt("KopfbedeckungenID"),
-						rs.getString("Bezeichnung"), rs.getString("Bilder"));
+						rs.getString("Bezeichnung"), rs.getString("Bild"),rs.getString("Typ"));
 				return kopfbedeckung;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -221,7 +221,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				oberteil = new Oberteil(rs.getInt("OberteilID"),
-						rs.getString("Bezeichnung"), rs.getString("Bilder"));
+						rs.getString("Bezeichnung"), rs.getString("Bild"),rs.getString("Typ"));
 				return oberteil;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -249,7 +249,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				koerper = new Koerper(rs.getInt("KoerperID"),
-						rs.getString("Bezeichnung"), rs.getString("Bilder"));
+						rs.getString("Bezeichnung"), rs.getString("Bilder"),rs.getString("Typ"));
 				return koerper;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -278,7 +278,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				rahmen = new Rahmen(rs.getInt("RahmenID"),
-						rs.getString("Bezeichnung"), rs.getString("Bilder"));
+						rs.getString("Bezeichnung"), rs.getString("Bild"),rs.getString("Typ"));
 				return rahmen;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");

@@ -151,7 +151,7 @@ public class DAOGetandSet {
 			while (rs.next()) {
 				if (count < size)
 					gesicht[count] = new Gesichter(rs.getInt("GesichterID"), rs.getString("Bezeichnung"),
-							rs.getString("Bilder"));
+							rs.getString("Bilder"),rs.getString("Typ"));
 				count++;
 			}
 			return gesicht;
@@ -182,7 +182,7 @@ public class DAOGetandSet {
 			while (rs.next()) {
 				if (count < size)
 					gb[count] = new Gesichtsbedeckung(rs.getInt("GBID"), rs.getString("Bezeichnung"),
-							rs.getString("Bilder"));
+							rs.getString("Bilder"),rs.getString("Typ"));
 				count++;
 			} 
 			return gb;
@@ -213,7 +213,7 @@ public class DAOGetandSet {
 			while (rs.next()) {
 				if (count < size)
 					Kopfbedeckung[count] = new Kopfbedeckung(rs.getInt("KopfbedeckungenID"),
-							rs.getString("Bezeichnung"), rs.getString("Bilder"));
+							rs.getString("Bezeichnung"), rs.getString("Bilder"),rs.getString("Typ"));
 				count++;
 			} 
 			return Kopfbedeckung;
@@ -244,7 +244,7 @@ public class DAOGetandSet {
 			while (rs.next()) {
 				if (count < size)
 					koerper[count] = new Koerper(rs.getInt("KoerperID"), rs.getString("Bezeichnung"),
-							rs.getString("Bilder"));
+							rs.getString("Bilder"),rs.getString("Typ"));
 				count++;
 			} while (rs.next());
 			return koerper;
@@ -275,7 +275,7 @@ public class DAOGetandSet {
 			while (rs.next()) {
 				if (count < size)
 					Oberteil[count] = new Oberteil(rs.getInt("OberteilID"), rs.getString("Bezeichnung"),
-							rs.getString("Bilder"));
+							rs.getString("Bilder"),rs.getString("Typ"));
 				count++;
 			} while (rs.next());
 			return Oberteil;
@@ -305,7 +305,7 @@ public class DAOGetandSet {
 			while (rs.next()) {
 				if (count < size)
 					rahmen[count] = new Rahmen(rs.getInt("RahmenID"), rs.getString("Bezeichnung"),
-							rs.getString("Bilder"));
+							rs.getString("Bilder"),rs.getString("Typ"));
 				count++;
 			} while (rs.next());
 			return rahmen;
@@ -566,5 +566,26 @@ public class DAOGetandSet {
 
 		}
 	}
-	
+	public void createBuyEntry(Benutzer b, int itemID, String type) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "Insert Into Inventar (BenutzerID, ItemID, Type) Values (?,?,?)";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, b.getID());
+			statement.setInt(2, itemID);
+			statement.setString(2, type);
+			
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
 }

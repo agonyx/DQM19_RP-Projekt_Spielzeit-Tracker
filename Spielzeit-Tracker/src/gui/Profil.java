@@ -3,6 +3,7 @@ package gui;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -63,7 +64,9 @@ public class Profil extends JPanel {
 			addRangTotal();
 			addGameMostHours();
 		} catch (DB_FehlerException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "KRITISCHER FEHLER");
+			System.exit(0);
+			
 		}
 
 	}

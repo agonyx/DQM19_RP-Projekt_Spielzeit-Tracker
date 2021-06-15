@@ -5,11 +5,13 @@ public class Gesichter {
 	private String bezeichnung;
 	private String bild;
 	private int preis;
+	private String typ;
 	
-	public Gesichter (int gesichterid, String bezeichnung, String bild) {
+	public Gesichter (int gesichterid, String bezeichnung, String bild,String typ) {
 		this.gesichterid = gesichterid;
 		this.bezeichnung = bezeichnung;
 		this.bild = bild;
+		this.typ = typ;
 	}
 	
 	public int getGesichterID() {
@@ -25,5 +27,8 @@ public class Gesichter {
 
 	public String getBild() {
 		return bild;
+	}
+	public String getType() {
+		return typ;
 	}
 }
