@@ -77,7 +77,7 @@ public class DAOGetandSet {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet rs = statement.executeQuery();
 			if(rs.next()) {
-				Avatar a = new Avatar(rs.getInt("GesichterID"),rs.getInt("GBID") , rs.getInt("RahmenID"), b.getID(), rs.getInt("KopfbedeckungenID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
+				Avatar a = new Avatar(rs.getInt("GesichterID"),rs.getInt("GesichtsbedeckungenID") , rs.getInt("RahmenID"), b.getID(), rs.getInt("KopfbedeckungenID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
 				return a;
 			} else {
 				throw new DB_FehlerException("Der Avatar f�r diesen Benutzer konnte nicht gefunden werden");
@@ -181,7 +181,7 @@ public class DAOGetandSet {
 			int count = 0;
 			while (rs.next()) {
 				if (count < size)
-					gb[count] = new Gesichtsbedeckung(rs.getInt("GBID"), rs.getString("Bezeichnung"),
+					gb[count] = new Gesichtsbedeckung(rs.getInt("GesichtsbedeckungenID"), rs.getString("Bezeichnung"),
 							rs.getString("Bilder"),rs.getString("Typ"));
 				count++;
 			} 
@@ -328,7 +328,7 @@ public class DAOGetandSet {
 			throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "Insert Into Avatar (BenutzerID, RahmenID, GesichterID, GBID, KopfbedeckungenID, OberteilID, AvatarbildID) Values (?,?,?,?,?,?,?)";
+			String sql = "Insert Into Avatar (BenutzerID, RahmenID, GesichterID, GesichtsbedeckungenID, KopfbedeckungenID, OberteilID, AvatarbildID) Values (?,?,?,?,?,?,?)";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, benutzer.getID());
 			statement.setInt(2, rahmen.getRahmenID());
@@ -354,7 +354,7 @@ public class DAOGetandSet {
 	public void changeAvatar(int benutzerid, Rahmen rahmen, Gesichter gesichter, Gesichtsbedeckung gesichtsbedeckung, Kopfbedeckung kopfbedeckung, Oberteil oberteil, Koerper koerper) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "update Avatar Set RahmenID = ?, GesichterID = ?, GBID = ?, KopfbedeckungenID = ?, OberteilID = ?, AvatarbildID = ? where BenutzerID = ?";
+			String sql = "update Avatar Set RahmenID = ?, GesichterID = ?, GesichtsbedeckungenID = ?, KopfbedeckungenID = ?, OberteilID = ?, AvatarbildID = ? where BenutzerID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, rahmen.getRahmenID());
 			statement.setInt(2, gesichter.getGesichterID());
@@ -380,7 +380,7 @@ public class DAOGetandSet {
 	public void changeAvatar(int benutzerid, int rahmenID, int gesichterID, int gesichtsbedeckungID, int kopfbedeckungID, int oberteilID, int koerperID) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "update Avatar Set RahmenID = ?, GesichterID = ?, GBID = ?, KopfbedeckungenID = ?, OberteilID = ?, AvatarbildID = ? where BenutzerID = ?";
+			String sql = "update Avatar Set RahmenID = ?, GesichterID = ?, GesichtsbedeckungenID = ?, KopfbedeckungenID = ?, OberteilID = ?, AvatarbildID = ? where BenutzerID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, rahmenID);
 			statement.setInt(2, gesichterID);
@@ -575,6 +575,58 @@ public class DAOGetandSet {
 			statement.setInt(2, itemID);
 			statement.setString(2, type);
 			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
+	public boolean itemOwnership(Benutzer b, int itemID, String type) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Inventar where BenutzerID = ? and ItemID = ? and Type = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, b.getID());
+			statement.setInt(2, itemID);
+			statement.setString(3, type);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
+	public boolean doesItemExist(String type,int itemID) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from ? WHERE ?ID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, type);
+			statement.setString(2, type);
+			statement.setInt(3, itemID);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
 		} finally {

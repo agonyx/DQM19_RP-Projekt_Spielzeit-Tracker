@@ -78,7 +78,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				avatar = new Avatar(avatarid, rs.getInt("GesichterID"),
-						rs.getInt("GBID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"), rs.getInt("KopfbedeckungID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
+						rs.getInt("GesichtsbedeckungenID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"), rs.getInt("KopfbedeckungID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
 				return avatar;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -107,7 +107,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				avatar = new Avatar(benutzerid, rs.getInt("GesichterID"),
-						rs.getInt("GBID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"), rs.getInt("KopfbedeckungenID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
+						rs.getInt("GesichtsbedeckungenID"), rs.getInt("RahmenID"), rs.getInt("BenutzerID"), rs.getInt("KopfbedeckungenID"), rs.getInt("OberteilID"), rs.getInt("KoerperID"));
 				return avatar;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");
@@ -158,13 +158,13 @@ public class DAOSelect {
 	public Gesichtsbedeckung selectGesichtsbedeckung(int gbid) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "select * from Gesichtsbedeckungen where GBID = ?";
+			String sql = "select * from Gesichtsbedeckungen where GesichtsbedeckungenID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, gbid);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
-				gesichtsbedeckung = new Gesichtsbedeckung(rs.getInt("GBID"),
+				gesichtsbedeckung = new Gesichtsbedeckung(rs.getInt("GesichtsbedeckungenID"),
 						rs.getString("Bezeichnung"), rs.getString("Bilder"),rs.getString("Typ"));
 				return gesichtsbedeckung;
 			} else {
