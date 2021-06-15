@@ -28,8 +28,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Shop extends JPanel implements MouseListener {
+public class Shop extends JPanel implements MouseListener, ActionListener {
 
 	private JPanel panel;
 	private JScrollPane scrollPane;
@@ -49,6 +51,7 @@ public class Shop extends JPanel implements MouseListener {
 	private Hauptseite hs;
 	private JLabel labelDescription;
 	private JLabel labelPrice;
+	private JLabel mEventLabel;
 	private HashMap<JLabel, String> label_itembezeichnung;
 	private HashMap<JLabel, Integer> label_preis;
 
@@ -76,6 +79,7 @@ public class Shop extends JPanel implements MouseListener {
 			panel.setLayout(null);
 			{
 				buyButton = new JButton("Buy");
+				buyButton.addActionListener(this);
 				buyButton.setBounds(10, 667, 181, 23);
 				panel.add(buyButton);
 			}
@@ -249,8 +253,8 @@ public class Shop extends JPanel implements MouseListener {
 			} if(String.valueOf(avatar.getOberteilid())!= null&& avatar.getOberteilid() != 0)  {
 				standardOberteil = ds.selectOberteil(avatar.getOberteilid()).getBild();
 			}
-		JLabel j  = (JLabel) me.getSource();
-		String jName = j.getName();
+		mEventLabel  = (JLabel) me.getSource();
+		String jName = mEventLabel.getName();
 		int jID = Integer.parseInt(jName.substring(jName.length() -1));
 		jName = jName.substring(0, jName.length()-2);
 		
@@ -271,8 +275,8 @@ public class Shop extends JPanel implements MouseListener {
 			hs.updateAvatarPicture(standardKoerper, standardGesicht , standardGesichtsbedeckung, standardKopfbedeckung , ds.selectOberteil(jID).getBild());
 			break;
 		}
-		labelDescription.setText(label_itembezeichnung.get(j));
-		labelPrice.setText("Preis: "+label_preis.get(j));
+		labelDescription.setText(label_itembezeichnung.get(mEventLabel));
+		labelPrice.setText("Preis: "+label_preis.get(mEventLabel));
 		
 		} 
 		catch(DB_FehlerException e) {
@@ -303,5 +307,21 @@ public class Shop extends JPanel implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == buyButton) {
+			BuyButtonActionPerformed(e);
+		}
+	}
+	protected void BuyButtonActionPerformed(ActionEvent e) {
+		try {
+			if (mEventLabel != null) {
+				if (benutzer.getPunkte() >= label_preis.get(mEventLabel)) {
+					
+				}
+			}
+		} catch (DB_FehlerException e1) {
+			// TODO: handle exception
+		}
 	}
 }

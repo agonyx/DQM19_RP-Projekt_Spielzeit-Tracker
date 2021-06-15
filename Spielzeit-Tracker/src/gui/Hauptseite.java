@@ -278,12 +278,11 @@ public class Hauptseite extends JFrame implements ActionListener {
 		return totalPlaytime;
 	}
 	public void dayBonus (Benutzer bb) throws DB_FehlerException {
-		if (!(bb.getDate() == formatter.format(date))) {
-		dsel.updateDaybonustime(bb, formatter.format(date));
-		} else {
-			int daybonus = 24*5;
-			d.setPoints(bb, (bb.getPunkte()+daybonus));
-		}
+		if (!bb.getDate().equalsIgnoreCase(formatter.format(date))) {
+		d.updateDaybonustime(bb, formatter.format(date));
+		int daybonus = 24*5;
+		d.setPoints(bb, (bb.getPunkte()+daybonus));
+		} 
 		
 	}
 

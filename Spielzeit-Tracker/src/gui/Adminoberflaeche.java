@@ -38,7 +38,6 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 	private JComboBox comboBoxTypAuswahl;
 	private Button buttonDurchsuchen;
 	private JButton btnHinzufuegen;
-	private DAOSelect pp = new DAOSelect();
 	private JButton btnEntfernen;
 	private DAOGetandSet bigpp = new DAOGetandSet();
 	/**
@@ -156,8 +155,9 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 			}
 			else 
 				{
+				System.out.println("swag");
 				if(bigpp.getIfBenutzerWithAttributeExistWahr(textFieldBenutzerID.getText(), "BenutzerID")){
-					pp.updateAdminStatus(Hauptseite.getBenutzer().getID(), 1);
+					bigpp.updateAdminStatus(Integer.parseInt(textFieldBenutzerID.getText()), 1);
 					}
 				}
 		} 
@@ -174,7 +174,7 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 			else 
 				{
 				if(bigpp.getIfBenutzerWithAttributeExistWahr(textFieldBenutzerID.getText(), "BenutzerID")){
-					pp.updateAdminStatus(Hauptseite.getBenutzer().getID(), 0);
+					bigpp.updateAdminStatus(Integer.parseInt(textFieldBenutzerID.getText()), 0);
 					}
 				}
 		} 

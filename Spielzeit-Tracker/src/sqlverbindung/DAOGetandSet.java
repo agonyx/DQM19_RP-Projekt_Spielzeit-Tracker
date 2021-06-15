@@ -574,7 +574,6 @@ public class DAOGetandSet {
 			statement.setInt(1, b.getID());
 			statement.setInt(2, itemID);
 			statement.setString(2, type);
-			
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
@@ -586,6 +585,49 @@ public class DAOGetandSet {
 			} catch (SQLException e) {
 				throw new DB_FehlerException(e.getMessage());
 			}
+		}
+	}
+	public void updateAdminStatus(int benutzerid, int adminask) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "UPDATE Benutzer SET Admin = ? WHERE BenutzerID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, adminask);
+			statement.setInt(2, benutzerid);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
+	public void updateDaybonustime(Benutzer benutzer, String daybonustime) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+
+			String sql = "update Benutzer set daybonustime = ? where benutzerID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, daybonustime);
+			statement.setInt(2, benutzer.getID());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
 		}
 	}
 }
