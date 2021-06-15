@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 import javax.swing.JScrollBar;
 import java.awt.Font;
@@ -21,6 +22,10 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
+import sqlverbindung.Benutzer;
+import sqlverbindung.DAOGetandSet;
+import sqlverbindung.DAOSelect;
+import sqlverbindung.DB_FehlerException;
 
 public class Adminoberflaeche extends JPanel implements ActionListener {
 	private JLabel labelGegenstandHinzufügen;
@@ -32,7 +37,10 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 	private JLabel labelBezeichnung;
 	private JComboBox comboBoxTypAuswahl;
 	private Button buttonDurchsuchen;
-
+	private JButton btnHinzufuegen;
+	private DAOSelect pp = new DAOSelect();
+	private JButton btnEntfernen;
+	private DAOGetandSet bigpp = new DAOGetandSet();
 	/**
 	 * Create the panel.
 	 */
@@ -68,11 +76,13 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 			panel.add(labelBenutzerID);
 		}
 		
-		JButton btnHinzufuegen = new JButton("Hinzuf\u00FCgen");
+		btnHinzufuegen = new JButton("Hinzuf\u00FCgen");
+		btnHinzufuegen.addActionListener(this);
 		btnHinzufuegen.setBounds(32, 104, 96, 23);
 		panel.add(btnHinzufuegen);
 		
-		JButton btnEntfernen = new JButton("Entfernen");
+		btnEntfernen = new JButton("Entfernen");
+		btnEntfernen.addActionListener(this);
 		btnEntfernen.setBounds(153, 104, 96, 23);
 		panel.add(btnEntfernen);
 		
@@ -117,6 +127,12 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 		}
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnEntfernen) {
+			btnEntfernenActionPerformed(e);
+		}
+		if (e.getSource() == btnHinzufuegen) {
+			btnHinzufuegenActionPerformed(e);
+		}
 		if (e.getSource() == buttonDurchsuchen) {
 			buttonDurchsuchenActionPerformed(e);
 		}
@@ -132,5 +148,40 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
         meinJFrame.getContentPane().add(chooser);
         // Wir lassen unseren Frame anzeigen
         meinJFrame.setVisible(true);
+	}
+	protected void btnHinzufuegenActionPerformed(ActionEvent e) {
+		try {
+			if (textFieldBenutzerID.getText().isBlank()){
+				JOptionPane.showMessageDialog(this, "Bitte geben sie eine BenutzerID ein!","Fehler",JOptionPane.ERROR_MESSAGE);
+			}
+			else 
+				{
+				System.out.println("jeff");
+				if(bigpp.getIfBenutzerWithAttributeExistWahr(textFieldBenutzerID.getText(), "BenutzerID")){
+					pp.updateBenutzer(Hauptseite.getBenutzer().getID(), 1);
+					}
+				}
+		} 
+		catch (DB_FehlerException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	protected void btnEntfernenActionPerformed(ActionEvent e) {
+		try {
+			if (textFieldBenutzerID.getText().isBlank()){
+				JOptionPane.showMessageDialog(this, "Bitte geben sie eine BenutzerID ein!","Fehler",JOptionPane.ERROR_MESSAGE);
+			}
+			else 
+				{
+				System.out.println("jeremy");
+				if(bigpp.getIfBenutzerWithAttributeExistWahr(textFieldBenutzerID.getText(), "BenutzerID")){
+					pp.updateBenutzer(Hauptseite.getBenutzer().getID(), 0);
+					}
+				}
+		} 
+		catch (DB_FehlerException e1) {
+			e1.printStackTrace();
+		}
 	}
 }

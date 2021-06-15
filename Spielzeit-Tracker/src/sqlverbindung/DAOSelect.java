@@ -65,6 +65,29 @@ public class DAOSelect {
 
 		}
 	}
+	
+	public void updateBenutzer(int benutzerid, int adminask) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+
+			String sql = "update Benutzer set Admin = ? where benutzerID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, adminask);
+			statement.setInt(2, benutzerid);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
 
 	//Auswahl der Avatare anhand der ID
 	public Avatar selectAvatar(int avatarid) throws DB_FehlerException {

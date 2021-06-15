@@ -68,4 +68,5 @@ public class Benutzer {
 	public void setPunkte(int punkte) {
 		this.punkte = punkte;
 	}
+	
 }
