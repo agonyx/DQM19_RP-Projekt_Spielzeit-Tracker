@@ -15,6 +15,8 @@ import sqlverbindung.Benutzer;
 import sqlverbindung.DAOGetandSet;
 
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
@@ -34,7 +36,8 @@ public class Registrierung extends JFrame implements ActionListener {
 	private JButton buttonRegistrierung;
 	private JTextField textFieldSteamID;
 	private JLabel labelSteamID;
-
+	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	private Date date = new Date();
 
 
 	public Registrierung() {
@@ -160,7 +163,7 @@ public class Registrierung extends JFrame implements ActionListener {
 						{
 							if(d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID") == false) {
 								if(d.getIfBenutzerWithAttributeExistWahr(textFieldBenutzername.getText(), "Username") == false) {
-									Benutzer b = new Benutzer(textFieldBenutzername.getText(), passwortField.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), 0, 0);
+									Benutzer b = new Benutzer(textFieldBenutzername.getText(), passwortField.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), 0, 0, formatter.format(date));
 									d.insertBenutzer(b);
 									d.createDefaultAvatar(b);
 									Anmeldung a = new Anmeldung();

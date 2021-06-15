@@ -28,7 +28,7 @@ public class DAOGetandSet {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet rs = statement.executeQuery();
 			if(rs.next()) {
-				 Benutzer b = new Benutzer(rs.getInt("BenutzerID"),rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getInt("Punkte"), rs.getInt("Admin"));
+				 Benutzer b = new Benutzer(rs.getInt("BenutzerID"),rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getInt("Punkte"), rs.getInt("Admin"),rs.getString("daybonustime"));
 				 return b;
 			} else {
 				throw new DB_FehlerException("Benuzter mit Attribut nicht gefunden!");

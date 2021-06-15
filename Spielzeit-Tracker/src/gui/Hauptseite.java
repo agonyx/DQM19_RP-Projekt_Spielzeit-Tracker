@@ -73,6 +73,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		try {
 			addPlaytime(bb);
 			calcPoints(bb);
+			dayBonus(bb);
 			setPlaytimeDB(bb);
 			avatar = d.getAvatar(bb);
 			panels = new HashMap();
@@ -276,8 +277,13 @@ public class Hauptseite extends JFrame implements ActionListener {
 	public static int getTotalPlaytime() {
 		return totalPlaytime;
 	}
-	public void daybonus () throws DB_FehlerException {
-		dsel.updateDaybonustime(benutzer, formatter.format(date));
+	public void dayBonus (Benutzer bb) throws DB_FehlerException {
+		if (!(bb.getDate() == formatter.format(date))) {
+		dsel.updateDaybonustime(bb, formatter.format(date));
+		} else {
+			int daybonus = 24*5;
+			d.setPoints(bb, (bb.getPunkte()+daybonus));
+		}
 		
 	}
 
