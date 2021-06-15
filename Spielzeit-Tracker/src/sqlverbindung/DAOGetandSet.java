@@ -1,6 +1,5 @@
 package sqlverbindung;
 
-import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -357,7 +356,6 @@ public class DAOGetandSet {
 			conn = DriverManager.getConnection(url);
 			String sql = "update Avatar Set RahmenID = ?, GesichterID = ?, GBID = ?, KopfbedeckungenID = ?, OberteilID = ?, AvatarbildID = ? where BenutzerID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement = conn.prepareStatement(sql);
 			statement.setInt(1, rahmen.getRahmenID());
 			statement.setInt(2, gesichter.getGesichterID());
 			statement.setInt(3, gesichtsbedeckung.getGBID());
@@ -384,7 +382,6 @@ public class DAOGetandSet {
 			conn = DriverManager.getConnection(url);
 			String sql = "update Avatar Set RahmenID = ?, GesichterID = ?, GBID = ?, KopfbedeckungenID = ?, OberteilID = ?, AvatarbildID = ? where BenutzerID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement = conn.prepareStatement(sql);
 			statement.setInt(1, rahmenID);
 			statement.setInt(2, gesichterID);
 			statement.setInt(3, gesichtsbedeckungID);
@@ -507,7 +504,6 @@ public class DAOGetandSet {
 			conn = DriverManager.getConnection(url);
 			String sql = "Update Spielzeit Set Zeit = ? where BenutzerID = ? and SpielID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement = conn.prepareStatement(sql);
 			statement.setDouble(1, spielzeit);
 			statement.setInt(2, b.getID());
 			statement.setInt(3, spiel.getSpielID());
@@ -554,7 +550,6 @@ public class DAOGetandSet {
 			conn = DriverManager.getConnection(url);
 			String sql = "Update Benutzer Set Punkte = ? where BenutzerID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement = conn.prepareStatement(sql);
 			statement.setInt(1, amount);
 			statement.setInt(2, bb.getID());
 			statement.executeUpdate();
@@ -571,4 +566,5 @@ public class DAOGetandSet {
 
 		}
 	}
+	
 }

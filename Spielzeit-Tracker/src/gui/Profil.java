@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -43,18 +44,23 @@ public class Profil extends JPanel {
 	 * Create the panel.
 	 */
 	public Profil(Benutzer benutzer) {
-		dg = new DAOGetandSet();
-		this.benutzer = benutzer;
-		spielzeiten = Hauptseite.getSpielzeiten();
-		getStatistik(benutzer);
-		addGames();
-		initGUI();
-		addNameUndEmail();
-		addPunkte();
-		addGesamtSpielzeit();
-		addMitgliedDatum();
+		try {
+			dg = new DAOGetandSet();
+			this.benutzer = benutzer;
+			spielzeiten = Hauptseite.getSpielzeiten();
+			getStatistik(benutzer);
+			addGames();
+			initGUI();
+			addNameUndEmail();
+			addPunkte();
+			addGesamtSpielzeit();
+			addMitgliedDatum();
+		} catch (DB_FehlerException e) {
+			e.printStackTrace();
+		}
+		
 	}
-	private void initGUI() {
+	private void initGUI() throws DB_FehlerException {
 		setBounds(30, 213, 865, 725);
 		setLayout(null);
 		{
@@ -89,12 +95,24 @@ public class Profil extends JPanel {
 						JTextField spielzeitTextField = new JTextField();
 						spielzeitTextField.setBounds(450, 17, 75, 20);
 						spielzeitTextField.setEditable(false);
+						JLabel labelRang = new JLabel("Rang");
+						labelRang.setBounds(295, 17, 50, 20);
+						gamePanel.add(labelRang);
 						if(spielzeiten.get(games[i].getAppID()) != null) {
 							spielzeitTextField.setText(String.valueOf(minutesToHours(spielzeiten.get(games[i].getAppID()))));
 						} else {
 							spielzeitTextField.setText("N/A");
 						}
-						
+						JTextField textFieldRank= new JTextField();
+						textFieldRank.setBounds(340, 17, 75, 20);
+						textFieldRank.setEditable(false);
+						System.out.println(games[i].getName() + " "+ games[i].getSpielID());
+						if(spielzeiten.get(games[i].getAppID()) != null) {
+							textFieldRank.setText(String.valueOf(ds.getRankGames(benutzer,games[i])));
+						} else {
+							textFieldRank.setText("N/A");
+						}
+						gamePanel.add(textFieldRank);
 						gamePanel.add(spielzeitTextField);
 						panelViewport.add(gamePanel);
 						delay = delay +60;
@@ -221,5 +239,6 @@ public class Profil extends JPanel {
 	private int minutesToHours(int integer) {
 		return (integer/60);
 	}
+		
 	
 }
