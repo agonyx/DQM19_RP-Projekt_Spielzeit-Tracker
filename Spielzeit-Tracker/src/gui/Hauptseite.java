@@ -23,6 +23,7 @@ import sqlverbindung.DAOStatistik;
 import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Spiele;
 import sqlverbindung.Spielzeit;
+import sqlverbindung.Statistik;
 import sqlverbindung.SteamAPI;
 
 import java.awt.Color;
@@ -52,7 +53,6 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private static Benutzer benutzer;
 	private DAOGetandSet d = new DAOGetandSet();
 	private SteamAPI steam = new SteamAPI();
-	private Statistiken statistiken;
 	private Shop shop;
 	private Adminoberflaeche ao;
 	private DAOStatistik ds = new DAOStatistik();
@@ -62,12 +62,12 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private static HashMap<Integer, Integer> spielzeiten = new HashMap<Integer,Integer>();
 	private static int totalPlaytime;
 	
-	
 	public Hauptseite(Benutzer bb) {
 		setResizable(false);
 		benutzer = bb;
 		try {
 			addPlaytime(bb);
+			calcPoints(bb);
 			setPlaytimeDB(bb);
 			avatar = d.getAvatar(bb);
 		} catch (DB_FehlerException e) {
@@ -82,10 +82,9 @@ public class Hauptseite extends JFrame implements ActionListener {
 		}
 		panels = new HashMap();
 		initGUI();
-		statistiken = new Statistiken();
-		panels.put(Views.STATISTIKEN, statistiken);
-		switchTo(Views.STATISTIKEN);
-		
+		p = new Profil(benutzer);
+		panels.put(Views.PROFIl, p);
+		switchTo(Views.PROFIl);
 	}
 	//Panel wechseln
 	public void switchTo(Views v) {
@@ -161,11 +160,6 @@ public class Hauptseite extends JFrame implements ActionListener {
 		btnShop.setBounds(10, 523, 270, 66);
 		taskbar.add(btnShop);
 
-		btnStatistiken = new JButton("Statistiken");
-		btnStatistiken.addActionListener(this);
-		btnStatistiken.setBounds(10, 446, 270, 66);
-		taskbar.add(btnStatistiken);
-
 		if(benutzer.isAdmin()) {
 		btnAbmelden = new JButton("Abmelden");
 		btnAbmelden.addActionListener(this);
@@ -182,7 +176,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 			btnAbmelden.setBounds(10, 677, 270, 23);
 			taskbar.add(btnAbmelden);
 		}
-		labelPunkte = new JLabel("Punkte: ");
+		labelPunkte = new JLabel("Punkte: " + benutzer.getPunkte());
 		labelPunkte.setBounds(20, 302, 260, 14);
 		taskbar.add(labelPunkte);
 
@@ -205,14 +199,6 @@ public class Hauptseite extends JFrame implements ActionListener {
 		if (e.getSource() == btnShop) {
 			BtnShopActionPerformed(e);
 		}
-		if (e.getSource() == btnStatistiken) {
-			BtnStatistikenActionPerformed(e);
-		}
-	}
-	protected void BtnStatistikenActionPerformed(ActionEvent e) {
-		statistiken = new Statistiken();
-		panels.put(Views.STATISTIKEN, statistiken);
-		switchTo(Views.STATISTIKEN);
 	}
 	protected void BtnShopActionPerformed(ActionEvent e) {
 		shop = new Shop();
@@ -262,6 +248,23 @@ public class Hauptseite extends JFrame implements ActionListener {
 		for(int i = 0; i < games.length; i++) {
 			ds.setTotalPlaytime(bb, minutesToHours(totalPlaytime));
 		
+		}
+	}
+	private void calcPoints(Benutzer bb) throws DB_FehlerException {
+		int punkteOLD = bb.getPunkte();
+		int punkte = 0;
+		if (bb.getPunkte() == -1) {
+			punkte = (int) (minutesToHours(getTotalPlaytime()))* 5;
+		} else {
+			Statistik s = ds.selectStatistikforUser(bb);
+			double lastKnownHoursvsNew = getTotalPlaytime() - (s.getGesamtzeit()*60);
+			if (lastKnownHoursvsNew != 0)  {
+				punkte = (int) (bb.getPunkte() + (minutesToHours((int) lastKnownHoursvsNew) * 5));
+			}
+		}
+		if (!(punkte == punkteOLD)) {
+		d.setPoints(bb, punkte);
+		bb.setPunkte(punkte);
 		}
 	}
 	public static HashMap<Integer, Integer> getSpielzeiten() {

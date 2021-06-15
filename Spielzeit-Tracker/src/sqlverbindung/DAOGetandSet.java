@@ -28,7 +28,7 @@ public class DAOGetandSet {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet rs = statement.executeQuery();
 			if(rs.next()) {
-				 Benutzer b = new Benutzer(rs.getInt("BenutzerID"),rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getInt("Punkte"), 0);
+				 Benutzer b = new Benutzer(rs.getInt("BenutzerID"),rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"), rs.getString("Email"), rs.getInt("Punkte"), rs.getInt("Admin"));
 				 return b;
 			} else {
 				throw new DB_FehlerException("Benuzter mit Attribut nicht gefunden!");
@@ -356,7 +356,6 @@ public class DAOGetandSet {
 			conn = DriverManager.getConnection(url);
 			String sql = "update Avatar Set RahmenID = ?, GesichterID = ?, GBID = ?, KopfbedeckungenID = ?, OberteilID = ?, AvatarbildID = ? where BenutzerID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement = conn.prepareStatement(sql);
 			statement.setInt(1, rahmen.getRahmenID());
 			statement.setInt(2, gesichter.getGesichterID());
 			statement.setInt(3, gesichtsbedeckung.getGBID());
@@ -383,7 +382,6 @@ public class DAOGetandSet {
 			conn = DriverManager.getConnection(url);
 			String sql = "update Avatar Set RahmenID = ?, GesichterID = ?, GBID = ?, KopfbedeckungenID = ?, OberteilID = ?, AvatarbildID = ? where BenutzerID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement = conn.prepareStatement(sql);
 			statement.setInt(1, rahmenID);
 			statement.setInt(2, gesichterID);
 			statement.setInt(3, gesichtsbedeckungID);
@@ -506,7 +504,6 @@ public class DAOGetandSet {
 			conn = DriverManager.getConnection(url);
 			String sql = "Update Spielzeit Set Zeit = ? where BenutzerID = ? and SpielID = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement = conn.prepareStatement(sql);
 			statement.setDouble(1, spielzeit);
 			statement.setInt(2, b.getID());
 			statement.setInt(3, spiel.getSpielID());
@@ -524,4 +521,50 @@ public class DAOGetandSet {
 
 		}
 	}
+	public int getSpielZeit(Benutzer bb) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "select * from Statistik where BenutzerID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, bb.getID());
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("Gesamtspielzeit");
+			} else {
+				throw new DB_FehlerException(sql);
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+		}
+	}
+	public void setPoints(Benutzer bb, int amount) throws DB_FehlerException {
+		try {
+			conn = DriverManager.getConnection(url);
+			String sql = "Update Benutzer Set Punkte = ? where BenutzerID = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, amount);
+			statement.setInt(2, bb.getID());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw new DB_FehlerException(e.getMessage());
+			}
+
+		}
+	}
+	
 }
