@@ -175,7 +175,7 @@ public class Registrierung extends JFrame implements ActionListener {
 								}
 
 							} else {
-								JOptionPane.showMessageDialog(this, falsche,"Steam API wird bereits genutz.", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(this, falsche,"Steam ID wird bereits genutz.", JOptionPane.ERROR_MESSAGE);
 							}
 
 						} else {
