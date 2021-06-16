@@ -22,8 +22,13 @@ import sqlverbindung.DB_FehlerException;
 import sqlverbindung.Spiele;
 import sqlverbindung.Statistik;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
-public class Profil extends JPanel {
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Profil extends JPanel implements ActionListener {
 	private JLabel labelName;
 	private JLabel labelEMail;
 	private JLabel labelMitgliedseit;
@@ -45,6 +50,7 @@ public class Profil extends JPanel {
 	private JLabel labelMeisteSpielzeit;
 	private JTextField textFieldMostPlayedGame;
 	private DAOSelect daoselect = new DAOSelect();
+	private JButton buttonGaderobe;
 
 	/**
 	 * Create the panel.
@@ -222,6 +228,12 @@ public class Profil extends JPanel {
 			textFieldMostPlayedGame.setBounds(135, 210, 96, 19);
 			add(textFieldMostPlayedGame);
 		}
+		{
+			buttonGaderobe = new JButton("Gaderobe");
+			buttonGaderobe.addActionListener(this);
+			buttonGaderobe.setBounds(10, 677, 89, 23);
+			add(buttonGaderobe);
+		}
 
 
 	}
@@ -289,5 +301,13 @@ public class Profil extends JPanel {
 	}
 	private int minutesToHours(int integer) {
 		return (integer/60);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == buttonGaderobe) {
+			ButtonGaderobeActionPerformed(e);
+		}
+	}
+	protected void ButtonGaderobeActionPerformed(ActionEvent e) {
+		Gaderobe g = new Gaderobe((JFrame) this.getRootPane().getParent());
 	}
 }

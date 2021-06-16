@@ -41,11 +41,11 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JPanel taskbar;
 	private JPanel avatarGesamt;
-	private JLabel lblGesichtsbedeckung;
-	private JLabel lblKopfbedeckung;
-	private JLabel lblOberteil;
-	private JLabel lblGesicht;
-	private JLabel lblAvatar;
+	private static JLabel lblGesichtsbedeckung;
+	private static JLabel lblKopfbedeckung;
+	private static JLabel lblOberteil;
+	private static JLabel lblGesicht;
+	private static JLabel lblAvatar;
 	private JButton btnProfil;
 	private JButton btnShop;
 	private JButton btnStatistiken;
@@ -192,7 +192,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 			taskbar.add(btnAbmelden);
 		}
 		labelPunkte = new JLabel("Punkte: " + benutzer.getPunkte());
-		labelPunkte.setBounds(20, 302, 260, 14);
+		labelPunkte.setBounds(10, 267, 260, 14);
 		taskbar.add(labelPunkte);
 
 		panel = new JPanel();
@@ -216,7 +216,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		}
 	}
 	protected void BtnShopActionPerformed(ActionEvent e) {
-		shop = new Shop(this);
+		shop = new Shop();
 		panels.put(Views.SHOP, shop);
 		switchTo(Views.SHOP);
 	}
@@ -231,7 +231,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 		dispose();
 	}
 
-	public void updateAvatarPicture(String koerperbez, String gesichterbez, String gesichtsbedeckungbez, String kopfbedeckungbez, String oberteilbez) {
+	public static void updateAvatarPicture(String koerperbez, String gesichterbez, String gesichtsbedeckungbez, String kopfbedeckungbez, String oberteilbez) {
 		lblAvatar.setIcon(new ImageIcon("image/avatare/" + koerperbez + ".png"));
 		lblGesicht.setIcon(new ImageIcon("image/gesichter/" + gesichterbez + ".png"));
 		lblGesichtsbedeckung.setIcon(new ImageIcon("image/gesichtsbedeckung/" + gesichtsbedeckungbez + ".png"));
