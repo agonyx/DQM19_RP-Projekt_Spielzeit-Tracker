@@ -236,7 +236,7 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 				l[length + delay].setToolTipText("Oberteil " + (i + 1));
 				l[length + delay].setName("Oberteil-" + oberteil[i].getOberteilID());
 				label_itembezeichnung.put(l[length + delay], oberteil[i].getBezeichnung());
-				label_preis.put(l[i + delay], oberteil[i].getPreis());
+				label_preis.put(l[length + delay], oberteil[i].getPreis());
 				label_id.put(l[length+delay],oberteil[i].getOberteilID());
 				label_type.put(l[length+delay], oberteil[i].getType());
 				length++;

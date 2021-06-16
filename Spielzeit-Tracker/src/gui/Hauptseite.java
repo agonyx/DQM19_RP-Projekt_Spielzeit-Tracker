@@ -142,7 +142,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 
 		avatarGesamt = new JPanel();
 		avatarGesamt.setLayout(null);
-		avatarGesamt.setBounds(10, 0, 270, 291);
+		avatarGesamt.setBounds(10, 0, 256, 256);
 		taskbar.add(avatarGesamt);
 
 		lblGesichtsbedeckung = new JLabel("");
@@ -314,12 +314,14 @@ public class Hauptseite extends JFrame implements ActionListener {
 		return totalPlaytime;
 	}
 	public void dayBonus (Benutzer bb) throws DB_FehlerException {
+		if(bb.getDate() != null) {
 		if (!bb.getDate().equalsIgnoreCase(formatter.format(date))) {
 			d.updateDaybonustime(bb, formatter.format(date));
 			int daybonus = 24*5;
 			d.setPoints(bb, (bb.getPunkte()+daybonus));
 		} 
 
+	}
 	}
 
 }
