@@ -16,6 +16,11 @@ import javax.swing.JFrame;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Button;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.border.SoftBevelBorder;
@@ -33,8 +38,6 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 	private JLabel labelBenutzerID;
 	private JTextField textFieldBenutzerID;
 	private JLabel labelTypAuswahl;
-	private JTextField textField_Bezeichnung;
-	private JLabel labelBezeichnung;
 	private JComboBox comboBoxTypAuswahl;
 	private Button buttonDurchsuchen;
 	private JButton btnHinzufuegen;
@@ -51,7 +54,7 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 		setBounds(new Rectangle(100, 100, 865, 725));
 		setForeground(Color.BLACK);
 		setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBounds(367, 11, 279, 151);
@@ -74,20 +77,20 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 			labelBenutzerID.setBounds(32, 52, 84, 14);
 			panel.add(labelBenutzerID);
 		}
-		
+
 		btnHinzufuegen = new JButton("Hinzuf\u00FCgen");
 		btnHinzufuegen.addActionListener(this);
 		btnHinzufuegen.setBounds(32, 104, 96, 23);
 		panel.add(btnHinzufuegen);
-		
+
 		btnEntfernen = new JButton("Entfernen");
 		btnEntfernen.addActionListener(this);
 		btnEntfernen.setBounds(153, 104, 96, 23);
 		panel.add(btnEntfernen);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(10, 11, 347, 213);
+		panel_1.setBounds(10, 11, 347, 151);
 		add(panel_1);
 		panel_1.setLayout(null);
 		{
@@ -103,24 +106,14 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 		}
 		{
 			comboBoxTypAuswahl = new JComboBox();
-			comboBoxTypAuswahl.setBounds(10, 72, 316, 25);
+			comboBoxTypAuswahl.setBounds(10, 72, 327, 25);
 			panel_1.add(comboBoxTypAuswahl);
-			comboBoxTypAuswahl.setModel(new DefaultComboBoxModel(new String[] {"Gesichtsbedeckung", "Kopfbedeckung", "Avatar"}));
+			comboBoxTypAuswahl.setModel(new DefaultComboBoxModel(new String[] {"Gesichter", "Gesichtsbedeckung", "Kopfbedeckung", "Koerper", "Oberteil", "Rahmen"}));
 		}
 		{
-			labelBezeichnung = new JLabel("Bezeichnung");
-			labelBezeichnung.setBounds(10, 108, 96, 14);
-			panel_1.add(labelBezeichnung);
-		}
-		{
-			textField_Bezeichnung = new JTextField();
-			textField_Bezeichnung.setBounds(10, 122, 316, 25);
-			panel_1.add(textField_Bezeichnung);
-			textField_Bezeichnung.setColumns(10);
-		}
-		{
-			buttonDurchsuchen = new Button("Durchsuchen");
-			buttonDurchsuchen.setBounds(10, 153, 70, 22);
+			buttonDurchsuchen = new Button("Hinzuf\u00FCgen");
+			buttonDurchsuchen.setFont(new Font("Dialog", Font.PLAIN, 13));
+			buttonDurchsuchen.setBounds(10, 103, 327, 38);
 			panel_1.add(buttonDurchsuchen);
 			buttonDurchsuchen.addActionListener(this);
 		}
@@ -133,20 +126,57 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 			btnHinzufuegenActionPerformed(e);
 		}
 		if (e.getSource() == buttonDurchsuchen) {
-			buttonDurchsuchenActionPerformed(e);
+			try {
+				buttonDurchsuchenActionPerformed(e);
+			} catch (DB_FehlerException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
-	protected void buttonDurchsuchenActionPerformed(ActionEvent e) {
 
-		JFileChooser chooser = new JFileChooser();
-        // Erzeugung eines neuen Frames mit dem Titel "Dateiauswahl"
-        JFrame meinJFrame = new JFrame("Dateiauswahl");
-        // Wir setzen die Breite auf 450 und die Höhe 300 pixel
-        meinJFrame.setSize(450,300);
-        // Hole den ContentPane und füge diesem unseren JFileChooser hinzu      
-        meinJFrame.getContentPane().add(chooser);
-        // Wir lassen unseren Frame anzeigen
-        meinJFrame.setVisible(true);
+
+	protected void buttonDurchsuchenActionPerformed(ActionEvent e) throws DB_FehlerException{
+		try{
+			String typ = comboBoxTypAuswahl.getSelectedItem().toString();
+			String bezeichnung = JOptionPane.showInputDialog("Geben sie eine Bezeichnung ein!");
+			int preis = 0;
+			
+			if(!bezeichnung.isBlank()) {
+				String preiswert = JOptionPane.showInputDialog("Geben sie einen Preis ein!");
+				preis = Integer.parseInt(preiswert);
+				
+				if(!preiswert.isBlank()) {
+					JFileChooser chooser = new JFileChooser();
+					int choice = chooser.showOpenDialog(this);
+					chooser.setDialogTitle("Dateiauswahl");
+					
+					if(choice == JFileChooser.APPROVE_OPTION) {
+						String path = "image/" + typ + "/" + chooser.getSelectedFile().getName();
+						Files.copy(Path.of(chooser.getSelectedFile().getAbsolutePath()), Path.of(path), StandardCopyOption.REPLACE_EXISTING );
+						String Bild = chooser.getSelectedFile().getName();
+						bigpp.hinzufuegenItem(typ, Bild, bezeichnung, preis);
+					}
+					
+					if(choice == JFileChooser.CANCEL_OPTION) {
+						System.out.println("Cancel");
+					}
+
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "Bitte geben sie ein Preis ein!","Fehler",JOptionPane.ERROR_MESSAGE);
+					buttonDurchsuchenActionPerformed(e);
+				}
+
+			}else{
+				JOptionPane.showMessageDialog(this, "Bitte geben sie eine Bezeichnung ein!","Fehler",JOptionPane.ERROR_MESSAGE);
+				buttonDurchsuchenActionPerformed(e);
+			}
+			
+		}
+		catch(IOException E) {
+			E.printStackTrace();
+		}
 	}
 	protected void btnHinzufuegenActionPerformed(ActionEvent e) {
 		try {
@@ -154,29 +184,29 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Bitte geben sie eine BenutzerID ein!","Fehler",JOptionPane.ERROR_MESSAGE);
 			}
 			else 
-				{
+			{
 				System.out.println("swag");
 				if(bigpp.getIfBenutzerWithAttributeExistWahr(textFieldBenutzerID.getText(), "BenutzerID")){
 					bigpp.updateAdminStatus(Integer.parseInt(textFieldBenutzerID.getText()), 1);
-					}
 				}
+			}
 		} 
 		catch (DB_FehlerException e1) {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	protected void btnEntfernenActionPerformed(ActionEvent e) {
 		try {
 			if (textFieldBenutzerID.getText().isBlank()){
 				JOptionPane.showMessageDialog(this, "Bitte geben sie eine BenutzerID ein!","Fehler",JOptionPane.ERROR_MESSAGE);
 			}
 			else 
-				{
+			{
 				if(bigpp.getIfBenutzerWithAttributeExistWahr(textFieldBenutzerID.getText(), "BenutzerID")){
 					bigpp.updateAdminStatus(Integer.parseInt(textFieldBenutzerID.getText()), 0);
-					}
 				}
+			}
 		} 
 		catch (DB_FehlerException e1) {
 			e1.printStackTrace();

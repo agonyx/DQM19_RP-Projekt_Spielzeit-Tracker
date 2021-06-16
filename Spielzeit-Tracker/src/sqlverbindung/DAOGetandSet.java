@@ -678,6 +678,30 @@ public void updateAdminStatus(int benutzerid, int adminask) throws DB_FehlerExce
 
 	}
 }
+
+public void hinzufuegenItem(String Tabelle, String Bild, String Bezeichnung, int Preis) throws DB_FehlerException {
+	try {
+		conn = DriverManager.getConnection(url);
+		String sql = "Insert Into "+ Tabelle +" (Bilder, Bezeichnung, Preis) Values (?,?,?)";
+		PreparedStatement statement = conn.prepareStatement(sql);
+		statement.setString(1, Bild);
+		statement.setString(2, Bezeichnung);
+		statement.setInt(3, Preis);
+		statement.executeUpdate();
+	} catch (SQLException e) {
+		throw new DB_FehlerException(e.getMessage());
+	} finally {
+		try {
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			throw new DB_FehlerException(e.getMessage());
+		}
+	}
+}
+
+
 public void updateDaybonustime(Benutzer benutzer, String daybonustime) throws DB_FehlerException {
 	try {
 		conn = DriverManager.getConnection(url);
