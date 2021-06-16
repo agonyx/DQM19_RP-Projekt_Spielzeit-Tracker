@@ -11,7 +11,7 @@ public class Gesichtsbedeckung {
 		this.gbid = gbid;
 		this.bezeichnung = bezeichnung;
 		this.bild = bild;
-		this.typ = typ;#
+		this.typ = typ;
 		this.preis = preis;
 	}
 

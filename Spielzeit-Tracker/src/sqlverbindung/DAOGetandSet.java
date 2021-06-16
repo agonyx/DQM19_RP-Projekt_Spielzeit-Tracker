@@ -233,7 +233,7 @@ public Kopfbedeckung[] getAllKopfbedeckung() throws DB_FehlerException {
 		while (rs.next()) {
 			if (count < size)
 				Kopfbedeckung[count] = new Kopfbedeckung(rs.getInt("KopfbedeckungenID"),
-						rs.getString("Bezeichnung"), rs.getString("Bilder"),rs.getString("Typ"));
+						rs.getString("Bezeichnung"), rs.getString("Bilder"), rs.getInt("Preis"),rs.getString("Typ"));
 			count++;
 		} 
 		return Kopfbedeckung;
@@ -264,7 +264,7 @@ public Koerper[] getAllKoerper() throws DB_FehlerException {
 		while (rs.next()) {
 			if (count < size)
 				koerper[count] = new Koerper(rs.getInt("KoerperID"), rs.getString("Bezeichnung"),
-						rs.getString("Bilder"),rs.getString("Typ"));
+						rs.getString("Bilder"),rs.getInt("Preis"),rs.getString("Typ"));
 			count++;
 		} while (rs.next());
 		return koerper;
@@ -295,7 +295,7 @@ public Oberteil[] getAllOberteil() throws DB_FehlerException {
 		while (rs.next()) {
 			if (count < size)
 				Oberteil[count] = new Oberteil(rs.getInt("OberteilID"), rs.getString("Bezeichnung"),
-						rs.getString("Bilder"),rs.getString("Typ"));
+						rs.getString("Bilder"),rs.getInt("Preis"),rs.getString("Typ"));
 			count++;
 		} while (rs.next());
 		return Oberteil;
@@ -325,7 +325,7 @@ public Rahmen[] getAllRahmen() throws DB_FehlerException {
 		while (rs.next()) {
 			if (count < size)
 				rahmen[count] = new Rahmen(rs.getInt("RahmenID"), rs.getString("Bezeichnung"),
-						rs.getString("Bilder"),rs.getString("Typ"));
+						rs.getString("Bilder"),rs.getInt("Preis"),rs.getString("Typ"));
 			count++;
 		} while (rs.next());
 		return rahmen;

@@ -7,11 +7,12 @@ public class Kopfbedeckung {
 	private int preis;
 	private String typ;
 
-	public Kopfbedeckung(int kopfbedeckungenid, String bezeichnung, String bild, String typ) {
+	public Kopfbedeckung(int kopfbedeckungenid, String bezeichnung, String bild, int preis, String typ) {
 		this.kopfbedeckungenid = kopfbedeckungenid;
 		this.bezeichnung = bezeichnung;
 		this.bild = bild;
 		this.typ = typ;
+		this.preis = preis;
 	}
 
 	public int getKopfbedeckungsID() {
