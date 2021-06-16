@@ -149,7 +149,7 @@ public class Registrierung extends JFrame implements ActionListener {
 	protected void do_buttonRegistrierung_actionPerformed(ActionEvent argo) {
 		try {
 			DAOGetandSet d = new DAOGetandSet();
-			String falsche = "Flasche eingabe.";
+			String falsche = "Falsche eingabe.";
 			Pattern p = Pattern.compile("@");
 			Matcher m = p.matcher(textFieldEmail.getText());
 			if(textFieldBenutzername.getText() == null || passwortField.getText() == null || passwortBestaetigenField.getText() == null || textFieldSteamID.getText() == null || textFieldEmail.getText() == null) {
@@ -173,7 +173,7 @@ public class Registrierung extends JFrame implements ActionListener {
 								}
 
 							} else {
-								JOptionPane.showMessageDialog(this, falsche,"Steam API wird bereits genutz.", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(this, falsche,"Steam ID wird bereits genutz.", JOptionPane.ERROR_MESSAGE);
 							}
 
 						} else {
