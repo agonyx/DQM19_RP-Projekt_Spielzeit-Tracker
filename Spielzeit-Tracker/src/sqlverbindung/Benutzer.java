@@ -9,11 +9,12 @@ public class Benutzer {
 	private int benutzerid;
 	private int punkte;
 	private int admin;
+	private String daybonustime;
 
 	
 
 
-	public Benutzer(int benutzerid, String username, String passwort, String steamid, String email, int punkte, int admin) {
+	public Benutzer(int benutzerid, String username, String passwort, String steamid, String email, int punkte, int admin, String daybonustime) {
 		this.benutzerid = benutzerid;
 		this.username = username;
 		this.passwort = passwort;
@@ -21,24 +22,26 @@ public class Benutzer {
 		this.email = email;
 		this.punkte = punkte;
 		this.admin = admin;
+		this.daybonustime = daybonustime;
 	}
 
 
-	public Benutzer(String username, String passwort, String steamid, String email, int punkte, int admin) {
+	public Benutzer(String username, String passwort, String steamid, String email, int punkte, int admin, String daybonustime) {
 		this.username = username;
 		this.passwort = passwort;
 		this.steamid = steamid;
 		this.email = email;
 		this.punkte = punkte;
 		this.admin = admin;
+		this.daybonustime = daybonustime;
 	}
-	public Benutzer(String username, String passwort, String steamid, String email, int punkte) {
+	public Benutzer(String username, String passwort, String steamid, String email, int punkte, String daybonustime) {
 		this.username = username;
 		this.passwort = passwort;
 		this.steamid = steamid;
 		this.punkte = punkte;
 		this.email = email;
-		this.punkte = punkte;
+		this.daybonustime = daybonustime;
 	}
 	
 	public String getUsername() {
@@ -69,4 +72,9 @@ public class Benutzer {
 	public void setPunkte(int punkte) {
 		this.punkte = punkte;
 	}
+	public String getDate () {
+		return daybonustime;
+	}
+	
+	
 }

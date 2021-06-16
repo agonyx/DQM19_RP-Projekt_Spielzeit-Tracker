@@ -15,6 +15,8 @@ import sqlverbindung.Benutzer;
 import sqlverbindung.DAOGetandSet;
 
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
@@ -34,7 +36,8 @@ public class Registrierung extends JFrame implements ActionListener {
 	private JButton buttonRegistrierung;
 	private JTextField textFieldSteamID;
 	private JLabel labelSteamID;
-
+	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	private Date date = new Date();
 
 
 	public Registrierung() {
@@ -146,7 +149,7 @@ public class Registrierung extends JFrame implements ActionListener {
 	protected void do_buttonRegistrierung_actionPerformed(ActionEvent argo) {
 		try {
 			DAOGetandSet d = new DAOGetandSet();
-			String falsche = "Flasche eingabe.";
+			String falsche = "Falsche Eingabe.";
 			Pattern p = Pattern.compile("@");
 			Matcher m = p.matcher(textFieldEmail.getText());
 			if(textFieldBenutzername.getText() == null || passwortField.getText() == null || passwortBestaetigenField.getText() == null || textFieldSteamID.getText() == null || textFieldEmail.getText() == null) {
@@ -156,13 +159,15 @@ public class Registrierung extends JFrame implements ActionListener {
 				if(passwortField.getText().equals(passwortBestaetigenField.getText()))
 				{
 					if(m.find()) {
-						if(d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email") == false)
+						if(d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email"))
 						{
-							if(d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID") == false) {
-								if(d.getIfBenutzerWithAttributeExistWahr(textFieldBenutzername.getText(), "Username") == false) {
-									Benutzer b = new Benutzer(textFieldBenutzername.getText(), passwortField.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), 0, 0);
+							if(!d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID")) {
+								if(!d.getIfBenutzerWithAttributeExistWahr(textFieldBenutzername.getText(), "Username")) {
+									Benutzer b = new Benutzer(textFieldBenutzername.getText(), passwortField.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), 0, 0, formatter.format(date));
 									d.insertBenutzer(b);
 									d.createDefaultAvatar(b);
+									d.createBuyEntry(b, 1, "Gesichter");
+									d.createBuyEntry(b, 1, "Gesichtsbedeckungen");
 									Anmeldung a = new Anmeldung();
 									dispose();
 								} else {

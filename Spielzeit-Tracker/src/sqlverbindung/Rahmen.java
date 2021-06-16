@@ -6,11 +6,14 @@ public class Rahmen {
 	private String bezeichnung;
 	private String bild;
 	private int preis;
+	private String typ;
 	
-	public Rahmen (int rahmenid, String bezeichnung, String bild) {
+	public Rahmen (int rahmenid, String bezeichnung, String bild, int preis, String typ) {
 		this.rahmenid = rahmenid;
 		this.bezeichnung = bezeichnung;
 		this.bild = bild;
+		this.typ = typ;
+		this.preis = preis;
 	}
 
 	public int getRahmenID() {
@@ -25,5 +28,8 @@ public class Rahmen {
 	}
 	public String getBild() {
 		return bild;
+	}
+	public String getType() {
+		return typ;
 	}
 }

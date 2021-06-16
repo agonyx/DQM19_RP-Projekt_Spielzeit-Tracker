@@ -3,6 +3,7 @@ package gui;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -38,7 +39,7 @@ public class Profil extends JPanel {
 	private JScrollPane scrollPane;
 	private JPanel panelViewport;
 	private DAOGetandSet dg;
-	private static HashMap<Integer, Integer> spielzeiten;
+	private HashMap<Integer, Integer> spielzeiten;
 	private JLabel labelRang;
 	private JTextField textFieldRang;
 	private JLabel labelMeisteSpielzeit;
@@ -63,7 +64,9 @@ public class Profil extends JPanel {
 			addRangTotal();
 			addGameMostHours();
 		} catch (DB_FehlerException e) {
+			JOptionPane.showMessageDialog(this, "KRITISCHER FEHLER");
 			e.printStackTrace();
+			System.exit(0);
 		}
 
 	}
@@ -235,9 +238,10 @@ public class Profil extends JPanel {
 		textFieldSpielzeitgesamt.setText(Double.toString(statistik.getGesamtzeit()));
 	}
 	private void addGameMostHours () throws DB_FehlerException {
-		textFieldMostPlayedGame.setText(daoselect.selectGame(gameMaxTimeID()).getName());
+		if(gameMaxTimeID() != null) 
+		textFieldMostPlayedGame.setText(daoselect.selectGame(Integer.parseInt(gameMaxTimeID())).getName());
 	}
-	private int gameMaxTimeID() {
+	private String gameMaxTimeID() {
 		ArrayList<Integer> appids = new ArrayList<Integer>();
 		for(int i = 0; i < games.length; i++) {
 			appids.add(games[i].getAppID());
@@ -252,7 +256,11 @@ public class Profil extends JPanel {
 				}
 			}
 		}
-		return appid;
+		if (appid != 0) {
+			return String.valueOf(appid);
+		} else {	
+			return null;
+		}
 	}
 	//Fügt Spiele zum games Array hinzu.
 	private void addGames() {
