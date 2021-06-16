@@ -299,7 +299,20 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 			} if(String.valueOf(avatar.getOberteilid())!= null&& avatar.getOberteilid() != 0)  {
 				standardOberteil = ds.selectOberteil(avatar.getOberteilid()).getBild();
 			}
-			mEventLabel  = (JLabel) me.getSource();
+			if(mEventLabel != null) {
+			if(mEventLabel != (JLabel) me.getSource()) {
+				
+				JPanel d = (JPanel) mEventLabel.getParent();
+				d.setBorder(new EtchedBorder());
+				mEventLabel  = (JLabel) me.getSource();
+				JPanel dd = (JPanel) mEventLabel.getParent();
+				dd.setBorder(new LineBorder(Color.BLUE, 3));
+			} 
+			}else {
+				mEventLabel  = (JLabel) me.getSource();
+				JPanel dd = (JPanel) mEventLabel.getParent();
+				dd.setBorder(new LineBorder(Color.BLUE, 3));
+			}
 			String jName = mEventLabel.getName();
 			int jID = Integer.parseInt(jName.substring(jName.length() -1));
 			jName = jName.substring(0, jName.length()-2);
@@ -322,6 +335,7 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 				break;
 			}
 			labelDescription.setText(label_itembezeichnung.get(mEventLabel));
+			
 			labelPrice.setText("Preis: "+String.valueOf(label_preis.get(mEventLabel)));
 
 		} 
@@ -339,7 +353,6 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -351,7 +364,7 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 	public void actionPerformed(ActionEvent e) {
