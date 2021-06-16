@@ -135,8 +135,11 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 	// Bereiche für alle Items werden generiert.
 
 	private void createItemSections() throws DB_FehlerException {
+		itemcount = itemcount - ditems.getOwnedItemcount(benutzer);
+		System.out.println(itemcount);
 		JPanel[] j = new JPanel[itemcount + 1];
 		JLabel[] l = new JLabel[itemcount + 1];
+		System.out.println(j.length);
 		int tabx = 0;
 		int taby = 11;
 		int count = 0;
@@ -174,6 +177,7 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 
 		// Ermittelt anhand der Anzahl der einzelenen Elemente den Pfad der ihnen
 		// zugewiesenen Bilder und zeigt sie an.
+		int length = 0;
 		for (int i = 0; i < gesichter.length; i++) {
 			if(!ditems.itemOwnership(benutzer, gesichter[i].getGesichterID(), gesichter[i].getType())) {
 				String gesichterPath = "image/gesichter/" + gesichter[i].getBild() + ".png";
@@ -185,10 +189,12 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 				label_preis.put(l[i], gesichter[i].getPreis());
 				label_id.put(l[i], gesichter[i].getGesichterID());
 				label_type.put(l[i], gesichter[i].getType());
+				length++;
 			}
 		}
 
-		delay = gesichter.length;
+		delay = length;
+		length = 0;
 		for (int i = 0; i < gesichtsbedeckung.length; i++) {
 			if(!ditems.itemOwnership(benutzer, gesichtsbedeckung[i].getGBID(), gesichtsbedeckung[i].getType())) {
 				String gesichtsbedeckungPath = "image/gesichtsbedeckung/" + gesichtsbedeckung[i].getBild() + ".png";
@@ -200,9 +206,11 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 				label_preis.put(l[i + delay], gesichtsbedeckung[i].getPreis());
 				label_id.put(l[i+delay],gesichtsbedeckung[i].getGBID());
 				label_type.put(l[i+delay], gesichtsbedeckung[i].getType());
+				length++;
 			}
 		}
-		delay = delay + gesichtsbedeckung.length;
+		delay = delay + length;
+		length = 0;
 		for (int i = 0; i < kopfbedeckung.length; i++) {
 			if(!ditems.itemOwnership(benutzer, kopfbedeckung[i].getKopfbedeckungsID(), kopfbedeckung[i].getType())) {
 				String kopfbedeckungPath = "image/kopfbedeckung/" + kopfbedeckung[i].getBild() + ".png";
@@ -214,13 +222,16 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 				label_preis.put(l[i + delay], kopfbedeckung[i].getPreis());
 				label_id.put(l[i+delay],kopfbedeckung[i].getKopfbedeckungsID());
 				label_type.put(l[i+delay], kopfbedeckung[i].getType());
+				length++;
 			}
 		}
-		delay = delay + kopfbedeckung.length;
+		delay = delay + length;
+		length = 0;
 		for (int i = 0; i < oberteil.length; i++) {
 			if(!ditems.itemOwnership(benutzer, oberteil[i].getOberteilID(), oberteil[i].getType())) {
 				String oberteilPath = "image/oberteil/" + oberteil[i].getBild() + ".png";
 				ImageIcon icon = new ImageIcon(oberteilPath);
+				System.err.println(i+delay);
 				l[i + delay].setIcon(icon);
 				l[i + delay].setToolTipText("Oberteil " + (i + 1));
 				l[i + delay].setName("Oberteil-" + oberteil[i].getOberteilID());
@@ -228,9 +239,11 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 				label_preis.put(l[i + delay], oberteil[i].getPreis());
 				label_id.put(l[i+delay],oberteil[i].getOberteilID());
 				label_type.put(l[i+delay], oberteil[i].getType());
+				length++;
 			}
 		}
-		delay = delay + oberteil.length;
+		delay = delay + length;
+		length = 0;
 		for (int i = 0; i < rahmen.length; i++) {
 			if(!ditems.itemOwnership(benutzer, rahmen[i].getRahmenID(), rahmen[i].getType())) {
 				String rahmenPath = "image/rahmen/" + rahmen[i].getBild() + ".png";
@@ -242,9 +255,10 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 				label_preis.put(l[i + delay], rahmen[i].getPreis());
 				label_id.put(l[i+delay],rahmen[i].getRahmenID());
 				label_type.put(l[i+delay], rahmen[i].getType());
+				length++;
 			}
 		}
-		delay = delay + rahmen.length;
+		delay = delay + length;
 		for (int i = 0; i < koerper.length; i++) {
 			if(!ditems.itemOwnership(benutzer, koerper[i].getKoerperID(), koerper[i].getType())) {
 				String koerperPath = "image/avatare/" + koerper[i].getBild() + ".png";
@@ -355,6 +369,8 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 							benutzer.setPunkte(benutzer.getPunkte()-label_preis.get(mEventLabel));
 							ditems.setPoints(benutzer, benutzer.getPunkte());
 							createItemSections();
+							this.repaint();
+							this.validate();
 						}
 					}
 				}
