@@ -63,4 +63,36 @@ public class Avatar {
 	public int getKoerperid() {
 		return koerperid;
 	}
+
+	public void setAvatarid(int avatarid) {
+		this.avatarid = avatarid;
+	}
+
+	public void setRahmenid(int rahmenid) {
+		this.rahmenid = rahmenid;
+	}
+
+	public void setBenutzerid(int benutzerid) {
+		this.benutzerid = benutzerid;
+	}
+
+	public void setGesichterid(int gesichterid) {
+		this.gesichterid = gesichterid;
+	}
+
+	public void setGbid(int gbid) {
+		this.gbid = gbid;
+	}
+
+	public void setKopfbedeckungid(int kopfbedeckungid) {
+		this.kopfbedeckungid = kopfbedeckungid;
+	}
+
+	public void setOberteilid(int oberteilid) {
+		this.oberteilid = oberteilid;
+	}
+
+	public void setKoerperid(int koerperid) {
+		this.koerperid = koerperid;
+	}
 }

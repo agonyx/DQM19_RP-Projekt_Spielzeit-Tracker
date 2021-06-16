@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -59,10 +60,11 @@ public class Gaderobe extends JFrame implements ActionListener, MouseListener {
 	private JLabel labelDescription;
 	private JLabel labelType;
 
-	public Gaderobe(JFrame jFrame) {
+	public Gaderobe() {
+		setResizable(false);
+		this.setAlwaysOnTop(true);
 		try {
 			benutzer = Hauptseite.getBenutzer();
-			parent = jFrame;
 			initComponents();
 			initItems();
 			createItemSections();
@@ -73,7 +75,7 @@ public class Gaderobe extends JFrame implements ActionListener, MouseListener {
 	}
 	private void initComponents() {
 		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 631, 792);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -100,11 +102,14 @@ public class Gaderobe extends JFrame implements ActionListener, MouseListener {
 		}
 		{
 			labelDescription = new JLabel("New label");
+			labelDescription.setVisible(false);
 			labelDescription.setBounds(10, 723, 170, 14);
 			contentPane.add(labelDescription);
 		}
 		{
 			labelType = new JLabel("New label");
+			labelType.setDisplayedMnemonic(' ');
+			labelType.setVisible(false);
 			labelType.setBounds(190, 723, 170, 14);
 			contentPane.add(labelType);
 		}
@@ -132,8 +137,8 @@ public class Gaderobe extends JFrame implements ActionListener, MouseListener {
 
 	private void createItemSections() throws DB_FehlerException {
 		itemcount = ditems.getOwnedItemcount(benutzer);
-		JPanel[] j = new JPanel[itemcount + 1];
-		JLabel[] l = new JLabel[itemcount + 1];
+		JPanel[] j = new JPanel[itemcount];
+		JLabel[] l = new JLabel[itemcount];
 		int tabx = 0;
 		int taby = 11;
 		int count = 0;
@@ -265,11 +270,6 @@ public class Gaderobe extends JFrame implements ActionListener, MouseListener {
 		panelViewport.repaint();
 	}
 	protected void ButtonNewButtonActionPerformed(ActionEvent e) {
-		
-	}
-	@Override
-	public void mouseClicked(MouseEvent me) {
-		avatar = Hauptseite.getAvatar();
 		String standardKoerper = "";
 		String standardGesicht = "";
 		String standardGesichtsbedeckung = "";
@@ -289,47 +289,63 @@ public class Gaderobe extends JFrame implements ActionListener, MouseListener {
 			} if(String.valueOf(avatar.getOberteilid())!= null&& avatar.getOberteilid() != 0)  {
 				standardOberteil = ds.selectOberteil(avatar.getOberteilid()).getBild();
 			}
+			String jName = mEventLabel.getName();
+			int jID = Integer.parseInt(jName.substring(jName.length() -1));
+			jName = jName.substring(0, jName.length()-2);
+
+			switch (jName) {
+
+			case "Koerper":
+				Hauptseite.updateAvatarPicture(ds.selectKoerper(jID).getBild(), standardGesicht , standardGesichtsbedeckung, ds.selectKopfbedeckung(jID).getBild() , standardOberteil);
+				avatar.setKoerperid(ds.selectKoerper(jID).getKoerperID());
+				break;
+			case "Gesicht":
+				Hauptseite.updateAvatarPicture(standardKoerper, ds.selectGesicht(jID).getBild(), standardGesichtsbedeckung, standardKopfbedeckung , standardOberteil);
+				avatar.setGesichterid(ds.selectGesicht(jID).getGesichterID());
+				break;
+			case "Gesichtsbedeckung":
+				Hauptseite.updateAvatarPicture(standardKoerper, standardGesicht , ds.selectGesichtsbedeckung(jID).getBild(), standardKopfbedeckung , standardOberteil);
+				avatar.setGbid(ds.selectGesichtsbedeckung(jID).getGBID());
+				break;
+			case "Kopfbedeckung":
+				Hauptseite.updateAvatarPicture(standardKoerper, standardGesicht , standardGesichtsbedeckung, ds.selectKopfbedeckung(jID).getBild() , standardOberteil);
+				avatar.setKopfbedeckungid(ds.selectKopfbedeckung(jID).getKopfbedeckungsID());
+				break;
+			case "Oberteil":
+				Hauptseite.updateAvatarPicture(standardKoerper, standardGesicht , standardGesichtsbedeckung, standardKopfbedeckung , ds.selectOberteil(jID).getBild());
+				avatar.setOberteilid(ds.selectOberteil(jID).getOberteilID());
+				break;
+			}
+			ditems.setAvatar(benutzer, avatar);
+			Hauptseite.setAvatarBackup(avatar);
+			dispose();
+		}catch (Exception e2) {
+			JOptionPane.showMessageDialog(this, "Fehler!");
+			dispose();
+		}
+	}
+	@Override
+	public void mouseClicked(MouseEvent me) {
+		avatar = Hauptseite.getAvatar();
+
 		if(mEventLabel != null) {
 			if(mEventLabel != (JLabel) me.getSource()) {
-				
+
 				JPanel d = (JPanel) mEventLabel.getParent();
 				d.setBorder(new EtchedBorder());
 				mEventLabel  = (JLabel) me.getSource();
 				JPanel dd = (JPanel) mEventLabel.getParent();
 				dd.setBorder(new LineBorder(Color.BLUE, 3));
 			} 
-			}else {
-				mEventLabel  = (JLabel) me.getSource();
-				JPanel dd = (JPanel) mEventLabel.getParent();
-				dd.setBorder(new LineBorder(Color.BLUE, 3));
-			}
-			String jName = mEventLabel.getName();
-			int jID = Integer.parseInt(jName.substring(jName.length() -1));
-			jName = jName.substring(0, jName.length()-2);
-
-			switch (jName) {
-			case "Koerper":
-				Hauptseite.updateAvatarPicture(ds.selectKoerper(jID).getBild(), standardGesicht , standardGesichtsbedeckung, ds.selectKopfbedeckung(jID).getBild() , standardOberteil);
-				break;
-			case "Gesicht":
-				Hauptseite.updateAvatarPicture(standardKoerper, ds.selectGesicht(jID).getBild(), standardGesichtsbedeckung, standardKopfbedeckung , standardOberteil);
-				break;
-			case "Gesichtsbedeckung":
-				Hauptseite.updateAvatarPicture(standardKoerper, standardGesicht , ds.selectGesichtsbedeckung(jID).getBild(), standardKopfbedeckung , standardOberteil);
-				break;
-			case "Kopfbedeckung":
-				Hauptseite.updateAvatarPicture(standardKoerper, standardGesicht , standardGesichtsbedeckung, ds.selectKopfbedeckung(jID).getBild() , standardOberteil);
-				break;
-			case "Oberteil":
-				Hauptseite.updateAvatarPicture(standardKoerper, standardGesicht , standardGesichtsbedeckung, standardKopfbedeckung , ds.selectOberteil(jID).getBild());
-				break;
-			}
-			labelDescription.setText(label_itembezeichnung.get(mEventLabel));
-			labelType.setText(label_type.get(mEventLabel));
-		}catch (Exception e) {
-			e.printStackTrace();
+		}else {
+			mEventLabel  = (JLabel) me.getSource();
+			JPanel dd = (JPanel) mEventLabel.getParent();
+			dd.setBorder(new LineBorder(Color.BLUE, 3));
 		}
-			
+		labelDescription.setVisible(true);
+		labelType.setVisible(true);
+		labelDescription.setText(label_itembezeichnung.get(mEventLabel));
+		labelType.setText(label_type.get(mEventLabel));
 
 	}
 	@Override

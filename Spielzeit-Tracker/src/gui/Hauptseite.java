@@ -67,7 +67,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private static int totalPlaytime;
 	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	private Date date = new Date();
-	private Avatar avatarBackup;
+	private static Avatar avatarBackup;
 	public Hauptseite(Benutzer bb) {
 		setResizable(false);
 		benutzer = bb;
@@ -123,6 +123,9 @@ public class Hauptseite extends JFrame implements ActionListener {
 	}
 	private double minutesToHours(int doouble) {
 		return (doouble/60);
+	}
+	public static void setAvatarBackup(Avatar a) {
+		avatarBackup = a;
 	}
 	private void initGUI() {
 		setTitle("Spielzeitracker");

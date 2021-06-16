@@ -308,6 +308,6 @@ public class Profil extends JPanel implements ActionListener {
 		}
 	}
 	protected void ButtonGaderobeActionPerformed(ActionEvent e) {
-		Gaderobe g = new Gaderobe((JFrame) this.getRootPane().getParent());
+		Gaderobe g = new Gaderobe();
 	}
 }
