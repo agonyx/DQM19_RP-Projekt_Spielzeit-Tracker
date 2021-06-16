@@ -167,7 +167,7 @@ public class DAOStatistik {
 					return rs.getInt("Rang");
 				}
 			}
-			throw new DB_FehlerException("");
+			return 0;
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
 		} finally {

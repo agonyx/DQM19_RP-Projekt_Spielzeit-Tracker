@@ -13,6 +13,7 @@ import javax.swing.border.TitledBorder;
 
 import sqlverbindung.Benutzer;
 import sqlverbindung.DAOGetandSet;
+import sqlverbindung.DAOSelect;
 
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -40,7 +41,7 @@ public class Registrierung extends JFrame implements ActionListener {
 	private JLabel labelSteamID;
 	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	private Date date = new Date();
-
+	private DAOSelect ds = new DAOSelect();
 
 	public Registrierung() {
 		initGUI();
@@ -161,7 +162,7 @@ public class Registrierung extends JFrame implements ActionListener {
 				if(passwortField.getText().equals(passwortBestaetigenField.getText()))
 				{
 					if(m.find()) {
-						if(d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email"))
+						if(!d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email"))
 						{
 							//Test
 							try {
@@ -173,30 +174,34 @@ public class Registrierung extends JFrame implements ActionListener {
 								if(!d.getIfBenutzerWithAttributeExistWahr(textFieldBenutzername.getText(), "Username")) {
 									Benutzer b = new Benutzer(textFieldBenutzername.getText(), passwortField.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), 0, 0, formatter.format(date));
 									d.insertBenutzer(b);
+									b = ds.selectBenutzer(b.getID());
 									d.createDefaultAvatar(b);
 									d.createBuyEntry(b, 1, "Gesichter");
 									d.createBuyEntry(b, 1, "Gesichtsbedeckungen");
+									d.createBuyEntry(b, 1, "Koerper");
+									d.createBuyEntry(b, 1, "Kopfbedeckungen");
+									d.createBuyEntry(b, 1, "Oberteil");
 									Anmeldung a = new Anmeldung();
 									dispose();
 								} else {
-									JOptionPane.showMessageDialog(this, falsche,"Benutzername wird bereits genutzt.", JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(this, "Benutzername wird bereits genutzt.",falsche, JOptionPane.ERROR_MESSAGE);
 								}
 
 							} else {
-								JOptionPane.showMessageDialog(this, falsche,"Steam API wird bereits genutzt.", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(this, "Steam API wird bereits genutzt.",falsche, JOptionPane.ERROR_MESSAGE);
 							}
 
 						} else {
-							JOptionPane.showMessageDialog(this, falsche,"Email existiert bereits.", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(this, "Email existiert bereits.",falsche, JOptionPane.ERROR_MESSAGE);
 						}
 					} else
 					{
-						JOptionPane.showMessageDialog(this, falsche,"Keine gültige Email.", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(this, "Keine gültige Email.",falsche, JOptionPane.ERROR_MESSAGE);
 					}
 
 				} else 
 				{
-					JOptionPane.showMessageDialog(this, falsche,"Passwörter Stimmen nicht über ein.", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Passwörter Stimmen nicht über ein.",falsche, JOptionPane.ERROR_MESSAGE);
 				}		
 			}
 		} catch(NumberFormatException e)

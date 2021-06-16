@@ -61,7 +61,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private DAOStatistik ds = new DAOStatistik();
 	private DAOSelect dsel = new DAOSelect();
 	private Profil p;
-	private JLabel labelPunkte;
+	private static JLabel labelPunkte;
 	private static Avatar avatar;
 	private static HashMap<Integer, Integer> spielzeiten = new HashMap<Integer,Integer>();
 	private static int totalPlaytime;
@@ -316,7 +316,10 @@ public class Hauptseite extends JFrame implements ActionListener {
 	public static int getTotalPlaytime() {
 		return totalPlaytime;
 	}
-	public void dayBonus (Benutzer bb) throws DB_FehlerException {
+	public static void updatePoints () {
+		labelPunkte.setText("Punkte: " + benutzer.getPunkte());
+	}
+ 	public void dayBonus (Benutzer bb) throws DB_FehlerException {
 		if(bb.getDate() != null) {
 		if (!bb.getDate().equalsIgnoreCase(formatter.format(date))) {
 			d.updateDaybonustime(bb, formatter.format(date));

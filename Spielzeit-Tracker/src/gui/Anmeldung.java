@@ -149,9 +149,9 @@ public class Anmeldung extends JFrame implements ActionListener {
 					}
 					//Kreiert eine Statistik für den Benutzer falls dieser nicht bereits eine hat
 					ThreadAnmeldung ta = new ThreadAnmeldung(ben);
-					ta.start();
-					System.out.println("[System] Login successfull");
+					ta.run();
 					Hauptseite hs = new Hauptseite(ben);
+					System.out.println("[System] Login successfull");
 					hs.setBenutzer(ben);
 					dispose();
 				} else {

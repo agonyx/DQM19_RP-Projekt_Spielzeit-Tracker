@@ -378,9 +378,10 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 							ditems.createBuyEntry(benutzer, label_id.get(mEventLabel), label_type.get(mEventLabel));
 							benutzer.setPunkte(benutzer.getPunkte()-label_preis.get(mEventLabel));
 							ditems.setPoints(benutzer, benutzer.getPunkte());
+							Hauptseite.updatePoints();
 							createItemSections();
-							this.repaint();
-							this.validate();
+							panelViewport.repaint();;
+							panelViewport.validate();
 						}else {
 							JOptionPane.showMessageDialog(this, "Unzureichender Punktestand","Fehler",JOptionPane.ERROR_MESSAGE);
 						}

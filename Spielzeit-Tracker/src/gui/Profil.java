@@ -122,7 +122,7 @@ public class Profil extends JPanel implements ActionListener {
 						JTextField textFieldRank= new JTextField();
 						textFieldRank.setBounds(340, 17, 75, 20);
 						textFieldRank.setEditable(false);
-						if(spielzeiten.get(games[i].getAppID()) != null) {
+						if(spielzeiten.get(games[i].getAppID()) != null ) {
 							textFieldRank.setText(String.valueOf(ds.getRankGames(benutzer,games[i])));
 						} else {
 							textFieldRank.setText("N/A");
