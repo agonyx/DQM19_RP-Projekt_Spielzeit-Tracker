@@ -67,6 +67,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 	private static int totalPlaytime;
 	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	private Date date = new Date();
+	private Avatar avatarBackup;
 	public Hauptseite(Benutzer bb) {
 		setResizable(false);
 		benutzer = bb;
@@ -78,6 +79,7 @@ public class Hauptseite extends JFrame implements ActionListener {
 			avatar = d.getAvatar(bb);
 			panels = new HashMap();
 			initGUI();
+			avatarBackup = avatar;
 			p = new Profil(benutzer);
 			panels.put(Views.PROFIl, p);
 			switchTo(Views.PROFIl);
@@ -98,6 +100,14 @@ public class Hauptseite extends JFrame implements ActionListener {
 		panel = panels.get(v);
 		panel.setBounds(302, 0, 865, 725);
 		contentPane.add(panel);
+		try {
+			updateAvatarPicture(avatarBackup);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "KRITISCHER FEHLER", "Fehler",JOptionPane.ERROR_MESSAGE);
+			dispose();
+		}
+
 		this.validate();
 		this.repaint();
 	}
@@ -152,7 +162,6 @@ public class Hauptseite extends JFrame implements ActionListener {
 		avatarGesamt.add(lblGesicht);
 
 		lblAvatar = new JLabel("");
-		lblAvatar.setIcon(new ImageIcon("image/avatare/AVATAR_000.png"));
 		lblAvatar.setBounds(0, 0, 256, 256);
 		avatarGesamt.add(lblAvatar);
 
@@ -230,6 +239,26 @@ public class Hauptseite extends JFrame implements ActionListener {
 		lblOberteil.setIcon(new ImageIcon("image/oberteil/" + oberteilbez + ".png"));
 	}
 
+	public void updateAvatarPicture (Avatar a) throws DB_FehlerException {
+		if(String.valueOf(a.getKoerperid()) != null && a.getKoerperid() != 0) {
+			lblAvatar.setIcon(new ImageIcon("image/avatare/" + dsel.selectKoerper(a.getKoerperid()).getBild() + ".png"));
+			System.out.println(lblAvatar.getIcon().toString());
+		} else {
+			lblAvatar.setIcon(null);
+		}
+		if(String.valueOf(a.getGesichterid()) != null && a.getGesichterid() != 0) {
+			lblGesicht.setIcon(new ImageIcon("image/gesichter/" + dsel.selectGesicht(a.getGesichterid()).getBild()+ ".png"));
+		}
+		if(String.valueOf(a.getGbid()) != null && a.getGbid() != 0) {
+			lblGesichtsbedeckung.setIcon(new ImageIcon("image/gesichtsbedeckung/" + dsel.selectGesichtsbedeckung(a.getGbid()).getBild()+ ".png"));
+		}
+		if(String.valueOf(a.getKopfbedeckungid()) != null && a.getGbid() != 0) {
+			lblKopfbedeckung.setIcon(new ImageIcon("image/kopfbedeckung/" + dsel.selectKopfbedeckung(a.getKopfbedeckungid()).getBild()+ ".png"));
+		}
+		if(String.valueOf(a.getOberteilid()) != null && a.getOberteilid() != 0) {
+			lblOberteil.setIcon(new ImageIcon("image/oberteil/" +dsel.selectOberteil(a.getOberteilid()).getBild()+ ".png"));
+		}
+	}
 	protected void BtnProfilActionPerformed(ActionEvent e) {
 		p = new Profil(benutzer);
 		panels.put(Views.PROFIl, p);
@@ -279,11 +308,11 @@ public class Hauptseite extends JFrame implements ActionListener {
 	}
 	public void dayBonus (Benutzer bb) throws DB_FehlerException {
 		if (!bb.getDate().equalsIgnoreCase(formatter.format(date))) {
-		d.updateDaybonustime(bb, formatter.format(date));
-		int daybonus = 24*5;
-		d.setPoints(bb, (bb.getPunkte()+daybonus));
+			d.updateDaybonustime(bb, formatter.format(date));
+			int daybonus = 24*5;
+			d.setPoints(bb, (bb.getPunkte()+daybonus));
 		} 
-		
+
 	}
 
 }

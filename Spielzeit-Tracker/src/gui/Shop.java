@@ -135,11 +135,11 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 	// Bereiche für alle Items werden generiert.
 
 	private void createItemSections() throws DB_FehlerException {
+		System.out.println(itemcount);
 		itemcount = itemcount - ditems.getOwnedItemcount(benutzer);
 		System.out.println(itemcount);
 		JPanel[] j = new JPanel[itemcount + 1];
 		JLabel[] l = new JLabel[itemcount + 1];
-		System.out.println(j.length);
 		int tabx = 0;
 		int taby = 11;
 		int count = 0;
@@ -182,13 +182,13 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 			if(!ditems.itemOwnership(benutzer, gesichter[i].getGesichterID(), gesichter[i].getType())) {
 				String gesichterPath = "image/gesichter/" + gesichter[i].getBild() + ".png";
 				ImageIcon icon = new ImageIcon(gesichterPath);
-				l[i].setIcon(icon);
-				l[i].setToolTipText("Gesicht " + (i + 1));
-				l[i].setName("Gesicht-" + gesichter[i].getGesichterID());
-				label_itembezeichnung.put(l[i], gesichter[i].getBezeichnung());
-				label_preis.put(l[i], gesichter[i].getPreis());
-				label_id.put(l[i], gesichter[i].getGesichterID());
-				label_type.put(l[i], gesichter[i].getType());
+				l[length].setIcon(icon);
+				l[length].setToolTipText("Gesicht " + (i + 1));
+				l[length].setName("Gesicht-" + gesichter[i].getGesichterID());
+				label_itembezeichnung.put(l[length], gesichter[i].getBezeichnung());
+				label_preis.put(l[length], gesichter[i].getPreis());
+				label_id.put(l[length], gesichter[i].getGesichterID());
+				label_type.put(l[length], gesichter[i].getType());
 				length++;
 			}
 		}
@@ -199,13 +199,13 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 			if(!ditems.itemOwnership(benutzer, gesichtsbedeckung[i].getGBID(), gesichtsbedeckung[i].getType())) {
 				String gesichtsbedeckungPath = "image/gesichtsbedeckung/" + gesichtsbedeckung[i].getBild() + ".png";
 				ImageIcon icon = new ImageIcon(gesichtsbedeckungPath);
-				l[i + delay].setIcon(icon);
-				l[i + delay].setToolTipText("Gesichtsbedeckung " + (i + 1));
-				l[i + delay].setName("Gesichtsbedeckung-" + gesichtsbedeckung[i].getGBID());
-				label_itembezeichnung.put(l[i + delay], gesichtsbedeckung[i].getBezeichnung());
-				label_preis.put(l[i + delay], gesichtsbedeckung[i].getPreis());
-				label_id.put(l[i+delay],gesichtsbedeckung[i].getGBID());
-				label_type.put(l[i+delay], gesichtsbedeckung[i].getType());
+				l[length + delay].setIcon(icon);
+				l[length + delay].setToolTipText("Gesichtsbedeckung " + (i + 1));
+				l[length + delay].setName("Gesichtsbedeckung-" + gesichtsbedeckung[i].getGBID());
+				label_itembezeichnung.put(l[length + delay], gesichtsbedeckung[i].getBezeichnung());
+				label_preis.put(l[length + delay], gesichtsbedeckung[i].getPreis());
+				label_id.put(l[length+delay],gesichtsbedeckung[i].getGBID());
+				label_type.put(l[length+delay], gesichtsbedeckung[i].getType());
 				length++;
 			}
 		}
@@ -215,13 +215,13 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 			if(!ditems.itemOwnership(benutzer, kopfbedeckung[i].getKopfbedeckungsID(), kopfbedeckung[i].getType())) {
 				String kopfbedeckungPath = "image/kopfbedeckung/" + kopfbedeckung[i].getBild() + ".png";
 				ImageIcon icon = new ImageIcon(kopfbedeckungPath);
-				l[i + delay].setIcon(icon);
-				l[i + delay].setToolTipText("Kopfbedeckung " + (i + 1));
-				l[i + delay].setName("Kopfbedeckung-" + kopfbedeckung[i].getKopfbedeckungsID());
-				label_itembezeichnung.put(l[i + delay], kopfbedeckung[i].getBezeichnung());
-				label_preis.put(l[i + delay], kopfbedeckung[i].getPreis());
-				label_id.put(l[i+delay],kopfbedeckung[i].getKopfbedeckungsID());
-				label_type.put(l[i+delay], kopfbedeckung[i].getType());
+				l[length + delay].setIcon(icon);
+				l[length + delay].setToolTipText("Kopfbedeckung " + (i + 1));
+				l[length + delay].setName("Kopfbedeckung-" + kopfbedeckung[i].getKopfbedeckungsID());
+				label_itembezeichnung.put(l[length + delay], kopfbedeckung[i].getBezeichnung());
+				label_preis.put(l[length + delay], kopfbedeckung[i].getPreis());
+				label_id.put(l[length+delay],kopfbedeckung[i].getKopfbedeckungsID());
+				label_type.put(l[length+delay], kopfbedeckung[i].getType());
 				length++;
 			}
 		}
@@ -231,14 +231,13 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 			if(!ditems.itemOwnership(benutzer, oberteil[i].getOberteilID(), oberteil[i].getType())) {
 				String oberteilPath = "image/oberteil/" + oberteil[i].getBild() + ".png";
 				ImageIcon icon = new ImageIcon(oberteilPath);
-				System.err.println(i+delay);
-				l[i + delay].setIcon(icon);
-				l[i + delay].setToolTipText("Oberteil " + (i + 1));
-				l[i + delay].setName("Oberteil-" + oberteil[i].getOberteilID());
-				label_itembezeichnung.put(l[i + delay], oberteil[i].getBezeichnung());
+				l[length + delay].setIcon(icon);
+				l[length + delay].setToolTipText("Oberteil " + (i + 1));
+				l[length + delay].setName("Oberteil-" + oberteil[i].getOberteilID());
+				label_itembezeichnung.put(l[length + delay], oberteil[i].getBezeichnung());
 				label_preis.put(l[i + delay], oberteil[i].getPreis());
-				label_id.put(l[i+delay],oberteil[i].getOberteilID());
-				label_type.put(l[i+delay], oberteil[i].getType());
+				label_id.put(l[length+delay],oberteil[i].getOberteilID());
+				label_type.put(l[length+delay], oberteil[i].getType());
 				length++;
 			}
 		}
@@ -248,28 +247,29 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 			if(!ditems.itemOwnership(benutzer, rahmen[i].getRahmenID(), rahmen[i].getType())) {
 				String rahmenPath = "image/rahmen/" + rahmen[i].getBild() + ".png";
 				ImageIcon icon = new ImageIcon(rahmenPath);
-				l[i + delay].setIcon(icon);
-				l[i + delay].setToolTipText("Rahmen " + (i + 1));
-				l[i + delay].setName("Rahmen-" + (i + 1));
+				l[length + delay].setIcon(icon);
+				l[length + delay].setToolTipText("Rahmen " + (i + 1));
+				l[length + delay].setName("Rahmen-" + (i + 1));
 				label_itembezeichnung.put(l[i + delay], rahmen[i].getBezeichnung());
-				label_preis.put(l[i + delay], rahmen[i].getPreis());
-				label_id.put(l[i+delay],rahmen[i].getRahmenID());
-				label_type.put(l[i+delay], rahmen[i].getType());
+				label_preis.put(l[length + delay], rahmen[i].getPreis());
+				label_id.put(l[length+delay],rahmen[i].getRahmenID());
+				label_type.put(l[length+delay], rahmen[i].getType());
 				length++;
 			}
 		}
 		delay = delay + length;
+		length = 0;
 		for (int i = 0; i < koerper.length; i++) {
 			if(!ditems.itemOwnership(benutzer, koerper[i].getKoerperID(), koerper[i].getType())) {
 				String koerperPath = "image/avatare/" + koerper[i].getBild() + ".png";
 				ImageIcon icon = new ImageIcon(koerperPath);
-				l[i + delay].setIcon(icon);
-				l[i + delay].setToolTipText("Körper " + (i + 1));
-				l[i + delay].setName("Koerper-" + koerper[i].getKoerperID());
+				l[length + delay].setIcon(icon);
+				l[length + delay].setToolTipText("Koerper " + (i + 1));
+				l[length + delay].setName("Koerper-" + koerper[i].getKoerperID());
 				label_itembezeichnung.put(l[i + delay], koerper[i].getBezeichnung());
-				label_preis.put(l[i + delay], koerper[i].getPreis());
-				label_id.put(l[i+delay],koerper[i].getKoerperID());
-				label_type.put(l[i+delay], koerper[i].getType());
+				label_preis.put(l[length + delay], koerper[i].getPreis());
+				label_id.put(l[length+delay],koerper[i].getKoerperID());
+				label_type.put(l[length+delay], koerper[i].getType());
 			}
 		}
 		panelViewport.setPreferredSize(new Dimension(621, taby + 285));
