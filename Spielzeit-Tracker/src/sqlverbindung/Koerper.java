@@ -6,16 +6,19 @@ public class Koerper {
 	private String bezeichnung;
 	private String bilder;
 	private int preis;
+	private String typ;
 
-	public Koerper(int koerperid, String bezeichnung, String bilder) {
+	public Koerper(int koerperid, String bezeichnung, String bilder, int preis, String typ) {
 		this.koerperid=koerperid;
 		this.bezeichnung=bezeichnung;
 		this.bilder = bilder;
+		this.typ = typ;
+		this.preis = preis;
 	}
-
 	public int getKoerperID() {
 		return koerperid;
 	}
+
 	public String getBezeichnung() {
 		return bezeichnung;
 	}
@@ -25,5 +28,8 @@ public class Koerper {
 	}
 	public String getBild() {
 		return bilder;
+	}
+	public String getType() {
+		return typ;
 	}
 }

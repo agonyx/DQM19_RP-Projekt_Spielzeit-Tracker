@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 import javax.swing.JScrollBar;
 import java.awt.Font;
@@ -16,6 +17,15 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Button;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JButton;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.SwingConstants;
+import sqlverbindung.Benutzer;
+import sqlverbindung.DAOGetandSet;
+import sqlverbindung.DAOSelect;
+import sqlverbindung.DB_FehlerException;
 
 public class Adminoberflaeche extends JPanel implements ActionListener {
 	private JLabel labelGegenstandHinzufügen;
@@ -27,7 +37,9 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 	private JLabel labelBezeichnung;
 	private JComboBox comboBoxTypAuswahl;
 	private Button buttonDurchsuchen;
-
+	private JButton btnHinzufuegen;
+	private JButton btnEntfernen;
+	private DAOGetandSet bigpp = new DAOGetandSet();
 	/**
 	 * Create the panel.
 	 */
@@ -39,59 +51,87 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
 		setBounds(new Rectangle(100, 100, 865, 725));
 		setForeground(Color.BLACK);
 		setLayout(null);
-		{
-			labelGegenstandHinzufügen = new JLabel("Gegenstand hinzuf\u00FCgen");
-			labelGegenstandHinzufügen.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			labelGegenstandHinzufügen.setBounds(10, 11, 316, 35);
-			add(labelGegenstandHinzufügen);
-		}
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBounds(367, 11, 279, 151);
+		add(panel);
+		panel.setLayout(null);
 		{
 			labelAdminHinzufügen = new JLabel("Admin hinzuf\u00FCgen");
+			labelAdminHinzufügen.setBounds(58, 16, 159, 25);
+			panel.add(labelAdminHinzufügen);
 			labelAdminHinzufügen.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			labelAdminHinzufügen.setBounds(383, 16, 212, 25);
-			add(labelAdminHinzufügen);
-		}
-		{
-			labelBenutzerID = new JLabel("BenutzerID");
-			labelBenutzerID.setBounds(383, 46, 84, 14);
-			add(labelBenutzerID);
 		}
 		{
 			textFieldBenutzerID = new JTextField();
-			textFieldBenutzerID.setBounds(381, 60, 212, 27);
-			add(textFieldBenutzerID);
+			textFieldBenutzerID.setBounds(32, 66, 217, 27);
+			panel.add(textFieldBenutzerID);
 			textFieldBenutzerID.setColumns(10);
 		}
 		{
+			labelBenutzerID = new JLabel("BenutzerID");
+			labelBenutzerID.setBounds(32, 52, 84, 14);
+			panel.add(labelBenutzerID);
+		}
+		
+		btnHinzufuegen = new JButton("Hinzuf\u00FCgen");
+		btnHinzufuegen.addActionListener(this);
+		btnHinzufuegen.setBounds(32, 104, 96, 23);
+		panel.add(btnHinzufuegen);
+		
+		btnEntfernen = new JButton("Entfernen");
+		btnEntfernen.addActionListener(this);
+		btnEntfernen.setBounds(153, 104, 96, 23);
+		panel.add(btnEntfernen);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_1.setBounds(10, 11, 347, 213);
+		add(panel_1);
+		panel_1.setLayout(null);
+		{
+			labelGegenstandHinzufügen = new JLabel("Gegenstand hinzuf\u00FCgen");
+			labelGegenstandHinzufügen.setBounds(58, 11, 216, 35);
+			panel_1.add(labelGegenstandHinzufügen);
+			labelGegenstandHinzufügen.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		}
+		{
 			labelTypAuswahl = new JLabel("Typ ausw\u00E4hlen");
-			labelTypAuswahl.setBounds(10, 46, 110, 14);
-			add(labelTypAuswahl);
-		}
-		{
-			textField_Bezeichnung = new JTextField();
-			textField_Bezeichnung.setBounds(10, 109, 316, 25);
-			add(textField_Bezeichnung);
-			textField_Bezeichnung.setColumns(10);
-		}
-		{
-			labelBezeichnung = new JLabel("Bezeichnung");
-			labelBezeichnung.setBounds(10, 96, 96, 14);
-			add(labelBezeichnung);
+			labelTypAuswahl.setBounds(10, 57, 110, 14);
+			panel_1.add(labelTypAuswahl);
 		}
 		{
 			comboBoxTypAuswahl = new JComboBox();
+			comboBoxTypAuswahl.setBounds(10, 72, 316, 25);
+			panel_1.add(comboBoxTypAuswahl);
 			comboBoxTypAuswahl.setModel(new DefaultComboBoxModel(new String[] {"Gesichtsbedeckung", "Kopfbedeckung", "Avatar"}));
-			comboBoxTypAuswahl.setBounds(10, 62, 316, 25);
-			add(comboBoxTypAuswahl);
+		}
+		{
+			labelBezeichnung = new JLabel("Bezeichnung");
+			labelBezeichnung.setBounds(10, 108, 96, 14);
+			panel_1.add(labelBezeichnung);
+		}
+		{
+			textField_Bezeichnung = new JTextField();
+			textField_Bezeichnung.setBounds(10, 122, 316, 25);
+			panel_1.add(textField_Bezeichnung);
+			textField_Bezeichnung.setColumns(10);
 		}
 		{
 			buttonDurchsuchen = new Button("Durchsuchen");
+			buttonDurchsuchen.setBounds(10, 153, 70, 22);
+			panel_1.add(buttonDurchsuchen);
 			buttonDurchsuchen.addActionListener(this);
-			buttonDurchsuchen.setBounds(10, 140, 70, 22);
-			add(buttonDurchsuchen);
 		}
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnEntfernen) {
+			btnEntfernenActionPerformed(e);
+		}
+		if (e.getSource() == btnHinzufuegen) {
+			btnHinzufuegenActionPerformed(e);
+		}
 		if (e.getSource() == buttonDurchsuchen) {
 			buttonDurchsuchenActionPerformed(e);
 		}
@@ -107,5 +147,39 @@ public class Adminoberflaeche extends JPanel implements ActionListener {
         meinJFrame.getContentPane().add(chooser);
         // Wir lassen unseren Frame anzeigen
         meinJFrame.setVisible(true);
+	}
+	protected void btnHinzufuegenActionPerformed(ActionEvent e) {
+		try {
+			if (textFieldBenutzerID.getText().isBlank()){
+				JOptionPane.showMessageDialog(this, "Bitte geben sie eine BenutzerID ein!","Fehler",JOptionPane.ERROR_MESSAGE);
+			}
+			else 
+				{
+				System.out.println("swag");
+				if(bigpp.getIfBenutzerWithAttributeExistWahr(textFieldBenutzerID.getText(), "BenutzerID")){
+					bigpp.updateAdminStatus(Integer.parseInt(textFieldBenutzerID.getText()), 1);
+					}
+				}
+		} 
+		catch (DB_FehlerException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	protected void btnEntfernenActionPerformed(ActionEvent e) {
+		try {
+			if (textFieldBenutzerID.getText().isBlank()){
+				JOptionPane.showMessageDialog(this, "Bitte geben sie eine BenutzerID ein!","Fehler",JOptionPane.ERROR_MESSAGE);
+			}
+			else 
+				{
+				if(bigpp.getIfBenutzerWithAttributeExistWahr(textFieldBenutzerID.getText(), "BenutzerID")){
+					bigpp.updateAdminStatus(Integer.parseInt(textFieldBenutzerID.getText()), 0);
+					}
+				}
+		} 
+		catch (DB_FehlerException e1) {
+			e1.printStackTrace();
+		}
 	}
 }
