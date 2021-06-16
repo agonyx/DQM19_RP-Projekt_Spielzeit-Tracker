@@ -20,6 +20,8 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.FocusEvent;
 
 public class Registrierung extends JFrame implements ActionListener {
 
@@ -59,7 +61,7 @@ public class Registrierung extends JFrame implements ActionListener {
 		}
 		{
 			textFieldEmail = new JTextField();
-			textFieldEmail.setText("E-Mail");
+			textFieldEmail.setText("");
 			textFieldEmail.setBounds(166, 21, 212, 19);
 			contentPane.add(textFieldEmail);
 			textFieldEmail.setColumns(10);
@@ -72,7 +74,7 @@ public class Registrierung extends JFrame implements ActionListener {
 		}
 		{
 			textFieldBenutzername = new JTextField();
-			textFieldBenutzername.setText("Benutzername");
+			textFieldBenutzername.setText("");
 			textFieldBenutzername.setBounds(166, 61, 212, 19);
 			contentPane.add(textFieldBenutzername);
 			textFieldBenutzername.setColumns(10);
@@ -91,8 +93,8 @@ public class Registrierung extends JFrame implements ActionListener {
 		}
 		{
 			labelPasswortbestaetigen = new JLabel("Passwort best\u00E4tigen:");
-			labelPasswortbestaetigen.setHorizontalAlignment(SwingConstants.RIGHT);
-			labelPasswortbestaetigen.setBounds(10, 140, 120, 13);
+			labelPasswortbestaetigen.setHorizontalAlignment(SwingConstants.CENTER);
+			labelPasswortbestaetigen.setBounds(9, 140, 140, 13);
 			contentPane.add(labelPasswortbestaetigen);
 		}
 		{
@@ -115,7 +117,7 @@ public class Registrierung extends JFrame implements ActionListener {
 		}
 		{
 			textFieldSteamID = new JTextField();
-			textFieldSteamID.setText("SteamID");
+			textFieldSteamID.setText("");
 			textFieldSteamID.setBounds(166, 174, 212, 19);
 			contentPane.add(textFieldSteamID);
 			textFieldSteamID.setColumns(10);
@@ -161,6 +163,12 @@ public class Registrierung extends JFrame implements ActionListener {
 					if(m.find()) {
 						if(d.getIfBenutzerWithAttributeExistWahr(textFieldEmail.getText(), "Email"))
 						{
+							//Test
+							try {
+							Long.parseLong(textFieldSteamID.getText());
+							}catch (NumberFormatException e) {
+								JOptionPane.showMessageDialog(this, falsche,"Keine gültige SteamID", JOptionPane.ERROR_MESSAGE);
+							}
 							if(!d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID")) {
 								if(!d.getIfBenutzerWithAttributeExistWahr(textFieldBenutzername.getText(), "Username")) {
 									Benutzer b = new Benutzer(textFieldBenutzername.getText(), passwortField.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), 0, 0, formatter.format(date));
@@ -171,11 +179,11 @@ public class Registrierung extends JFrame implements ActionListener {
 									Anmeldung a = new Anmeldung();
 									dispose();
 								} else {
-									JOptionPane.showMessageDialog(this, falsche,"Benutzername wird bereits genutz.", JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(this, falsche,"Benutzername wird bereits genutzt.", JOptionPane.ERROR_MESSAGE);
 								}
 
 							} else {
-								JOptionPane.showMessageDialog(this, falsche,"Steam API wird bereits genutz.", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(this, falsche,"Steam API wird bereits genutzt.", JOptionPane.ERROR_MESSAGE);
 							}
 
 						} else {
@@ -199,4 +207,5 @@ public class Registrierung extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+	
 }

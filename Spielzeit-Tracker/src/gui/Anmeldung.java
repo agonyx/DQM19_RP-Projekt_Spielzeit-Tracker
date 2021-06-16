@@ -70,7 +70,7 @@ public class Anmeldung extends JFrame implements ActionListener {
 		mainPane.setLayout(null);
 
 		textFieldEmailBenutzername = new JTextField();
-		textFieldEmailBenutzername.setToolTipText("Email/Benutzername");
+		textFieldEmailBenutzername.setToolTipText("Email / Benutzername");
 		textFieldEmailBenutzername.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
