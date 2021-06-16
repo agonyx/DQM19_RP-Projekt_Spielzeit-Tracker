@@ -26,6 +26,7 @@ import sqlverbindung.Rahmen;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import java.awt.event.ActionListener;
@@ -321,7 +322,7 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 				break;
 			}
 			labelDescription.setText(label_itembezeichnung.get(mEventLabel));
-			labelPrice.setText("Preis: "+label_preis.get(mEventLabel));
+			labelPrice.setText("Preis: "+String.valueOf(label_preis.get(mEventLabel)));
 
 		} 
 		catch(DB_FehlerException e) {
@@ -371,6 +372,8 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 							createItemSections();
 							this.repaint();
 							this.validate();
+						}else {
+							JOptionPane.showMessageDialog(this, "Unzureichender Punktestand","Fehler",JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}

@@ -7,11 +7,12 @@ public class Gesichter {
 	private int preis;
 	private String typ;
 	
-	public Gesichter (int gesichterid, String bezeichnung, String bild,String typ) {
+	public Gesichter (int gesichterid, String bezeichnung, String bild,int preis,String typ) {
 		this.gesichterid = gesichterid;
 		this.bezeichnung = bezeichnung;
 		this.bild = bild;
 		this.typ = typ;
+		this.preis = preis;
 	}
 	
 	public int getGesichterID() {

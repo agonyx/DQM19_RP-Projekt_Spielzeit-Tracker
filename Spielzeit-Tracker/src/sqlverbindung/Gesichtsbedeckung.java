@@ -7,11 +7,12 @@ public class Gesichtsbedeckung {
 	private int preis;
 	private String typ;
 
-	public Gesichtsbedeckung(int gbid, String bezeichnung, String bild, String typ) {
+	public Gesichtsbedeckung(int gbid, String bezeichnung, String bild,int preis, String typ) {
 		this.gbid = gbid;
 		this.bezeichnung = bezeichnung;
 		this.bild = bild;
-		this.typ = typ;
+		this.typ = typ;#
+		this.preis = preis;
 	}
 
 	public int getGBID() {

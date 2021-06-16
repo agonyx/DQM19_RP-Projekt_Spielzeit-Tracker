@@ -242,21 +242,28 @@ public class Hauptseite extends JFrame implements ActionListener {
 	public void updateAvatarPicture (Avatar a) throws DB_FehlerException {
 		if(String.valueOf(a.getKoerperid()) != null && a.getKoerperid() != 0) {
 			lblAvatar.setIcon(new ImageIcon("image/avatare/" + dsel.selectKoerper(a.getKoerperid()).getBild() + ".png"));
-			System.out.println(lblAvatar.getIcon().toString());
 		} else {
 			lblAvatar.setIcon(null);
 		}
 		if(String.valueOf(a.getGesichterid()) != null && a.getGesichterid() != 0) {
 			lblGesicht.setIcon(new ImageIcon("image/gesichter/" + dsel.selectGesicht(a.getGesichterid()).getBild()+ ".png"));
+		} else {
+			lblGesicht.setIcon(null);
 		}
 		if(String.valueOf(a.getGbid()) != null && a.getGbid() != 0) {
 			lblGesichtsbedeckung.setIcon(new ImageIcon("image/gesichtsbedeckung/" + dsel.selectGesichtsbedeckung(a.getGbid()).getBild()+ ".png"));
+		}else {
+			lblGesichtsbedeckung.setIcon(null);
 		}
 		if(String.valueOf(a.getKopfbedeckungid()) != null && a.getGbid() != 0) {
 			lblKopfbedeckung.setIcon(new ImageIcon("image/kopfbedeckung/" + dsel.selectKopfbedeckung(a.getKopfbedeckungid()).getBild()+ ".png"));
+		} else {
+			lblKopfbedeckung.setIcon(null);
 		}
 		if(String.valueOf(a.getOberteilid()) != null && a.getOberteilid() != 0) {
 			lblOberteil.setIcon(new ImageIcon("image/oberteil/" +dsel.selectOberteil(a.getOberteilid()).getBild()+ ".png"));
+		} else {
+			lblOberteil.setIcon(null);
 		}
 	}
 	protected void BtnProfilActionPerformed(ActionEvent e) {

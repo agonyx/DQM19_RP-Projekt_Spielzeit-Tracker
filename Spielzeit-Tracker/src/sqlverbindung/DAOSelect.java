@@ -136,7 +136,7 @@ public class DAOSelect {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				gesichter = new Gesichter(rs.getInt("GesichterID"),
-						rs.getString("Bezeichnung"), rs.getString("Bilder"),rs.getString("Typ"));
+						rs.getString("Bezeichnung"), rs.getString("Bilder"),rs.getInt("Preis"),rs.getString("Typ"));
 				return gesichter;
 			} else {
 				throw new DB_FehlerException("Die ID existiert nicht");

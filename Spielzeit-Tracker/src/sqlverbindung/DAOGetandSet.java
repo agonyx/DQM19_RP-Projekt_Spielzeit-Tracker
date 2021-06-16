@@ -151,7 +151,7 @@ public class DAOGetandSet {
 			while (rs.next()) {
 				if (count < size)
 					gesicht[count] = new Gesichter(rs.getInt("GesichterID"), rs.getString("Bezeichnung"),
-							rs.getString("Bilder"),rs.getString("Typ"));
+							rs.getString("Bilder"),rs.getInt("Preis"),rs.getString("Typ"));
 				count++;
 			}
 			return gesicht;
@@ -202,7 +202,7 @@ public Gesichtsbedeckung[] getAllGesichtsbedeckung() throws DB_FehlerException {
 		while (rs.next()) {
 			if (count < size)
 				gb[count] = new Gesichtsbedeckung(rs.getInt("GesichtsbedeckungenID"), rs.getString("Bezeichnung"),
-						rs.getString("Bilder"),rs.getString("Typ"));
+						rs.getString("Bilder"),rs.getInt("Preis"),rs.getString("Typ"));
 			count++;
 		} 
 		return gb;
