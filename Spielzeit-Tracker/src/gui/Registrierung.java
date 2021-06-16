@@ -168,6 +168,8 @@ public class Registrierung extends JFrame implements ActionListener {
 									d.createDefaultAvatar(b);
 									d.createBuyEntry(b, 1, "Gesichter");
 									d.createBuyEntry(b, 1, "Gesichtsbedeckungen");
+									d.createBuyEntry(b, 1, "Kopfbedeckungen");
+									d.createBuyEntry(b, 1, "Oberteil");
 									Anmeldung a = new Anmeldung();
 									dispose();
 								} else {

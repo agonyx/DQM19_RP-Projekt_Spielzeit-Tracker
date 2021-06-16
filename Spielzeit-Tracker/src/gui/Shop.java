@@ -136,9 +136,7 @@ public class Shop extends JPanel implements MouseListener, ActionListener {
 	// Bereiche für alle Items werden generiert.
 
 	private void createItemSections() throws DB_FehlerException {
-		System.out.println(itemcount);
 		itemcount = itemcount - ditems.getOwnedItemcount(benutzer);
-		System.out.println(itemcount);
 		JPanel[] j = new JPanel[itemcount + 1];
 		JLabel[] l = new JLabel[itemcount + 1];
 		int tabx = 0;
