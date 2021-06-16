@@ -149,7 +149,7 @@ public class Registrierung extends JFrame implements ActionListener {
 	protected void do_buttonRegistrierung_actionPerformed(ActionEvent argo) {
 		try {
 			DAOGetandSet d = new DAOGetandSet();
-			String falsche = "Flasche eingabe.";
+			String falsche = "Falsche Eingabe.";
 			Pattern p = Pattern.compile("@");
 			Matcher m = p.matcher(textFieldEmail.getText());
 			if(textFieldBenutzername.getText() == null || passwortField.getText() == null || passwortBestaetigenField.getText() == null || textFieldSteamID.getText() == null || textFieldEmail.getText() == null) {

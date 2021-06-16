@@ -121,7 +121,7 @@ public class DAOGetandSet {
 	public void createDefaultAvatar(Benutzer b) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "Insert Into Avatar (BenutzerID, KoerperID) Values ("+b.getID()+",1)";
+			String sql = "Insert Into Avatar (BenutzerID, KoerperID, GesichterID, GesichtsbedeckungenID, KopfbedeckungenID, OberteilID) Values ("+b.getID()+",1,1,1,1,1)";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.executeUpdate();
 		} catch (SQLException e) {
