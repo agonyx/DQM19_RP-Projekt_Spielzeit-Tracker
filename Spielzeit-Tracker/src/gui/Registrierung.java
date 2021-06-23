@@ -173,8 +173,8 @@ public class Registrierung extends JFrame implements ActionListener {
 							if(!d.getIfBenutzerWithAttributeExistWahr(textFieldSteamID.getText(), "SteamID")) {
 								if(!d.getIfBenutzerWithAttributeExistWahr(textFieldBenutzername.getText(), "Username")) {
 									Benutzer b = new Benutzer(textFieldBenutzername.getText(), passwortField.getText(), textFieldSteamID.getText(), textFieldEmail.getText(), 0, 0, formatter.format(date));
-									d.insertBenutzer(b);
-									b = ds.selectBenutzer(b.getID());
+									int bId = d.insertBenutzer(b);
+									b = ds.selectBenutzer(bId);
 									d.createDefaultAvatar(b);
 									d.createBuyEntry(b, 1, "Gesichter");
 									d.createBuyEntry(b, 1, "Gesichtsbedeckungen");

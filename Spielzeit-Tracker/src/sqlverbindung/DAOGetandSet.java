@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DAOGetandSet {
 
@@ -94,16 +95,22 @@ public class DAOGetandSet {
 			}
 		}
 	}
-	public void insertBenutzer(Benutzer benutzer) throws DB_FehlerException {
+	public int insertBenutzer(Benutzer benutzer) throws DB_FehlerException {
 		try {
 			conn = DriverManager.getConnection(url);
-			String sql = "Insert Into Benutzer (Username, Passwort, SteamID, Email) Values (?,?,?,?)";
-			PreparedStatement statement = conn.prepareStatement(sql);
+			String sql = "Insert Into Benutzer (Username, Passwort, SteamID, Email, daybonustime) Values (?,?,?,?,?)";
+			PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, benutzer.getUsername());
 			statement.setString(2, benutzer.getPasswort());
 			statement.setString(3, benutzer.getSteamid());
 			statement.setString(4, benutzer.getEmail());
+			statement.setString(5, benutzer.getDate());
 			statement.executeUpdate();
+			
+			ResultSet key = statement.getGeneratedKeys();
+			key.next();
+			int generatedKey = key.getInt(1);
+			return generatedKey;
 		} catch (SQLException e) {
 			throw new DB_FehlerException(e.getMessage());
 		} finally {

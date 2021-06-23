@@ -46,7 +46,7 @@ public class DAOSelect {
 			statement.setInt(1, benutzerid);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
-				Benutzer benutzer = new Benutzer(rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"),
+				Benutzer benutzer = new Benutzer(benutzerid, rs.getString("Username"), rs.getString("Passwort"), rs.getString("SteamID"),
 						rs.getString("Email"), rs.getInt("Punkte"), rs.getInt("Admin"), rs.getString("daybonustime"));
 				return benutzer;
 			} else {
